@@ -10,7 +10,6 @@
 	</head>
 	<body onload="startGame()">
 		NOTE: I HAVE TO LEARN HTML5 GAME DEVELOPMENT FROM SCRATCH IN ORDER TO PORT THIS GAME SO THIS PAGE WILL BE A MESS UNTIL THEN!
-		test
 		<img class="catagory_img", id="bee" src="https://raw.githubusercontent.com/dirtlordthezombieking/Bee-Game-Web-/main/assets/images/bee.png" alt="bee">
 		<canvas id="Canvas" width="800" height="1200"></canvas>
 		<script>
@@ -21,7 +20,13 @@
 				canvas : document.getElementById("Canvas"),
 				start : function() {
 					this.ctx = this.canvas.getContext("2d");
-					this.ctx.fillStyle = "#FFFFFF";
+					this.ctx.fillStyle = "#000000";
+					this.ctx.fillRect(0, 0, 800, 1200);
+					this.interval = setInterval(updateGameArea, 17);
+				},
+				clear : function() {
+					this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
 				}
 			};
@@ -30,13 +35,20 @@
 				this.height = height;
 				this.x = x;
 				this.y = y;
-				ctx = GameArea.ctx;
-				ctx.fillStyle = color;
-				ctx.fillRect(this.x, this.y, this.width, this.height);
+				this.update = function(){
+					ctx = myGameArea.context;
+					ctx.fillStyle = color;
+					ctx.fillRect(this.x, this.y, this.width, this.height);
+				}
 			}
 			function startGame() {
 				GameArea.start();
 				myGamePiece = new component(30, 30, "red", 10, 120);
+			}
+			function updateGameArea() {
+				GameArea.clear();
+				myGamePiece.x += 1;
+				GamePiece.update();
 			}
 		</script>
 	</body>
