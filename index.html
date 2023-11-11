@@ -9,8 +9,13 @@
 		<link rel="stylesheet" href="assets/stylesheets/main.css">
 	</head>
 	<body>
+		<img class="catagory_img", id="bee" src="https://raw.githubusercontent.com/dirtlordthezombieking/Bee-Game-Web-/assets/images/bee.png" alt="bee">
 		<canvas id="Canvas" width="800" height="1200"></canvas>
 		<script>
+			const canvas = document.getElementById("Canvas");
+			const ctx = canvas.getContext("2d");
+			ctx.fillStyle = "#FF0000";
+			ctx.fillRect(0, 0, 600, 1000);
 			function tap()
 				{
 					
