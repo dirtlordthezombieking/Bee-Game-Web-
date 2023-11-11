@@ -13,7 +13,7 @@
 		<img class="catagory_img", id="bee" src="https://raw.githubusercontent.com/dirtlordthezombieking/Bee-Game-Web-/main/assets/images/bee.png" alt="bee">
 		<canvas id="Canvas" width="800" height="1200"></canvas>
 		<script>
-			var myGamePiece;
+			var GamePiece;
 			var ctx;
 			var bee;
 			var GameArea = {
@@ -43,7 +43,7 @@
 			}
 			function startGame() {
 				GameArea.start();
-				myGamePiece = new component(30, 30, "red", 10, 120);
+				GamePiece = new component(30, 30, "red", 10, 120);
 			}
 			function updateGameArea() {
 				GameArea.clear();
