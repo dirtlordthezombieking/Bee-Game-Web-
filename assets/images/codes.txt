@@ -1,0 +1,39 @@
+background
+ -turn on background
+cheri
+ -pink bee
+collision
+ -turn on collision visual
+default
+ -normal bee
+featureless
+ -blank bee, no stinger
+foreground
+ -turn on foreground
+no background
+ -turn off background
+no collision
+ -turn off collision visual
+no foreground
+ -turn off foreground
+markiplier
+ -no bee
+simple
+ -collision bee
+DEVMODE
+ -enter test mode
+return
+ -exit test mode
+golf
+ -golf bee
+hole in one
+ -one stroke, infinate momentum
+reset mode
+ -remove special modes
+
+
+
+save:<name>
+ -save position
+load:<name>
+ -load 
