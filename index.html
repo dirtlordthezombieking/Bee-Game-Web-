@@ -3,7 +3,7 @@
 	<head>
 		<meta name="description" content="Bee game"/>
 		<meta charset="utf-8">
-		<title>Dirtlord The Zombie King</title>
+		<title>Bee Game</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Dirtlord The Zombie King">
 		<link rel="stylesheet" href="assets/stylesheets/main.css">
@@ -19,10 +19,15 @@
 			var GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
+					this.canvas.style.cursor = "none";
 					this.ctx = this.canvas.getContext("2d");
 					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
 					this.interval = setInterval(updateGameArea, 17);
+					window.addEventListener('mousemove', function (e) {
+						GameArea.x = e.pageX;
+						GameArea.y = e.pageY;
+					})
 				},
 				clear : function() {
 					this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -47,7 +52,10 @@
 			}
 			function updateGameArea() {
 				GameArea.clear();
-				GamePiece.x += 1;
+				if (myGameArea.x && myGameArea.y) {
+					GamePiece.x = GameArea.x;
+					GamePiece.y = GameArea.y;
+				}
 				GamePiece.update();
 			}
 		</script>
