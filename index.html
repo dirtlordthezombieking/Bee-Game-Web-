@@ -27,7 +27,11 @@
 					window.addEventListener('mousemove', function (e) {
 						GameArea.x = e.pageX;
 						GameArea.y = e.pageY;
-					})
+					});
+					window.addEventListener('touchmove', function (e) {
+						GameArea.x = e.touches[0].screenX;
+						GameArea.y = e.touches[0].screenY;
+					});
 				},
 				clear : function() {
 					this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
