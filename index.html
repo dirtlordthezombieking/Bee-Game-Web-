@@ -9,17 +9,35 @@
 		<link rel="stylesheet" href="assets/stylesheets/main.css">
 	</head>
 	<body>
-		<img class="catagory_img", id="bee" src="https://raw.githubusercontent.com/dirtlordthezombieking/Bee-Game-Web-/assets/images/bee.png" alt="bee">
+		NOTE: I HAVE TO LEARN HTML5 GAME DEVELOPMENT FROM SCRATCH IN ORDER TO PORT THIS GAME SO THIS PAGE WILL BE A MESS UNTIL THEN!
+		<img class="catagory_img", id="bee" src="https://raw.githubusercontent.com/dirtlordthezombieking/Bee-Game-Web-/main/assets/images/bee.png" alt="bee">
 		<canvas id="Canvas" width="800" height="1200"></canvas>
 		<script>
-			const canvas = document.getElementById("Canvas");
-			const ctx = canvas.getContext("2d");
-			ctx.fillStyle = "#FF0000";
-			ctx.fillRect(0, 0, 600, 1000);
-			function tap()
-				{
-					
+			//ctx.fillStyle = "#FFFFFF";
+			//ctx.fillRect(0, 0, 800, 1200);
+			var myGamePiece;
+			function startGame() {
+				GameArea.start();
+				myGamePiece = new component(30, 30, "red", 10, 120);
+			}
+			function component(width, height, color, x, y) {
+				this.width = width;
+				this.height = height;
+				this.x = x;
+				this.y = y;
+				ctx = myGameArea.context;
+				ctx.fillStyle = color;
+				ctx.fillRect(this.x, this.y, this.width, this.height);
+			}
+			var bee;
+			var GameArea = {
+				canvas : document.getElementById("Canvas"),
+				start : function() {
+					this.ctx = this.canvas.getContext("2d");
+					this.ctx.fillStyle = "#FFFFFF";
+					this.ctx.fillRect(0, 0, 800, 1200);
 				}
+			}
 		</script>
 	</body>
 </html>
