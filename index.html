@@ -80,11 +80,11 @@
 				this.rotate = function(angle){
 					ctx = GameArea.ctx;
 					ctx.save();
-					ctx.translate(this.x + (this.width / -2),
-						      this.y + (this.height / -2));
+					ctx.translate(this.x + (this.width / 2),
+						      this.y + (this.height / 2));
+					ctx.rotate(angle);
 					ctx.drawImage(this.image, this.width / -2,
 						      this.height / -2, this.width, this.height);
-					ctx.rotate(angle);
 					ctx.restore();
 				};
 			}
