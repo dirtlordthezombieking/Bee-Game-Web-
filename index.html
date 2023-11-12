@@ -62,7 +62,10 @@
 			};
 			function component(width, height, image, x, y) {
 				this.image = new Image();
-				this.image.src = "https://raw.githubusercontent.com/dirtlordthezombieking/Bee-Game-Web-/main/assets/images/"+image+".png";
+				this.image.src =
+					"https://raw.githubusercontent.com/dirtlordthezombieking"
+					+"/Bee-Game-Web-/main/assets/images/"
+					+image+".png";
 				this.width = width;
 				this.height = height;
 				this.x = x;
@@ -76,14 +79,16 @@
 				this.rotate = function(angle){
 					ctx = GameArea.ctx;
 					ctx.save();
-					ctx.translate(400, 600);
-					ctx.drawImage(this.image, this.with / -2, this.height / -2, this.width, this.height);
+					ctx.translate(this.x, this.y);
+					ctx.drawImage(this.image, this.with / -2,
+						      this.height / -2, this.width, this.height);
+					ctx.rotate(angle)
 					ctx.restore();
 				};
 			}
 			function startGame() {
 				GameArea.start();
-				music= new sound ("Rise04");
+				music = new sound ("Rise04");
 				music.play();
 				rot = 0;
 				GamePiece = new component(192, 192, "bee", 304, 1104);
@@ -100,7 +105,10 @@
 			}
 			function sound(src) {
 				this.sound = document.createElement("audio");
-				this.sound.src = "https://raw.githubusercontent.com/dirtlordthezombieking/Bee-Game-Web-/main/assets/images/"+src+".ogg";
+				this.sound.src =
+					"https://raw.githubusercontent.com/dirtlordthezombieking"
+					+"/Bee-Game-Web-/main/assets/images/"
+					+src+".ogg";
 				this.sound.setAttribute("preload", "auto");
 				this.sound.setAttribute("controls", "none");
 				this.sound.style.display = "none";
