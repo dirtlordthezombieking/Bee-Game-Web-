@@ -77,13 +77,13 @@
 					ctx.drawImage(this.image, -64, this.y, this.width, this.height);
 					//ctx.fillRect(this.x, this.y, this.width, this.height);
 				};
-				this.rotate = function(angle){
+				this.rotate = function(){
 					ctx = GameArea.ctx;
 					//ctx.save();
 					//ctx.translate(this.x, this.y);
 					ctx.drawImage(this.image, this.with / 2,
 						      this.height / 2, this.width, this.height);
-					//ctx.rotate(angle);
+					//ctx.rotate(rot);
 					//ctx.restore();
 				};
 			}
@@ -101,7 +101,7 @@
 					//GamePiece.y = GameArea.y;
 				//}
 				rot = rot + 0.1;
-				GamePiece.rotate(rot);
+				GamePiece.rotate();
 				GamePiece.update();
 			}
 			function sound(src) {
