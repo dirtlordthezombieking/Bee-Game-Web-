@@ -79,10 +79,10 @@
 				this.rotate = function(angle){
 					ctx = GameArea.ctx;
 					ctx.save();
-					ctx.translate(this.x, this.y);
+					//ctx.translate(this.x, this.y);
 					ctx.drawImage(this.image, this.with / -2,
 						      this.height / -2, this.width, this.height);
-					ctx.rotate(angle);
+					//ctx.rotate(angle);
 					ctx.restore();
 				};
 			}
@@ -91,7 +91,7 @@
 				//music = new sound ("Rise04");
 				//music.play();
 				//rot = 0;
-				GamePiece = new component(192, 192, "bee", 304, 1104);
+				GamePiece = new component(192, 192, "bee", 304, 504);
 			}
 			function updateGameArea() {
 				GameArea.clear();
