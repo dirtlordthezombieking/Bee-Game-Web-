@@ -28,13 +28,23 @@
 					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
 					this.interval = setInterval(updateGameArea, 17);
-					window.addEventListener('mousemove', function (e) {
-						GameArea.x = e.pageX;
-						GameArea.y = e.pageY;
+					window.addEventListener('mouseup', function (e) {
+						//GameArea.x = e.pageX;
+						//GameArea.y = e.pageY;
+						if(!start)
+						{
+							music.play();
+							start=true;
+						}
 					});
-					window.addEventListener('touchmove', function (e) {
-						GameArea.x = e.touches[0].screenX;
-						GameArea.y = e.touches[0].screenY;
+					window.addEventListener('touchend', function (e) {
+						//GameArea.x = e.touches[0].screenX;
+						//GameArea.y = e.touches[0].screenY;
+						if(!start)
+						{
+							music.play();
+							start=true;
+						}
 					});
 					window.addEventListener('keydown', function (e) {
 						GameArea.key = e.key;
