@@ -83,14 +83,14 @@
 					ctx.drawImage(this.image, this.with / -2,
 						      this.height / -2, this.width, this.height);
 					//ctx.rotate(angle);
-					ctx.restore();
+					//ctx.restore();
 				};
 			}
 			function startGame() {
 				GameArea.start();
 				//music = new sound ("Rise04");
 				//music.play();
-				//rot = 0;
+				rot = 0;
 				GamePiece = new component(192, 192, "bee", 304, 504);
 			}
 			function updateGameArea() {
@@ -100,7 +100,7 @@
 					//GamePiece.y = GameArea.y;
 				//}
 				rot = rot + 0.1;
-				//GamePiece.rotate(rot);
+				GamePiece.rotate(rot);
 				GamePiece.update();
 			}
 			function sound(src) {
