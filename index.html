@@ -73,7 +73,8 @@
 				this.update = function(){
 					ctx = GameArea.ctx;
 					//ctx.fillStyle = colour;
-					ctx.drawImage(this.image, this.x / 2, this.y, this.width, this.height);
+					ctx.drawImage(this.image, 0, this.y / 2, this.width, this.height);
+					ctx.drawImage(this.image, -64, this.y, this.width, this.height);
 					//ctx.fillRect(this.x, this.y, this.width, this.height);
 				};
 				this.rotate = function(angle){
