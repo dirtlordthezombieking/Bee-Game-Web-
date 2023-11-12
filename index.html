@@ -73,15 +73,16 @@
 				this.update = function(){
 					ctx = GameArea.ctx;
 					//ctx.fillStyle = colour;
-					ctx.drawImage(this.image, this.x + 96, this.y + 96, this.width, this.height);
+					ctx.drawImage(this.image, this.x + 96, this.y + 96,
+						      this.width, this.height);
 					//ctx.fillRect(this.x, this.y, this.width, this.height);
 				};
 				this.rotate = function(angle){
 					ctx = GameArea.ctx;
 					ctx.save();
 					ctx.translate(this.x, this.y);
-					ctx.drawImage(this.image, this.width -/ 2,
-						      this.height -/ 2, this.width, this.height);
+					ctx.drawImage(this.image, this.width / -2,
+						      this.height / -2, this.width, this.height);
 					ctx.rotate(angle);
 					ctx.restore();
 				};
