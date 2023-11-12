@@ -103,10 +103,12 @@
 				//}
 				rot = rot + 1;
 				GamePiece.rotate(rot);
-				GamePiece.update();
+				//GamePiece.update();
 			}
+			//https://github.com/dirtlordthezombieking/Bee-Game-Web-/raw/main/assets/images/Rise04.ogg
 			function sound(src) {
 				this.sound = document.createElement("audio");
+				this.sound.type="audio/ogg"
 				this.sound.src =
 					"https://raw.githubusercontent.com/dirtlordthezombieking"
 					+"/Bee-Game-Web-/main/assets/images/"
