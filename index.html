@@ -73,24 +73,23 @@
 				this.update = function(){
 					ctx = GameArea.ctx;
 					//ctx.fillStyle = colour;
-					ctx.drawImage(this.image, 0, this.y / 2, this.width, this.height);
-					ctx.drawImage(this.image, -64, this.y, this.width, this.height);
+					ctx.drawImage(this.image, this.x + 96, this.y + 96, this.width, this.height);
 					//ctx.fillRect(this.x, this.y, this.width, this.height);
 				};
-				this.rotate = function(){
+				this.rotate = function(angle){
 					ctx = GameArea.ctx;
-					//ctx.save();
-					//ctx.translate(this.x, this.y);
-					ctx.drawImage(this.image, this.width / 2,
-						      this.height / 2, this.width, this.height);
-					//ctx.rotate(rot);
-					//ctx.restore();
+					ctx.save();
+					ctx.translate(this.x, this.y);
+					ctx.drawImage(this.image, this.width -/ 2,
+						      this.height -/ 2, this.width, this.height);
+					ctx.rotate(angle);
+					ctx.restore();
 				};
 			}
 			function startGame() {
 				GameArea.start();
-				//music = new sound ("Rise04");
-				//music.play();
+				music = new sound ("Rise04");
+				music.play();
 				rot = 0;
 				GamePiece = new component(192, 192, "bee", 304, 504);
 			}
@@ -101,7 +100,7 @@
 					//GamePiece.y = GameArea.y;
 				//}
 				rot = rot + 0.1;
-				GamePiece.rotate();
+				GamePiece.rotate(rot);
 				GamePiece.update();
 			}
 			function sound(src) {
