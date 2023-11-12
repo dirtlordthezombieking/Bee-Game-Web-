@@ -88,9 +88,9 @@
 			}
 			function startGame() {
 				GameArea.start();
-				music = new sound ("Rise04");
-				music.play();
-				rot = 0;
+				//music = new sound ("Rise04");
+				//music.play();
+				//rot = 0;
 				GamePiece = new component(192, 192, "bee", 304, 1104);
 			}
 			function updateGameArea() {
@@ -100,8 +100,8 @@
 					//GamePiece.y = GameArea.y;
 				//}
 				rot = rot + 0.1;
-				GamePiece.rotate(rot);
-				//GamePiece.update();
+				//GamePiece.rotate(rot);
+				GamePiece.update();
 			}
 			function sound(src) {
 				this.sound = document.createElement("audio");
