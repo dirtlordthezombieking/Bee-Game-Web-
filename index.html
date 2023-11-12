@@ -77,7 +77,7 @@
 					ctx = GameArea.ctx;
 					ctx.save();
 					ctx.translate(400, 600);
-					ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+					ctx.drawImage(this.image, this.with / -2, this.height / -2, this.width, this.height);
 					ctx.restore();
 				};
 			}
@@ -90,11 +90,11 @@
 			}
 			function updateGameArea() {
 				GameArea.clear();
-				if (GameArea.x && GameArea.y) {
-					GamePiece.x = GameArea.x;
-					GamePiece.y = GameArea.y;
-				}
-				rot = rot + 1;
+				//if (GameArea.x && GameArea.y) {
+					//GamePiece.x = GameArea.x;
+					//GamePiece.y = GameArea.y;
+				//}
+				rot = rot + 0.1;
 				GamePiece.rotate(rot);
 				//GamePiece.update();
 			}
