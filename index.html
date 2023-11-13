@@ -41,12 +41,12 @@
 							music.play();
 							start=true;
 						}
-						else
-						{
-							GameArea.x = e.touches[0].clientX - this.rect.left;
-							GameArea.y = e.touches[0].clientY - this.rect.top;
-							navigator.clipboard.writeText("" + e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top)
-						}
+						//else
+						//{
+							//GameArea.x = e.touches[0].clientX - this.rect.left;
+							//GameArea.y = e.touches[0].clientY - this.rect.top;
+							//navigator.clipboard.writeText("" + e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top)
+						//}
 					});
 					//window.addEventListener('touchstart', function (e) {
 						//GameArea.x = e.touches[0].screenX;
@@ -60,6 +60,7 @@
 						}
 						else
 						{
+							ctx = GameArea.ctx;
 							ctx.font = "30px Arial";
 							ctx.fillText("test test",0,170);
 							//ctx.fillText(e.touches[0].clientX,0,200);
