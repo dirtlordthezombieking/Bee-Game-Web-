@@ -20,7 +20,7 @@
 			var rot;
 			var music;
 			var start;
-			/0var s0;
+			//var s0;
 			//var s1;
 			//var s2;
 			//var s3;
@@ -67,23 +67,26 @@
 							music.play();
 							start=true;
 						}
-						else try
+						else
 						{
-							GameArea.x = e.touches[0].screenX;
-							GameArea.y = e.touches[0].screenY;
-						}
-						catch(t)
-						{
+							try
+							{
+								GameArea.x = e.touches[0].screenX;
+								GameArea.y = e.touches[0].screenY;
+							}
+							catch(t)
+							{
 							//ctx = GameArea.ctx;ctx.font = "30px Arial";
 							//s0 = "test test";
 							//s1 = e.touches[0].clientX;
 							//s2 = GameArea.rect.left;
 							//s3 = e.touches[0].clientY;
 							//s4 = GameArea.rect.top;
-							GameArea.x = false;
-							GameArea.x = false;
-							GameArea.x2 = GameArea.x - GameArea.rect.left;
-							GameArea.y2 = GameArea.y - GameArea.rect.top;
+								GameArea.x = false;
+								GameArea.x = false;
+								GameArea.x2 = GameArea.x - GameArea.rect.left;
+								GameArea.y2 = GameArea.y - GameArea.rect.top;
+							}
 						}
 					});
 					//window.addEventListener('keydown', function (e) {
