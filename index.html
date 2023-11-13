@@ -22,12 +22,17 @@
 			var start;
 			var GameArea = {
 				canvas : document.getElementById("Canvas"),
+				rect : canvas.getBoundingClientRect();
 				start : function() {
 					this.canvas.style.cursor = "none";
 					this.ctx = this.canvas.getContext("2d");
 					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
 					this.interval = setInterval(updateGameArea, 17);
+					window.addEventListener('mousedown', function (e) {
+						//GameArea.x = e.pageX;
+						//GameArea.y = e.pageY;
+					});
 					window.addEventListener('mouseup', function (e) {
 						//GameArea.x = e.pageX;
 						//GameArea.y = e.pageY;
@@ -37,13 +42,20 @@
 							start=true;
 						}
 					});
-					window.addEventListener('touchend', function (e) {
+					window.addEventListener('touchstart', function (e) {
 						//GameArea.x = e.touches[0].screenX;
 						//GameArea.y = e.touches[0].screenY;
+					});
+					window.addEventListener('touchend', function (e) {
 						if(!start)
 						{
 							music.play();
 							start=true;
+						}
+						else
+						{
+							GameArea.x = e.touches[0].clientX - rect.left;
+							GameArea.y = e.touches[0].clientY - rect.top;
 						}
 					});
 					window.addEventListener('keydown', function (e) {
@@ -118,10 +130,10 @@
 				if(start)
 				{
 					GameArea.clear();
-				//if (GameArea.x && GameArea.y) {
-					//GamePiece.x = GameArea.x;
-					//GamePiece.y = GameArea.y;
-				//}
+				if (GameArea.x && GameArea.y) {
+					GamePiece.x = GameArea.x - 96;
+					GamePiece.y = GameArea.y - 96;
+				}
 					rot = rot + 1;
 					GamePiece.rotate(rot);
 				//GamePiece.update();
