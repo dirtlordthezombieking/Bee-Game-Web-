@@ -56,6 +56,7 @@
 						{
 							GameArea.x = e.touches[0].clientX - this.rect.left;
 							GameArea.y = e.touches[0].clientY - this.rect.top;
+							navigator.clipboard.writeText("" + e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top)
 						}
 					});
 					//window.addEventListener('keydown', function (e) {
@@ -130,10 +131,10 @@
 				if(start)
 				{
 					GameArea.clear();
-				if (GameArea.x && GameArea.y) {
-					GamePiece.x = GameArea.x - 96;
-					GamePiece.y = GameArea.y - 96;
-				}
+					if (GameArea.x && GameArea.y) {
+						GamePiece.x = GameArea.x - 96;
+						GamePiece.y = GameArea.y - 96;
+					}
 					rot = rot + 1;
 					GamePiece.rotate(rot);
 				//GamePiece.update();
@@ -148,6 +149,7 @@
 				this.sound.type = "audio/ogg";
 				this.sound.setAttribute("preload", "auto");
 				this.sound.setAttribute("controls", "none");
+				this.sound.loop = true;
 				this.sound.style.display = "none";
 				document.body.appendChild(this.sound);
 				this.play = function() {
