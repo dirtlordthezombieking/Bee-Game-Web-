@@ -61,12 +61,13 @@
 						else
 						{
 							ctx.font = "30px Arial";
-							ctx.fillText(e.touches[0].clientX,0,200);
-							ctx.fillText(e.touches[0].clientX + "," + this.rect.left,0,230);
-							ctx.fillText(e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY,0,260);
-							ctx.fillText(e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top,0,290);
-							GameArea.x = e.touches[0].clientX - this.rect.left;
-							GameArea.y = e.touches[0].clientY - this.rect.top;
+							ctx.fillText("test test",0,170);
+							//ctx.fillText(e.touches[0].clientX,0,200);
+							///ctx.fillText(e.touches[0].clientX + "," + this.rect.left,0,230);
+							//ctx.fillText(e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY,0,260);
+							//ctx.fillText(e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top,0,290);
+							//GameArea.x = e.touches[0].clientX - this.rect.left;
+							//GameArea.y = e.touches[0].clientY - this.rect.top;
 						}
 					});
 					//window.addEventListener('keydown', function (e) {
@@ -141,10 +142,10 @@
 				if(start)
 				{
 					GameArea.clear();
-					if (GameArea.x && GameArea.y) {
-						GamePiece.x = GameArea.x - 96;
-						GamePiece.y = GameArea.y - 96;
-					}
+					//if (GameArea.x && GameArea.y) {
+						//GamePiece.x = GameArea.x - 96;
+						//GamePiece.y = GameArea.y - 96;
+					//}
 					rot = rot + 1;
 					GamePiece.rotate(rot);
 				//GamePiece.update();
