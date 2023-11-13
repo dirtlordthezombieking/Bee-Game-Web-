@@ -20,12 +20,17 @@
 			var rot;
 			var music;
 			var start;
+			var s0;
+			var s1;
+			var s2;
+			var s3;
+			var s4;
 			var GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
 					this.canvas.style.cursor = "none";
 					this.ctx = this.canvas.getContext("2d");
-					this.ctx.fillStyle = "#00FF00";
+					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
 					this.interval = setInterval(updateGameArea, 17);
 					this.rect = this.canvas.getBoundingClientRect();
@@ -60,14 +65,12 @@
 						}
 						else
 						{
-							ctx = GameArea.ctx;
-							ctx.font = "30px Arial";
-							ctx.fillStyle = "#000000";
-							ctx.fillText("test test",0,170);
-							ctx.fillText(e.touches[0].clientX,0,200);
-							ctx.fillText(e.touches[0].clientX + "," + this.rect.left,0,230);
-							ctx.fillText(e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY,0,260);
-							ctx.fillText(e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top,0,290);
+							//ctx = GameArea.ctx;ctx.font = "30px Arial";
+							s0 = "test test";
+							s1 = e.touches[0].clientX;
+							s2 = e.touches[0].clientX + "," + this.rect.left;
+							s3 = e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY;
+							s4 = e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top;
 							//GameArea.x = e.touches[0].clientX - this.rect.left;
 							//GameArea.y = e.touches[0].clientY - this.rect.top;
 						}
@@ -101,8 +104,14 @@
 				},
 				clear : function() {
 					this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-					this.ctx.fillStyle = "#00FF00";
-					this.ctx.fillRect(0, 0, 800, 1200);
+					this.ctx.fillStyle = "#000000";
+					this.ctx.fillRect(0, 0, 800, 1200);ctx.font = "30px Arial";
+					this.ctx.fillStyle = "#FFFFFF";
+					this.ctx.fillText(s0,0,170);
+					this.ctx.fillText(s1,0,200);
+					this.ctx.fillText(s2,0,230);
+					this.ctx.fillText(s3,0,260);
+					this.ctx.fillText(s4,0,290);
 				}
 			};
 			function component(width, height, image, x, y) {
@@ -138,6 +147,11 @@
 				GameArea.start();
 				music = new sound("song17");
 				rot = 0;
+				s0 = "no";
+				s1 = "no";
+				s2 = "no";
+				s3 = "no";
+				s4 = "no";
 				GamePiece = new component(192, 192, "bee", 304, 504);
 			}
 			function updateGameArea() {
