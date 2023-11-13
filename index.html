@@ -22,17 +22,17 @@
 			var start;
 			var GameArea = {
 				canvas : document.getElementById("Canvas"),
-				rect : canvas.getBoundingClientRect();
 				start : function() {
 					this.canvas.style.cursor = "none";
 					this.ctx = this.canvas.getContext("2d");
 					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
 					this.interval = setInterval(updateGameArea, 17);
-					window.addEventListener('mousedown', function (e) {
+					this.rect = this.canvas.getBoundingClientRect();
+					//window.addEventListener('mousedown', function (e) {
 						//GameArea.x = e.pageX;
 						//GameArea.y = e.pageY;
-					});
+					//});
 					window.addEventListener('mouseup', function (e) {
 						//GameArea.x = e.pageX;
 						//GameArea.y = e.pageY;
@@ -42,10 +42,10 @@
 							start=true;
 						}
 					});
-					window.addEventListener('touchstart', function (e) {
+					//window.addEventListener('touchstart', function (e) {
 						//GameArea.x = e.touches[0].screenX;
 						//GameArea.y = e.touches[0].screenY;
-					});
+					//});
 					window.addEventListener('touchend', function (e) {
 						if(!start)
 						{
@@ -54,30 +54,30 @@
 						}
 						else
 						{
-							GameArea.x = e.touches[0].clientX - rect.left;
-							GameArea.y = e.touches[0].clientY - rect.top;
+							GameArea.x = e.touches[0].clientX - this.rect.left;
+							GameArea.y = e.touches[0].clientY - this.rect.top;
 						}
 					});
-					window.addEventListener('keydown', function (e) {
-						GameArea.key = e.key;
+					//window.addEventListener('keydown', function (e) {
+						//GameArea.key = e.key;
 						//if (showcode) {
 						//}
 						//else if (e.key == "p" || e.key ==  "P") {
 						//}
 						//else if(e.key == "Backspace") {
 						//}
-					});
-					window.addEventListener('keyup', function (e) {
-						GameArea.key = false;
-						if(!start)
-						{
-							if(e.key == "p" || e.key == "P")
-							{
-								music.play();
-								start=true;
-							}
-						}
-					});
+					//});
+					//window.addEventListener('keyup', function (e) {
+						//GameArea.key = false;
+						//if(!start)
+						//{
+							//if(e.key == "p" || e.key == "P")
+							//{
+								//music.play();
+								//start=true;
+							//}
+						//}
+					//});
 					//window.addEventListener('click', function () {
 						//if (GameArea.x && GameArea.y) {
 							//GamePiece.x = GameArea.x;
@@ -120,7 +120,7 @@
 				};
 			}
 			function startGame() {
-				start=false
+				start=false;
 				GameArea.start();
 				music = new sound("song17");
 				rot = 0;
@@ -139,7 +139,6 @@
 				//GamePiece.update();
 				}
 			}
-			//https://github.com/dirtlordthezombieking/Bee-Game-Web-/raw/main/assets/images/Rise04.ogg
 			function sound(src) {
 				this.sound = document.createElement("audio");
 				this.sound.src =
