@@ -68,11 +68,11 @@
 							//ctx = GameArea.ctx;ctx.font = "30px Arial";
 							s0 = "test test";
 							s1 = e.touches[0].clientX;
-							s2 = e.touches[0].clientX + "," + this.rect.left;
-							s3 = e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY;
-							s4 = e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top;
-							//GameArea.x = e.touches[0].clientX - this.rect.left;
-							//GameArea.y = e.touches[0].clientY - this.rect.top;
+							s2 = e.touches[0].clientX + "," + GameArea.rect.left;
+							s3 = e.touches[0].clientX + "," + GameArea.rect.left + "|" + e.touches[0].clientY;
+							s4 = e.touches[0].clientX + "," + GameArea.rect.left + "|" + e.touches[0].clientY + "," + GameArea.rect.top;
+							//GameArea.x = e.touches[0].clientX - GameArea.rect.left;
+							//GameArea.y = e.touches[0].clientY - GameArea.rect.top;
 						}
 					});
 					//window.addEventListener('keydown', function (e) {
