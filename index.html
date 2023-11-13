@@ -60,9 +60,13 @@
 						}
 						else
 						{
+							ctx.font = "30px Arial";
+							ctx.fillText("" + e.touches[0].clientX,0,200);
+							ctx.fillText("" + e.touches[0].clientX + "," + this.rect.left,0,230);
+							ctx.fillText("" + e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY,0,260);
+							ctx.fillText("" + e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top,0,290);
 							GameArea.x = e.touches[0].clientX - this.rect.left;
 							GameArea.y = e.touches[0].clientY - this.rect.top;
-							navigator.clipboard.writeText("" + e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top)
 						}
 					});
 					//window.addEventListener('keydown', function (e) {
