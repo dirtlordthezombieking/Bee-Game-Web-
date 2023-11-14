@@ -54,12 +54,12 @@
 						//}
 					});
 					window.addEventListener('touchstart', function (e) {
-						GameArea.x = e.touches[0].screenX;
-						GameArea.y = e.touches[0].screenY;
+						GameArea.x = e.touches[0].clientX;
+						GameArea.y = e.touches[0].clientY;
 					});
 					window.addEventListener('touchmove', function (e) {
-						GameArea.x = e.touches[0].screenX;
-						GameArea.y = e.touches[0].screenY;
+						GameArea.x = e.touches[0].clientX;
+						GameArea.y = e.touches[0].clientY;
 					});
 					window.addEventListener('touchend', function (e) {
 						if(!start)
@@ -71,8 +71,8 @@
 						{
 							try
 							{
-								GameArea.x = e.touches[0].screenX;
-								GameArea.y = e.touches[0].screenY;
+								GameArea.x = e.touches[0].clientX;
+								GameArea.y = e.touches[0].clientY;
 							}
 							catch(t)
 							{
