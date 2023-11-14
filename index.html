@@ -9,22 +9,23 @@
 		<link rel="stylesheet" href="assets/stylesheets/main.css">
 	</head>
 	<body onload="startGame()">
-		NOTE: I HAVE TO LEARN HTML5 GAME DEVELOPMENT FROM SCRATCH IN ORDER TO PORT THIS GAME SO THIS PAGE WILL BE A MESS UNTIL THEN!
 		<img class="catagory_img", id="bee" src="https://raw.githubusercontent.com/dirtlordthezombieking/Bee-Game-Web-/main/assets/images/bee.png" alt="bee">
 		<canvas id="Canvas" width="800" height="1200"></canvas>
+		NOTES:
+		<br>
+		1). I HAVE TO LEARN HTML5 GAME DEVELOPMENT FROM SCRATCH IN ORDER TO PORT THIS GAME SO THIS PAGE WILL BE A MESS UNTIL THEN!
+		2). I've figured out everything I need its time to start.
 		<script>
 			const validChars = ["a","b"];
-			var GamePiece;
 			var ctx;
 			var bee;
+			var background;
+			var xPos;
+			var yPos;
 			var rot;
+			var touchTime;
 			var music;
 			var start;
-			//var s0;
-			//var s1;
-			//var s2;
-			//var s3;
-			//var s4;
 			var GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -34,30 +35,56 @@
 					this.ctx.fillRect(0, 0, 800, 1200);
 					this.interval = setInterval(updateGameArea, 17);
 					this.rect = this.canvas.getBoundingClientRect();
-					//window.addEventListener('mousedown', function (e) {
-						//GameArea.x = e.pageX;
-						//GameArea.y = e.pageY;
-					//});
+					window.addEventListener('mousedown', function (e) {
+						GameArea.x = e.clientX;
+						GameArea.y = e.clientY;
+						GameArea.xs = e.clientX;
+						GameArea.ys = e.clientY;
+						GameArea.moved = false;
+						touchTime = 0;
+					});
+					window.addEventListener('mousedown', function (e) {
+						var xm = GameArea.x - e.clientX;
+						var ym = GameArea.y - e.clientY;
+						GameArea.moved = (xm < -10) || (xm > 10) || (ym < -10) || (ym > 10) || GameArea.moved;
+						GameArea.x = e.clientX;
+						GameArea.y = e.clientY;
+					});
 					window.addEventListener('mouseup', function (e) {
-						//GameArea.x = e.pageX;
-						//GameArea.y = e.pageY;
+						GameArea.x = e.clientX;
+						GameArea.y = e.clientY;
 						if(!start)
 						{
 							music.play();
 							start=true;
 						}
-						//else
-						//{
-							//GameArea.x = e.touches[0].clientX - this.rect.left;
-							//GameArea.y = e.touches[0].clientY - this.rect.top;
-							//navigator.clipboard.writeText("" + e.touches[0].clientX + "," + this.rect.left + "|" + e.touches[0].clientY + "," + this.rect.top)
-						//}
+						try
+							{
+								GameArea.x = e.clientX;
+								GameArea.y = e.clientY;
+							}
+							catch(t)
+							{
+								GameArea.rect = GameArea.canvas.getBoundingClientRect();
+								GameArea.x2 = GameArea.x - GameArea.rect.left;
+								GameArea.y2 = GameArea.y - GameArea.rect.top;
+								tap();
+								GameArea.x = false;
+								GameArea.y = false;
+							}
 					});
 					window.addEventListener('touchstart', function (e) {
 						GameArea.x = e.touches[0].clientX;
 						GameArea.y = e.touches[0].clientY;
+						GameArea.xs = e.touches[0].clientX;
+						GameArea.ys = e.touches[0].clientY;
+						GameArea.moved = false;
+						touchTime = 0;
 					});
 					window.addEventListener('touchmove', function (e) {
+						var xm = GameArea.x - e.touches[0].clientX;
+						var ym = GameArea.y - e.touches[0].clientY;
+						GameArea.moved = (xm < -10) || (xm > 10) || (ym < -10) || (ym > 10) || GameArea.moved;
 						GameArea.x = e.touches[0].clientX;
 						GameArea.y = e.touches[0].clientY;
 					});
@@ -76,15 +103,10 @@
 							}
 							catch(t)
 							{
-							//ctx = GameArea.ctx;ctx.font = "30px Arial";
-							//s0 = "test test";
-							//s1 = e.touches[0].clientX;
-							//s2 = GameArea.rect.left;
-							//s3 = e.touches[0].clientY;
-							//s4 = GameArea.rect.top;
 								GameArea.rect = GameArea.canvas.getBoundingClientRect();
 								GameArea.x2 = GameArea.x - GameArea.rect.left;
 								GameArea.y2 = GameArea.y - GameArea.rect.top;
+								tap();
 								GameArea.x = false;
 								GameArea.y = false;
 							}
@@ -111,7 +133,7 @@
 						//}
 					//});
 					//window.addEventListener('click', function () {
-						//if (GameArea.x && GameArea.y) {
+						//if (GameArea.x2 && GameArea.y2) {
 							//GamePiece.x = GameArea.x;
 							//GamePiece.y = GameArea.y;
 						//}
@@ -121,15 +143,12 @@
 					this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
-					//this.ctx.font = "30px Arial";
-					//this.ctx.fillStyle = "#FFFFFF";
-					//this.ctx.fillText(s0,0,170);
-					//this.ctx.fillText(s1,0,200);
-					//this.ctx.fillText(s2,0,230);
-					//this.ctx.fillText(s3,0,260);
-					//this.ctx.fillText(s4,0,290);
 				}
 			};
+			function reset(){
+				xPos = 30;
+				yPos = 20;
+			}
 			function component(width, height, image, x, y) {
 				this.image = new Image();
 				this.image.src =
@@ -140,14 +159,22 @@
 				this.height = height;
 				this.x = x;
 				this.y = y;
-				this.update = function(){
+				this.resprite = function(image) {
+					this.image.src =
+					"https://raw.githubusercontent.com/dirtlordthezombieking"
+					+"/Bee-Game-Web-/main/assets/images/"
+					+image+".png";
+				};
+				this.draw = function() {
 					ctx = GameArea.ctx;
-					//ctx.fillStyle = colour;
 					ctx.drawImage(this.image, this.x + 96, this.y + 96,
 						      this.width, this.height);
-					//ctx.fillRect(this.x, this.y, this.width, this.height);
 				};
-				this.rotate = function(angle){
+				function moveTo(x, y){
+					this.x = x;
+					this.y = y;
+				};
+				this.drawRot = function(angle) {
 					ctx = GameArea.ctx;
 					ctx.save();
 					ctx.translate(this.x + (this.width / 2),
@@ -163,24 +190,28 @@
 				GameArea.start();
 				music = new sound("song17");
 				rot = 0;
-				//s0 = "no";
-				//s1 = "no";
-				//s2 = "no";
-				//s3 = "no";
-				//s4 = "no";
-				GamePiece = new component(192, 192, "bee", 304, 504);
+				background = new component(0, 0, "bee", 6000, 15000);
+				bee = new component(192, 192, "bee", 304, 504);
 			}
 			function updateGameArea() {
 				if(start)
 				{
+					touchTime = touchTime +1;
 					GameArea.clear();
-					if (GameArea.x2 && GameArea.y2) {
-						GamePiece.x = GameArea.x2 - 96;
-						GamePiece.y = GameArea.y2 - 96;
+					//rot = rot + 1;
+					background.moveTo(400 - xPos * 30, 600 - yPos * 30);
+					background.draw();
+					bee.drawRot(rot);
+				}
+			}
+			function tap() {
+				if(!(GameArea.moved)) {
+					if(touchTime < 120) {
+						touchTime = touchTime;
 					}
-					rot = rot + 1;
-					GamePiece.rotate(rot);
-				//GamePiece.update();
+					else {
+						touchTime = touchTime;
+					}
 				}
 			}
 			function sound(src) {
