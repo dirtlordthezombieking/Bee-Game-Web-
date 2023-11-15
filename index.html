@@ -173,10 +173,37 @@
 					ctx.drawImage(this.image, this.x, this.y,
 						      this.width, this.height);
 				};
-				this.drawPortin = function() {
+				this.drawPortion = function() {
 					ctx = GameArea.ctx;
-					ctx.drawImage(this.image, this.x, this.y,
-						      this.width, this.height);
+					var x2 = (0 - this.x) / 30;
+					var y2 = (0 - this.y) / 30;
+					var x3 = 0;
+					var y3 = 0;
+					var w2 = 27;
+					var h2 = 40;
+					var w3 = 810;
+					var h3 = 1200
+					if(x > 0) {
+						x2 = 0;
+						x3 = this.x;
+					}
+					if(y > 0) {
+						y2 = 0;
+						y3 = this.y;
+					}
+					if(x < -5790)
+					{
+						x2 = 173;
+						x3 = this.x + 5790;
+					}
+					if(x < -13800)
+					{
+						y2 = 460;
+						y3 = this.y + 13800;
+					}
+					ctx.drawImage(this.image, x2, y2,
+						      w2, h3,
+						      x3, y3, w3, h3);
 				};
 				this.moveTo = function(x, y){
 					this.x = x;
@@ -188,9 +215,8 @@
 					ctx.translate(this.x + (this.width / 2),
 						      this.y + (this.height / 2));
 					ctx.rotate(angle * Math.PI / 180);
-					ctx.drawImage(this.image,(0 - this.x) / 30.0, (0 - this.y) / 30.0,
-						      80 / 3.0, 40,
-						      0, 0, 800, 1200);
+					ctx.drawImage(this.image, this.x, this.y,
+						      this.width, this.height);
 					ctx.restore();
 				};
 			}
@@ -210,7 +236,7 @@
 					GameArea.clear();
 					//rot = rot + 1;
 					//background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
-					background.draw();
+					background.drawPortion();
 					bee.drawRot(rot);
 				}
 			}
