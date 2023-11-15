@@ -38,6 +38,7 @@
 					this.ctx.fillRect(0, 0, 800, 1200);
 					this.interval = setInterval(updateGameArea, 17);
 					this.rect = this.canvas.getBoundingClientRect();
+					this.ctx.imageSmoothingEnabled = false;
 					window.addEventListener('mousedown', function (e) {
 						GameArea.x = e.clientX;
 						GameArea.y = e.clientY;
