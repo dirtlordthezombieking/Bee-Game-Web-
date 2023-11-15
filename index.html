@@ -202,7 +202,7 @@
 						y3 = this.y + 13800;
 					}
 					ctx.drawImage(this.image, x2, y2,
-						      w2, h3,
+						      w2, h2,
 						      x3, y3, w3, h3);
 				};
 				this.moveTo = function(x, y){
@@ -215,7 +215,7 @@
 					ctx.translate(this.x + (this.width / 2),
 						      this.y + (this.height / 2));
 					ctx.rotate(angle * Math.PI / 180);
-					ctx.drawImage(this.image, this.x, this.y,
+					ctx.drawImage(this.image, this.width / -2, this.height / -2,
 						      this.width, this.height);
 					ctx.restore();
 				};
@@ -225,7 +225,7 @@
 				GameArea.start();
 				music = new sound("song17");
 				rot = 0;
-				background = new component(6000, 15000, "bee", 0, 0);
+				background = new component(6000, 15000, "test level", 0, 0);
 				bee = new component(192, 192, "bee", 304, 504);
 				reset();
 			}
