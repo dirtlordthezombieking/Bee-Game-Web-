@@ -188,7 +188,7 @@
 					var w2 = 27;
 					var h2 = 40;
 					var w3 = 810;
-					var h3 = 1200
+					var h3 = 1200;
 					if(x > 0) {
 						x2 = 0;
 						x3 = this.x;
@@ -211,7 +211,7 @@
 						      w2, h2,
 						      x3, y3, w3, h3);
 				};
-				this.moveTo = function(x, y){
+				this.moveTo = function(x, y) {
 					this.x = x;
 					this.y = y;
 				};
@@ -232,7 +232,7 @@
 				music = new sound("song17");
 				rot = 0;
 				//background = new component(6000, 15000, "test level", 0, 0);
-				loadTestLevel()
+				loadTestLevel();
 				bee = new component(192, 192, "bee", 304, 504);
 				reset();
 			}
@@ -246,7 +246,7 @@
 					background.drawPortion();
 					bee.drawRot(rot);
 					if(move) {
-						y = y + ys;
+						yPos = yPos + ys;
 						if(ys > (0 - MAX_SPEED)) {
 							ys = ys -1;
 							
@@ -287,16 +287,16 @@
 			function loadTestLevel() {
 				background = new component(6000, 15000, "test level", 0, 0);
 				coll = [];
-				col.push (new rectangleCollision(20,0,180,12))
-				rot = 225
+				coll.push (new rectangleCollision(20,0,180,12));
+				rot = 225;
 			}
 			function toRadians(angle) {
 				return angle * Math.PI / 180;
 			}
 			function stinger() {
 				var sp = findStinger();
-				for(var i in coll) {
-					if(i.stinger(sp[0], sp[1]))
+				for(var i of coll) {
+					if(i.stinger(sp[0] + xPos, sp[1] + yPos))
 					{
 						move = false;
 						break;
