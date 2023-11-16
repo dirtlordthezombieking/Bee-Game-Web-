@@ -20,6 +20,7 @@
 		<a href="https://dirtlordthezombieking.github.io/">Home Page.</a>
 		<script>
 			const validChars = ["a","b"];
+			const MAX_SPEED = 0.350;
 			var ctx;
 			var bee;
 			var background;
@@ -29,6 +30,9 @@
 			var touchTime;
 			var music;
 			var start;
+			var coll;
+			var move;
+			var ys;
 			var GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -150,8 +154,9 @@
 				}
 			};
 			function reset() {
-				xPos = 200;//20;
-				yPos = 500;//30;
+				xPos = 30;
+				yPos = 20;
+				move = true;
 			}
 			function component(width, height, image, x, y) {
 				this.image = new Image();
@@ -215,7 +220,7 @@
 					ctx.save();
 					ctx.translate(this.x + (this.width / 2),
 						      this.y + (this.height / 2));
-					ctx.rotate(angle * Math.PI / 180);
+					ctx.rotate(toRadians(angle));
 					ctx.drawImage(this.image, this.width / -2, this.height / -2,
 						      this.width, this.height);
 					ctx.restore();
@@ -226,7 +231,8 @@
 				GameArea.start();
 				music = new sound("song17");
 				rot = 0;
-				background = new component(6000, 15000, "test level", 0, 0);
+				//background = new component(6000, 15000, "test level", 0, 0);
+				loadTestLevel()
 				bee = new component(192, 192, "bee", 304, 504);
 				reset();
 			}
@@ -239,6 +245,14 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
+					if(move) {
+						y = y + ys;
+						if(ys > (0 - MAX_SPEED)) {
+							ys = ys -1;
+							
+						}
+						stinger();
+					}
 				}
 			}
 			function tap() {
@@ -269,6 +283,77 @@
 				this.stop = function() {
 					this.sound.pause();
 				};
+			}
+			function loadTestLevel() {
+				background = new component(6000, 15000, "test level", 0, 0);
+				coll = [];
+				col.push (new rectangleCollision(20,0,180,12))
+				rot = 225
+			}
+			function toRadians(angle) {
+				return angle * Math.PI / 180;
+			}
+			function stinger() {
+				var sp = findStinger();
+				for(var i in coll) {
+					if(i.stinger(sp[0], sp[1]))
+					{
+						move = false;
+						break;
+					}
+				}
+			}
+			function findStinger() {
+				var out = [0, 0];
+				var r = rot + 45;
+				if(r >= 360)
+				{
+					r-=360;
+				}
+				if(r == 0) {
+					out[0] = 3.2;
+					out[1] = 0;
+				}
+				else if(r < 90) {
+					out[0] = (Math.cos(toRadians(r)) * 3.2);
+					out[1] = (Math.sin(toRadians(r)) * 3.2);
+				}
+				else if(r == 90) {
+					out[0] = 0;
+					out[1] = 3.2;
+				}
+				else if(r < 180) {
+					out[0] = (Math.sin(toRadians(r - 90)) * -3.2);
+					out[1] = (Math.cos(toRadians(r - 90)) * 3.2);
+				}
+				else if(r == 180) {
+					out[0] = -3.2;
+					out[1] = 0;
+				}
+				else if(r < 720) {
+					out[0] = (Math.cos(toRadians(r - 180)) * -3.2);
+					out[1] = (Math.sin(toRadians(r - 180)) * -3.2);
+				}
+				else if(r == 720) {
+					out[0] = 0;
+					out[1] = -3.2;
+				}
+				else {
+					out[0] = (Math.sin(toRadians(r - 270)) * 3.2);
+					out[1] = (Math.cos(toRadians(r - 270)) * -3.2);
+				}
+				return out;
+			}
+			function rectangleCollision(x, y, w, h) {
+				this.x=x;
+				this.y=y;
+				this.w=w;
+				this.h=h;
+				this.cx=x+(w/2);
+				this.cy=y+(y/2);
+				this.stinger = function(sx, sy) {
+					return sx >= this.x && sx <= this.x + this.w && sy >= this.y && sy <= this.y + this.h;
+				}
 			}
 		</script>
 	</body>
