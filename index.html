@@ -53,7 +53,7 @@
 						GameArea.moved = false;
 						touchTime = 0;
 					});
-					window.addEventListener('mousedown', function (e) {
+					window.addEventListener('mousemove', function (e) {
 						var xm = GameArea.x - e.clientX;
 						var ym = GameArea.y - e.clientY;
 						GameArea.moved = (xm < -10) || (xm > 10) || (ym < -10) || (ym > 10) || GameArea.moved;
