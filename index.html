@@ -32,6 +32,7 @@
 			var start;
 			var coll;
 			var move;
+			var holdClick;
 			var ys;
 			var xs;
 			var rs;
@@ -61,8 +62,8 @@
 						GameArea.y = e.clientY;
 					});
 					window.addEventListener('mouseup', function (e) {
-						GameArea.x = e.clientX;
-						GameArea.y = e.clientY;
+						//GameArea.x = e.clientX;
+						//GameArea.y = e.clientY;
 						if(!start) {
 							music.play();
 							start=true;
@@ -279,7 +280,7 @@
 								rs = xs + ys;
 							}
 							else {
-								rs = xs - ymi;
+								rs = xs - ys;
 							}
 							//moves = moves + 1;
 							move=true;
