@@ -33,6 +33,8 @@
 			var coll;
 			var move;
 			var ys;
+			var xs;
+			var rs;
 			var GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -248,6 +250,7 @@
 					bee.drawRot(rot);
 					if(move) {
 						yPos = yPos + ys;
+						xPos = xPos + xs;
 						if(ys > (0 - MAX_SPEED)) {
 							ys = ys -0.001;
 						}
@@ -258,7 +261,33 @@
 			function tap() {
 				if(!(GameArea.moved)) {
 					if(touchTime < 120) {
-						touchTime = touchTime;
+						if(!move) {
+							var xx = (GameArea.x2 - 400) / 1000.0;
+							var yy = ((1200 - GameArea.y2) - 600) / 1000.0;
+							if(xx > MAX_SPEED) {
+								xx = MAX_SPEED;
+							}
+							if(xx < (0 - MAX_SPEED)) {
+								xx = 0 - MAX_SPEED;
+							}
+							if(yy>MAX_SPEED) {
+								yy = MAX_SPEED;
+							}
+							if(yy < (0 - MAX_SPEED))
+							{
+								yy = 0 - MAX_SPEED;
+							}
+							xs=xx;
+							ys=yy;
+							if(xs * ys >0) {
+								rs = xs + ys;
+							}
+							else {
+								rs = xs - ymi;
+							}
+							//moves = moves + 1;
+							move=true;
+						}
 					}
 					else {
 						touchTime = touchTime;
