@@ -33,6 +33,8 @@
 			var coll;
 			var move;
 			var holdClick;
+			var holeInOne;
+			var moves;
 			var ys;
 			var xs;
 			var rs;
@@ -154,6 +156,8 @@
 				xPos = 30;
 				yPos = 20;
 				move = true;
+				holeInOne = false;
+				moves = 0;
 				ys = 0;
 				xs = 0;
 				rs = 0;
@@ -246,11 +250,353 @@
 					background.drawPortion();
 					bee.drawRot(rot);
 					if(move) {
-						yPos = yPos + ys;
 						xPos = xPos + xs;
+						if(holeInOne && moves > 0) {
+							if(xs < MAX_SPEED / 2 && xs > 0 - MAX_SPEED / 2) {
+								if(xs == 0) {
+									if(Math.random() > 0.5) {
+										xs = xs + 0.001;
+									}
+									else {
+										xs = xs - 0.001;
+									}
+								}
+								if(xmi < 0) {
+									xs = xs - 0.001;
+								}
+								else {
+									xs = xs + 0.001;
+								}
+							}
+							if(ys < MAX_SPEED / 2 && ys > 0 - MAX_SPEED / 2) {
+								if(ys == 0) {
+									if(Math.random() > 0.5) {
+										ys = ys + 0.001;
+									}
+									else {
+										ys = ys - 0.001;
+									}
+								}
+								if(ys > 0 && Math.random()>0.1) {
+									ys = ys + 0.001
+								}
+							}
+							if(rs < MAX_SPEED * 500 && rs > 0 - MAX_SPEED * 500) {
+								if(rs == 0) {
+									rs = rs + Math.random() - 0.5;
+								}
+							}
+						}
+						yPos = yPos + ys;
 						if(ys > (0 - MAX_SPEED)) {
 							ys = ys -0.001;
 						}
+						var b=true
+						var slope=false
+							if(ys < 0)
+							{
+								if(beeColl(xPos, yPos)) {
+									b=false;
+									ys = ys + 0.002;
+									var grav = false;
+								while(beeColl(xPos, yPos))
+								{
+									do {
+										xPos = xPos + 0.001;
+										if(!beeLast(xPos, yPos)) {
+											grav = true;
+											slope = true;
+											rs += 0.1 f;
+										}
+										else {
+											xs = xs - 0.002;
+											if(!beeLast(xPos, yPos)) {
+												grav=true;
+												slope=true;
+												rs = rs - 0.1f;
+											}
+											else {
+												xPos = xPos + 1;
+									yi+=1;
+								}
+							}
+						}
+						}
+						while(beeLast(xPos,yPos));
+									ys = ys * -3;
+									ymi/=4;
+					if(holeInOne)
+						ymi*=2;
+					if(ymi>MAX_SPEED)
+						ymi=MAX_SPEED;
+					if(grav)
+						ymi*=-1;
+					xmi*=9;
+					xmi/=10;
+					int r2=(int)r;
+					if(xmi<MAX_SPEED&&(r2<45||r2>225))
+						xmi+=2;
+					if(xmi>-MAX_SPEED&&(r2>45&&r2<225))
+						xmi-=2;
+					if(rs*xmi<0)
+					{
+						xmi+=rs;
+						rs=xmi;
+					}
+					else if(rs*rs>xmi*xmi)
+						xmi=(int)rs;
+					else
+						rs=xmi;
+				}
+			}
+			else if(ymi>0)
+			{
+				if(collision.bee(xi/SCALE,yi/SCALE))
+				{
+					b=false;
+					ymi-=1;
+					while(collision.bee(xi/SCALE,yi/SCALE))
+						do
+						{
+							yi-=1;
+						}
+						while(collision.beeLast(xi/SCALE,yi/SCALE));
+					ymi*=-3;
+					ymi/=4;
+					if(holeInOne)
+						ymi*=2;
+					if(ymi<-MAX_SPEED)
+						ymi=-MAX_SPEED;
+					int r2=(int)r;
+					if(rs*xmi>0)
+					{
+						xmi-=rs;
+						rs=-xmi;
+					}
+					else if(rs*rs>xmi*xmi)
+						xmi=(int)-rs;
+					else
+						rs=-xmi;
+				}
+			}
+			if(b)
+			{
+				//rs*=0.9f;
+				int r2=(int)r;
+				if(r2<45||r2>225)
+				{
+//					if(r2<45)
+//					{
+//						r2+=135;
+//					}
+//					else
+//					{
+//						r2-=180;
+//					}
+//					rs+=r2/36f;
+					if(rs>0)
+					{
+						rs*=1.05f;
+					}
+					else if(rs<0)
+					{
+						rs*=0.93f;
+						if(rs>-0.1f)
+							rs=0.1f;
+					}
+					else
+					{
+						rs=0.1f;
+					}
+				}
+				if(r2>45&&r2<225)
+				{
+//					r2-=45;
+//					r2=180-r2;
+//					rs-=r2/36f;
+					if(rs<0)
+					{
+						rs*=1.05f;
+					}
+					else if(rs>0)
+					{
+						rs*=0.93f;
+						if(rs<0.1f)
+							rs=-0.1f;
+					}
+					else
+					{
+						rs=-0.1f;
+					}
+				}
+			}
+			xi+=xmi;
+			r-=(rs/ROTSCALE);//+(Math.random()*((xmi>0)?1:((xmi<0)?-1:0)));
+			if(r<0)
+				r+=360;
+			if(r>=360)
+				r-=360;
+			if(xmi<0)
+			{
+				if(collision.bee(xi/SCALE,yi/SCALE))
+				{
+					xmi+=1;
+					while(collision.bee(xi/SCALE,yi/SCALE))
+						do
+						{
+							xi+=1;
+						}
+						while(collision.beeLast(xi/SCALE,yi/SCALE));
+					xmi*=-3;
+					xmi/=4;
+					if(holeInOne)
+						xmi*=2;
+					if(xmi>MAX_SPEED)
+						xmi=MAX_SPEED;
+					int r2=(int)r;
+					if(rs*ymi<0)
+					{
+						ymi+=rs;
+						rs=ymi;
+					}
+					else if(rs*rs>ymi*ymi)
+						ymi=(int)rs;
+					else
+						rs=ymi;
+				}
+			}
+			else if(xmi>0)
+			{
+				if(collision.bee(xi/SCALE,yi/SCALE))
+				{
+					xmi-=1;
+					while(collision.bee(xi/SCALE,yi/SCALE))
+						do
+						{
+							xi-=1;
+						}
+						while(collision.beeLast(xi/SCALE,yi/SCALE));
+					xmi*=-3;
+					xmi/=4;
+					if(holeInOne)
+						xmi*=2;
+					if(xmi<-MAX_SPEED)
+						xmi=-MAX_SPEED;
+					int r2=(int)r;
+					if(rs*ymi>0)
+					{
+						ymi-=rs;
+						rs=-ymi;
+					}
+					else if(rs*rs>ymi*ymi)
+						ymi=(int)-rs;
+					else
+						rs=-ymi;
+				}
+			}
+			if((!holeInOne)&&collision.die(xi/SCALE,yi/SCALE))
+			{
+				xi=30000;
+				yi=20000;
+				x=30;
+				y=20;
+				mx=0;
+				my=0;
+				xmi=0;
+				ymi=0;
+				r=225;
+				rs=0;
+			}
+			if((int)x==xh&&(int)y==yh)
+			{
+				count++;
+				if(count==60)
+				{
+					xmi*=-1;
+					ymi*=-1;
+				}
+				if(count>60)
+				{
+					xmi+=(Math.random()*MAX_SPEED*2)-MAX_SPEED;
+					ymi+=(Math.random()*MAX_SPEED*2)-MAX_SPEED;
+				}
+			}
+			else
+			{
+				count=0;
+			}
+			xh=(int)x;
+			yh=(int)y;
+			if(collision.win(xi/SCALE,yi/SCALE))
+			{
+				Score s=new Score(time,moves);
+				done.play();
+				play=false;
+				if(!(TEST||showCollision||holeInOne))
+				{
+					wins++;
+					for(int i=0;i<3;i++)
+					{
+						if(bestMoves[i].beatenMoves(s))
+						{
+							for(int i2=2;i2>i;i2--)
+							{
+								bestMoves[i2]=bestMoves[i2-1];
+							}
+							bestMoves[i]=s;
+							break;
+						}
+					}
+					for(int i=0;i<3;i++)
+					{
+						if(bestTime[i].beatenTime(s))
+						{
+							for(int i2=2;i2>i;i2--)
+							{
+								bestTime[i2]=bestTime[i2-1];
+							}
+							bestTime[i]=s;
+							break;
+						}
+					}
+					save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
+				}
+				else if(!(TEST||showCollision))
+				{
+					holeInOneWins++;
+					for(int i=0;i<3;i++)
+					{
+						if(bestHoleInOne[i].beatenTime(s))
+						{
+							for(int i2=2;i2>i;i2--)
+							{
+								bestHoleInOne[i2]=bestHoleInOne[i2-1];
+							}
+							bestHoleInOne[i]=s;
+							break;
+						}
+					}
+					save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
+				}
+			}
+		}
+		x=xi/SCALE;
+		mx=xmi/SCALE;
+		y=yi/SCALE;
+		my=ymi/SCALE;
+//		if(x<0||x>200||y<0||y>500)
+//		{
+//			xi=30000;
+//			yi=20000;
+//			x=30;
+//			y=20;
+//			mx=0;
+//			my=0;
+//			xmi=0;
+//			ymi=0;
+//			r=225;
+//			rs=0;
+//		}
 						stinger();
 					}
 				}
