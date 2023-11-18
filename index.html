@@ -299,30 +299,29 @@
 									b=false;
 									ys = ys + 0.002;
 									var grav = false;
-								while(beeColl(xPos, yPos))
-								{
-									do {
-										xPos = xPos + 0.001;
-										if(!beeLast(xPos, yPos)) {
-											grav = true;
-											slope = true;
-											rs += 0.1 f;
-										}
-										else {
-											xs = xs - 0.002;
+									while(beeColl(xPos, yPos)) {
+										do {
+											xPos = xPos + 0.001;
 											if(!beeLast(xPos, yPos)) {
-												grav=true;
-												slope=true;
-												rs = rs - 0.1f;
+												grav = true;
+												slope = true;
+												rs += 0.1;
 											}
 											else {
-												xPos = xPos + 0.001;
-												yPos = yPos - 0.001;
+												xs = xs - 0.002;
+												if(!beeLast(xPos, yPos)) {
+													grav=true;
+													slope=true;
+													rs = rs - 0.1;
+												}
+												else {
+													xPos = xPos + 0.001;
+													yPos = yPos - 0.001;
+												}
 											}
-							}
-						}
-						}
-						while(beeLast(xPos,yPos));
+										}
+											while(beeLast(xPos,yPos));
+									}
 									ys = ys * -3;
 									ymi/=4;
 					if(holeInOne)
@@ -675,6 +674,26 @@
 					}
 				}
 			}
+			function beeColl(xb, yb) {
+				var sp = findStinger();
+				int l = 0;
+				for(var i of coll) {
+					if(i.bee(xb, yb))
+					{
+						move = false;
+						return true;
+						break;
+					}
+				}
+			}
+			function beeLast(xb, yb) {
+				try {
+					return coll.bee(xb, yb);
+				}
+				catch(e) {
+					return false;
+				}
+			}
 			function findStinger() {
 				var out = [0, 0];
 				var r = rot + 45;
@@ -725,6 +744,9 @@
 				this.cy=y+(y/2);
 				this.stinger = function(sx, sy) {
 					return sx >= this.x && sx <= this.x + this.w && sy >= this.y && sy <= this.y + this.h;
+				}
+				this.bee = function(sx, sy) {
+					return false;
 				}
 			}
 		</script>
