@@ -22,29 +22,29 @@
 			const validChars = ["a","b"];
 			const MAX_SPEED = 0.350;
 			const ROTSCALE = 35.809862195676450;
-			var ctx;
-			var bee;
-			var background;
-			var xPos;
-			var yPos;
-			var rot;
-			var touchTime;
-			var music;
-			var start;
-			var coll;
-			var move;
-			var holdClick;
-			var holeInOne;
-			var moves;
-			var ys;
-			var xs;
-			var rs;
-			var xh;
-			var yh;
-			var count;
-			var play;
-			var last;
-			var GameArea = {
+			let ctx;
+			let bee;
+			let background;
+			let xPos;
+			let yPos;
+			let rot;
+			let touchTime;
+			let music;
+			let start;
+			let coll;
+			let move;
+			let holdClick;
+			let holeInOne;
+			let moves;
+			let ys;
+			let xs;
+			let rs;
+			let xh;
+			let yh;
+			let count;
+			let play;
+			let last;
+			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
 					this.canvas.style.cursor = "none";
@@ -299,13 +299,13 @@
 						if(ys > (0 - MAX_SPEED)) {
 							ys = ys -0.001;
 						}
-						var b=true;
-						var slope=false;
+						b=true;
+						slope=false;
 						if(ys < 0) {
 							if(beeColl(xPos, yPos)) {
 								b=false;
 								ys = ys + 0.002;
-								var grav = false;
+								grav = false;
 								while(beeColl(xPos, yPos)) {
 									do {
 										xPos = xPos + 0.001;
@@ -392,7 +392,7 @@
 						}
 						if(b)
 						{
-							var r2 = r;
+							r2 = r;
 							if(r2 < 45 || r2 > 225) {
 								if(rs > 0)
 								{
@@ -447,7 +447,7 @@
 								if(xs > MAX_SPEED) {
 									xs = MAX_SPEED;
 								}
-								var r2 = r;
+								r2 = r;
 								if(rs * ymi < 0) {
 									ys = ys + rs;
 									rs = ys;
@@ -476,7 +476,7 @@
 								if(xs < 0 - MAX_SPEED) {
 									xs = 0 - MAX_SPEED;
 								}
-								var r2 = r;
+								r2 = r;
 								if(rs * ys > 0)
 								{
 									ys = ys -rs;
@@ -575,8 +575,8 @@
 				if(!(GameArea.moved)) {
 					if(touchTime < 120) {
 						if(!move) {
-							var xx = (GameArea.x2 - 400) / 1000.0;
-							var yy = ((1200 - GameArea.y2) - 600) / 1000.0;
+							xx = (GameArea.x2 - 400) / 1000.0;
+							yy = ((1200 - GameArea.y2) - 600) / 1000.0;
 							if(xx > MAX_SPEED) {
 								xx = MAX_SPEED;
 							}
@@ -636,8 +636,8 @@
 				return angle * Math.PI / 180;
 			}
 			function stinger() {
-				var sp = findStinger();
-				for(i; of; coll) {
+				sp = findStinger();
+				for(let i of coll) {
 					if(i.stinger(sp[0] + xPos, sp[1] + yPos))
 					{
 						move = false;
@@ -646,9 +646,9 @@
 				}
 			}
 			function beeColl(xb, yb) {
-				var sp = findStinger();
-				var l = 0;
-				for(i; of; coll) {
+				sp = findStinger();
+				l = 0;
+				for(let i of coll) {
 					if(i.bee(xb, yb))
 					{
 						move = false;
@@ -671,8 +671,8 @@
 				}
 			}
 			function findStinger() {
-				var out = [0, 0];
-				var r = rot + 45;
+				out = [0, 0];
+				r = rot + 45;
 				if(r >= 360)
 				{
 					r-=360;
@@ -755,13 +755,13 @@
 				this.y=y;
 				this.r=r;
 				this.stinger = function(sx, sy) {
-					var dx = sx - this.x;
-					var dy = sy - this.y;
+					dx = sx - this.x;
+					dy = sy - this.y;
 					return Math.sqrt((dx * dx) + (dy * dy)) < r;
 				}
 				this.bee = function(bx, by) {
-					var dx = bx - this.x;
-					var dy = by - this.y;
+					dx = bx - this.x;
+					dy = by - this.y;
 					return Math.sqrt((dx * dx) + (dy * dy)) < r + 1.6;
 				}
 			}
@@ -771,15 +771,15 @@
 				this.xr=xr;
 				this.yr=yr;
 				this.stinger = function(sx, sy) {
-					var xd = sx - this.x;
-					var yd = sy - this.y;
+					xd = sx - this.x;
+					yd = sy - this.y;
 					if(xd < 0) {
 						xd = xd *-1;
 					}
 					if(yd<0) {
 						yd*=-1;
 					}
-					var dif = yr / xr;
+					dif = yr / xr;
 					yd = yd / dif;
 					return(Math.sqrt((xd * xd) + (yd * yd))) <= this.xr;
 				}
@@ -787,12 +787,12 @@
 					if(this.stinger(bx,by)) {
 						return true;
 					}
-					var xd = bx - this.x;
-					var yd = by - this.y;
-					var hl = Math.sqrt((xd * xd) + (yd * yd));
-					var hm = hl / 1.6;
-					var x2 = bx - (xd / hm);
-					var y2 = by - (yd / hm);
+					xd = bx - this.x;
+					yd = by - this.y;
+					hl = Math.sqrt((xd * xd) + (yd * yd));
+					hm = hl / 1.6;
+					x2 = bx - (xd / hm);
+					y2 = by - (yd / hm);
 					return this.stinger(x2,y2);
 				}
 			}
@@ -802,14 +802,14 @@
 				this.xe=xe;
 				this.ye=ye;
 				this.getHeight = function(px) {
-					var x1 = this.x;
-					var x2 = this.x + this.xe;
+					x1 = this.x;
+					x2 = this.x + this.xe;
 					if(this.xe < 0) {
-						var temp = x1;
+						temp = x1;
 						x1 = x2;
 						x2 = temp;
 					}
-					var y2 =0;
+					y2 =0;
 					if(this.ye < 0) {
 						y2 = 0 - this.ye;
 					}
@@ -817,25 +817,25 @@
 						y2 = this.ye;
 					}
 					if(this.xe < 0) {
-						var slope = y2 / this.xe * -1;
-						var h = slope * (px - x1);
+						slope = y2 / this.xe * -1;
+						h = slope * (px - x1);
 						return h;
 					}
 					else {
-						var float slope = y2 / this.xe;
-						var h = slope * (x2 - px);
+						float slope = y2 / this.xe;
+						h = slope * (x2 - px);
 						return h;
 					}
 				}
 				this.getWidth = function(py) {
-					var y1 = this.y;
-					var y2 = this.y + this.ye;
+					y1 = this.y;
+					y2 = this.y + this.ye;
 					if(this.ye < 0) {
-						var temp = y1;
+						temp = y1;
 						y1 = y2;
 						y2 =ctemp;
 					}
-					var x2 =0;
+					x2 =0;
 					if(this.xe < 0) {
 						x2 = 0 - this.xe;
 					}
@@ -848,16 +848,16 @@
 						return w;
 					}
 					else {
-						var slope = x2 / this.ye;
-						var w = slope * (y2 - py);
+						slope = x2 / this.ye;
+						w = slope * (y2 - py);
 						return w;
 					}
 				}
 				this.stinger = function(sx, sy) {
-					var x1 = this.x;
-					var x2 = this.x + this.xe;
+					x1 = this.x;
+					x2 = this.x + this.xe;
 					if(this.xe < 0) {
-						var temp = x1;
+						temp = x1;
 						x1 = x2;
 						x2 = temp;
 					}
@@ -880,15 +880,15 @@
 					if(this.stinger(bx,by)) {
 						return true;
 					}
-					var x1 = this.x;
+					x1 = this.x;
 					this.x2 = this.x + this.xe;
 					if(this.xe < 0) {
-						var temp = x1;
+						temp = x1;
 						x1 = x2;
 						x2 = temp;
 					}
 					if(bx >= this.x1 && bx <= this.x2) {
-						var h = this.getHeight(bx);
+						h = this.getHeight(bx);
 						if(this.ye < 0) {
 							return ((this.y - h) - by <= 1.6 && (this.y - h) - by >= 0) || (by - this.y <= 1.6 && by - this.y >= 0);
 						}
@@ -896,15 +896,15 @@
 							return (this.y - by <= 1.6 && this.y - by >= 0) || (by - (this.y + h) <= 1.6 && by - (this.y + h) >= 0);
 						}
 					}
-					var y1 = this.y;
-					var y2 = this.y + this.ye;
+					y1 = this.y;
+					y2 = this.y + this.ye;
 					if(ye < 0) {
-						var temp = y1;
+						temp = y1;
 						y1 = y2;
 						y2 = temp;
 					}
 					if(by >= y1 && by <= y2) {
-						var w = this.getWidth(by);
+						w = this.getWidth(by);
 						if(this.xe < 0) {
 							return ((this.x - w) - bx <= 1.6 && (this.x - w) - bx >= 0) || (bx - this.x <= 1.6 && bx - this.x >= 0);
 						}
@@ -912,10 +912,10 @@
 							return (this.x - bx <= 1.6 && this.x - bx >= 0) || (bx - (this.x + w) <= 1.6 && bx - (this.x + w) >= 0);
 						}
 					}
-					var dx1 = bx - this.x;
-					var dx2 = bx - (this.x + this.xe);
-					var dy1 = by - this.y;
-					var dy2 = by - (this.y + this.ye);
+					dx1 = bx - this.x;
+					dx2 = bx - (this.x + this.xe);
+					dy1 = by - this.y;
+					dy2 = by - (this.y + this.ye);
 					if(Math.sqrt((dx1 * dx1) + (dy1 * dy1)) <= 1.6) {
 						return true;
 					}
