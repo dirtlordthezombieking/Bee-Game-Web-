@@ -722,7 +722,7 @@
 					return sx >= this.x && sx <= this.x + this.w && sy >= this.y && sy <= this.y + this.h;
 				}
 				this.bee = function(bx, by) {
-					if(stinger(bx,by)) {
+					if(this.stinger(bx,by)) {
 						return true;
 					}
 					if(bx >= this.x && bx <= this.x + this.w) {
@@ -759,7 +759,7 @@
 					var dy = sy - this.y;
 					return Math.sqrt((dx * dx) + (dy * dy)) < r;
 				}
-				this.stinger = function(bx, by) {
+				this.bee = function(bx, by) {
 					var dx = bx - this.x;
 					var dy = by - this.y;
 					return Math.sqrt((dx * dx) + (dy * dy)) < r + 1.6;
@@ -783,8 +783,8 @@
 					yd = yd / dif;
 					return(Math.sqrt((xd * xd) + (yd * yd))) <= this.xr;
 				}
-				this.stinger = function(bx, by) {
-					if(stinger(bx,by)) {
+				this.bee = function(bx, by) {
+					if(this.stinger(bx,by)) {
 						return true;
 					}
 					var xd = bx - this.x;
@@ -793,7 +793,139 @@
 					var hm = hl / 1.6;
 					var x2 = bx - (xd / hm);
 					var y2 = by - (yd / hm);
-					return stinger(x2,y2);
+					return this.stinger(x2,y2);
+				}
+			}
+			function triangleCollision(x, y, xe, ye) {
+				this.x=x;
+				this.y=y;
+				this.xe=xe;
+				this.ye=ye;
+				this.getHeight = function(px) {
+					var x1 = this.x;
+					var x2 = this.x + this.xe;
+					if(this.xe < 0) {
+						var temp = x1;
+						x1 = x2;
+						x2 = temp;
+					}
+					var y2 =0;
+					if(this.ye < 0) {
+						y2 = 0 - this.ye;
+					}
+					else {
+						y2 = this.ye;
+					}
+					if(this.xe < 0) {
+						var slope = y2 / this.xe * -1;
+						var h = slope * (px - x1);
+						return h;
+					}
+					else {
+						var float slope = y2 / this.xe;
+						var h = slope * (x2 - px);
+						return h;
+					}
+				}
+				this.getWidth = function(py) {
+					var y1 = this.y;
+					var y2 = this.y + this.ye;
+					if(this.ye < 0) {
+						var temp = y1;
+						y1 = y2;
+						y2 =ctemp;
+					}
+					var x2 =0;
+					if(this.xe < 0) {
+						x2 = 0 - this.xe;
+					}
+					else {
+						x2 = this.xe;
+					}
+					if(ye < 0) {
+						float slope = x2 / this.ye * -1;
+						w = slope * (py - y1);
+						return w;
+					}
+					else {
+						var slope = x2 / this.ye;
+						var w = slope * (y2 - py);
+						return w;
+					}
+				}
+				this.stinger = function(sx, sy) {
+					var x1 = this.x;
+					var x2 = this.x + this.xe;
+					if(this.xe < 0) {
+						var temp = x1;
+						x1 = x2;
+						x2 = temp;
+					}
+					if(sx >= x1 && sx <= x2) {
+						if(ye < 0) {
+							if(sy < this.y)
+							{
+								return(sy > this.y - this.getHeight(sx));
+							}
+						}
+						else {
+							if(sy > this.y) {
+								return(sy < this.y + this.getHeight(sx));
+							}
+						}
+					}
+					return false;
+				}
+				this.bee = function(bx, by) {
+					if(this.stinger(bx,by)) {
+						return true;
+					}
+					var x1 = this.x;
+					this.x2 = this.x + this.xe;
+					if(this.xe < 0) {
+						var temp = x1;
+						x1 = x2;
+						x2 = temp;
+					}
+					if(bx >= this.x1 && bx <= this.x2) {
+						var h = this.getHeight(bx);
+						if(this.ye < 0) {
+							return ((this.y - h) - by <= 1.6 && (this.y - h) - by >= 0) || (by - this.y <= 1.6 && by - this.y >= 0);
+						}
+						else {
+							return (this.y - by <= 1.6 && this.y - by >= 0) || (by - (this.y + h) <= 1.6 && by - (this.y + h) >= 0);
+						}
+					}
+					var y1 = this.y;
+					var y2 = this.y + this.ye;
+					if(ye < 0) {
+						var temp = y1;
+						y1 = y2;
+						y2 = temp;
+					}
+					if(by >= y1 && by <= y2) {
+						var w = this.getWidth(by);
+						if(this.xe < 0) {
+							return ((this.x - w) - bx <= 1.6 && (this.x - w) - bx >= 0) || (bx - this.x <= 1.6 && bx - this.x >= 0);
+						}
+						else {
+							return (this.x - bx <= 1.6 && this.x - bx >= 0) || (bx - (this.x + w) <= 1.6 && bx - (this.x + w) >= 0);
+						}
+					}
+					var dx1 = bx - this.x;
+					var dx2 = bx - (this.x + this.xe);
+					var dy1 = by - this.y;
+					var dy2 = by - (this.y + this.ye);
+					if(Math.sqrt((dx1 * dx1) + (dy1 * dy1)) <= 1.6) {
+						return true;
+					}
+					if(Math.sqrt((dx1 * dx1) + (dy2 * dy2)) <= 1.6f) {
+						return true;
+					}
+					if(Math.sqrt((dx2 * dx2) + (dy1 * dy1)) <= 1.6f) {
+						return true;
+					}
+					return false;
 				}
 			}
 		</script>
