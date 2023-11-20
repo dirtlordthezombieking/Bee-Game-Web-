@@ -195,14 +195,14 @@
 				};
 				this.drawPortion = function() {
 					ctx = GameArea.ctx;
-					var x2 = (0 - this.x) / 30;
-					var y2 = (0 - this.y) / 30;
-					var x3 = 0;
-					var y3 = 0;
-					var w2 = 27;
-					var h2 = 40;
-					var w3 = 810;
-					var h3 = 1200;
+					x2 = (0 - this.x) / 30;
+					y2 = (0 - this.y) / 30;
+					x3 = 0;
+					y3 = 0;
+					w2 = 27;
+					h2 = 40;
+					w3 = 810;
+					h3 = 1200;
 					if(x > 0) {
 						x2 = 0;
 						x3 = this.x;
@@ -286,7 +286,7 @@
 									}
 								}
 								if(ys > 0 && Math.random()>0.1) {
-									ys = ys + 0.001
+									ys = ys + 0.001;
 								}
 							}
 							if(rs < MAX_SPEED * 500 && rs > 0 - MAX_SPEED * 500) {
@@ -637,7 +637,7 @@
 			}
 			function stinger() {
 				var sp = findStinger();
-				for(var i of coll) {
+				for(i; of; coll) {
 					if(i.stinger(sp[0] + xPos, sp[1] + yPos))
 					{
 						move = false;
@@ -648,7 +648,7 @@
 			function beeColl(xb, yb) {
 				var sp = findStinger();
 				var l = 0;
-				for(var i of coll) {
+				for(i; of; coll) {
 					if(i.bee(xb, yb))
 					{
 						move = false;
