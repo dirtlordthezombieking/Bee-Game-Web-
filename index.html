@@ -419,17 +419,17 @@
 									}
 								}
 								else {
-									rs = -0.1f;
+									rs = -0.1;
 								}
 							}
 						}
 						xPos = xPos + xs;
-						r = r - (rs / ROTSCALE);
+						rot = rot - (rs / ROTSCALE);
 						if(r<0) {
-							r = r + 360;
+							rot = rot + 360;
 						}
 						if(r>=360) {
-							r = r = 360;
+							rot = rot - 360;
 						}
 						if(xs<0) {
 							if(beeColl(xPos,yPos)) {
@@ -919,10 +919,10 @@
 					if(Math.sqrt((dx1 * dx1) + (dy1 * dy1)) <= 1.6) {
 						return true;
 					}
-					if(Math.sqrt((dx1 * dx1) + (dy2 * dy2)) <= 1.6f) {
+					if(Math.sqrt((dx1 * dx1) + (dy2 * dy2)) <= 1.6) {
 						return true;
 					}
-					if(Math.sqrt((dx2 * dx2) + (dy1 * dy1)) <= 1.6f) {
+					if(Math.sqrt((dx2 * dx2) + (dy1 * dy1)) <= 1.6) {
 						return true;
 					}
 					return false;
