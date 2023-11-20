@@ -718,8 +718,30 @@
 				this.stinger = function(sx, sy) {
 					return sx >= this.x && sx <= this.x + this.w && sy >= this.y && sy <= this.y + this.h;
 				}
-				this.bee = function(sx, sy) {
-					return false;
+				this.bee = function(bx, by) {
+					if(stinger(bx,by)) {
+						return true;
+					}
+					if(bx >= this.x && bx <= this.x + this.w) {
+						return (this.y - by <= 1.6 && this.y - by >= 0) || (by - (this.y + h) <= 1.6 && by - (this.y + this.h) >= 0);
+					}
+					if(by >= this.y && by <= this.y + this.h) {
+						return (this.x - bx <= 1.6 && this.x - bx >= 0) || (bx - (this.x + this.w) <= 1.6 && this.bx - (this.x + this.w) >= 0);
+					}
+					var dx1=bx - this.x;
+					var dx2=bx - (this.x + this.w);
+					var dy1=by - this.y;
+					var dy2=by - (this.y + this.h);
+					if(Math.sqrt((dx1 * dx1) + ( dy1 * dy1)) <= 1.6) {
+						return true;
+					}
+					if(Math.sqrt((dx1 * dx1) + (dy2 * dy2)) <= 1.6) {
+				return true;
+			if((float)Math.sqrt((dx2*dx2)+(dy1*dy1))<=1.6f) {
+				return true;
+			if((float)Math.sqrt((dx2*dx2)+(dy2*dy2))<=1.6f) {
+				return true;
+			return false;
 				}
 			}
 		</script>
