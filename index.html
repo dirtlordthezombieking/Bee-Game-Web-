@@ -21,22 +21,30 @@
 		<script>
 			const validChars = ["a","b"];
 			const MAX_SPEED = 0.350;
-			var ctx;
-			var bee;
-			var background;
-			var xPos;
-			var yPos;
-			var rot;
-			var touchTime;
-			var music;
-			var start;
-			var coll;
-			var move;
-			var holdClick;
-			var ys;
-			var xs;
-			var rs;
-			var GameArea = {
+			const ROTSCALE = 35.809862195676450;
+			let ctx;
+			let bee;
+			let background;
+			let xPos;
+			let yPos;
+			let rot;
+			let touchTime;
+			let music;
+			let start;
+			let coll;
+			let move;
+			let holdClick;
+			let holeInOne;
+			let moves;
+			let ys;
+			let xs;
+			let rs;
+			let xh;
+			let yh;
+			let count;
+			let play;
+			let last;
+			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
 					this.canvas.style.cursor = "none";
@@ -154,9 +162,15 @@
 				xPos = 30;
 				yPos = 20;
 				move = true;
+				holeInOne = false;
+				moves = 0;
 				ys = 0;
 				xs = 0;
 				rs = 0;
+				xh = 0;
+				yh = 0;
+				count = 0;
+				play = true;
 			}
 			function component(width, height, image, x, y) {
 				this.image = new Image();
@@ -181,14 +195,14 @@
 				};
 				this.drawPortion = function() {
 					ctx = GameArea.ctx;
-					var x2 = (0 - this.x) / 30;
-					var y2 = (0 - this.y) / 30;
-					var x3 = 0;
-					var y3 = 0;
-					var w2 = 27;
-					var h2 = 40;
-					var w3 = 810;
-					var h3 = 1200;
+					x2 = (0 - this.x) / 30;
+					y2 = (0 - this.y) / 30;
+					x3 = 0;
+					y3 = 0;
+					w2 = 27;
+					h2 = 40;
+					w3 = 810;
+					h3 = 1200;
 					if(x > 0) {
 						x2 = 0;
 						x3 = this.x;
@@ -237,8 +251,7 @@
 				reset();
 			}
 			function updateGameArea() {
-				if(start)
-				{
+				if(start && play) {
 					touchTime = touchTime +1;
 					GameArea.clear();
 					//rot = rot + 1;
@@ -246,11 +259,314 @@
 					background.drawPortion();
 					bee.drawRot(rot);
 					if(move) {
+						if(holeInOne && moves > 0) {
+							if(xs < MAX_SPEED / 2 && xs > 0 - MAX_SPEED / 2) {
+								if(xs == 0) {
+									if(Math.random() > 0.5) {
+										xs = xs + 0.001;
+									}
+									else {
+										xs = xs - 0.001;
+									}
+								}
+								if(xmi < 0) {
+									xs = xs - 0.001;
+								}
+								else {
+									xs = xs + 0.001;
+								}
+							}
+							if(ys < MAX_SPEED / 2 && ys > 0 - MAX_SPEED / 2) {
+								if(ys == 0) {
+									if(Math.random() > 0.5) {
+										ys = ys + 0.001;
+									}
+									else {
+										ys = ys - 0.001;
+									}
+								}
+								if(ys > 0 && Math.random()>0.1) {
+									ys = ys + 0.001;
+								}
+							}
+							if(rs < MAX_SPEED * 500 && rs > 0 - MAX_SPEED * 500) {
+								if(rs == 0) {
+									rs = rs + Math.random() - 0.5;
+								}
+							}
+						}
 						yPos = yPos + ys;
-						xPos = xPos + xs;
 						if(ys > (0 - MAX_SPEED)) {
 							ys = ys -0.001;
 						}
+						b=true;
+						slope=false;
+						if(ys < 0) {
+							if(beeColl(xPos, yPos)) {
+								b=false;
+								ys = ys + 0.002;
+								grav = false;
+								while(beeColl(xPos, yPos)) {
+									do {
+										xPos = xPos + 0.001;
+										if(!beeLast(xPos, yPos)) {
+											grav = true;
+											slope = true;
+											rs += 0.1;
+										}
+										else {
+											xs = xs - 0.002;
+											if(!beeLast(xPos, yPos)) {
+												grav=true;
+												slope=true;
+												rs = rs - 0.1;
+											}
+											else {
+												xPos = xPos + 0.001;
+												yPos = yPos - 0.001;
+											}
+										}
+									} while(beeLast(xPos,yPos));
+								}
+								ys = ys * -3;
+								ys = ys / 4;
+								if(holeInOne) {
+									ys = ys * 2;
+								}
+								if(ys > MAX_SPEED) {
+									ys = MAX_SPEED;
+								}	
+								if(grav) {
+									ys = ys * -1;
+								}
+								xs = xs * 9;
+								xs = xs / 10;
+								var r2= rot;
+								if(xs < MAX_SPEED && (r2 < 45 || r2 > 225)) {
+									xs = xs + 2;
+								}
+								if(xs > (0 - MAX_SPEED) && (r2 > 45 && r2 < 225)) {
+									xs = xs - 2;
+								}
+								if(rs * xs < 0) {
+									xs = xs + rs;
+									rs = xs;
+								}
+								else if(rs * rs > xs * xs) {
+									xs = rs;
+								}
+								else {
+									rs = xs;
+								}
+							}
+						}
+						else if(ys > 0) {
+							if(beeColl(xPos, yPos)) {
+								b=false;
+								ys = ys -1;
+								while(beeColl(xPos, yPos)) {
+									do {
+										yPos = ypos - 1;
+									} while(beeLast(xPos,yPos));
+								}
+								ys = xs * -3;
+								ys = ys * 4;
+								if(holeInOne) {
+									ys = ys * 2;
+								}
+								if(ys < 0 - MAX_SPEED) {
+									ys = 0 - MAX_SPEED;
+								}
+								var r2 = rot;
+								if(rs * xs > 0) {
+									xs = xs - rs;
+									rs = 0 - xs;
+								}
+								else if(rs * rs > xs * xs) {
+									xs = 0 - rs;
+								}
+								else {
+									rs = 0 - xs;
+								}
+							}
+						}
+						if(b)
+						{
+							r2 = r;
+							if(r2 < 45 || r2 > 225) {
+								if(rs > 0)
+								{
+									rs = rs * 1.05;
+								}
+								else if(rs < 0) {
+									rs = rs * 0.93;
+									if(rs > -0.1) {
+										rs = 0.1;
+									}
+								}
+								else {
+									rs = 0.1;
+								}
+							}
+							if(r2 > 45 && r2 < 225) {
+								if(rs < 0) {
+									rs = rs * 1.05;
+								}
+								else if(rs > 0) {
+									rs = rs * 0.93;
+									if(rs<0.1) {
+										rs = -0.1;
+									}
+								}
+								else {
+									rs = -0.1;
+								}
+							}
+						}
+						xPos = xPos + xs;
+						rot = rot - (rs / ROTSCALE);
+						if(r<0) {
+							rot = rot + 360;
+						}
+						if(r>=360) {
+							rot = rot - 360;
+						}
+						if(xs<0) {
+							if(beeColl(xPos,yPos)) {
+								xs = xs + 1;
+								while(beeColl(xPos, yPos)) {
+									do {
+										xPos = xPos + 1;
+									} while(beeLast(xPos, yPos));
+								}
+								xs = xs * -3;
+								xs = xs / 4;
+								if(holeInOne) {
+									xs = xs * 2;
+								}
+								if(xs > MAX_SPEED) {
+									xs = MAX_SPEED;
+								}
+								r2 = r;
+								if(rs * ymi < 0) {
+									ys = ys + rs;
+									rs = ys;
+								}
+								else if(rs * rs > ys * ys) {
+									ys = rs;
+								}
+								else {
+									rs = ys;
+								}
+							}
+						}
+						else if(xs > 0) {
+							if(beeColl(xPos,yPos)) {
+								xs = xs - 1;
+								while(beeColl(xPos, yPos)) {
+									do {
+										xPos = xPos - 1;
+									} while(beeLast(xPos, yPos));
+								}
+								xs = xs * -3;
+								xs = xs / 4;
+								if(holeInOne) {
+									xs = xs *2;
+								}
+								if(xs < 0 - MAX_SPEED) {
+									xs = 0 - MAX_SPEED;
+								}
+								r2 = r;
+								if(rs * ys > 0)
+								{
+									ys = ys -rs;
+									rs = 0 - ys;
+								}
+								else if(rs * rs> ys * ys) {
+									ys = 0 - rs;
+								}
+								else {
+									rs = 0 - ys;
+								}
+							}
+						}
+						if((!holeInOne) && die(xPos, yPos))
+						{
+							xPos = 30;
+							yPos = 20;
+							xs = 0;
+							ys = 0;
+							rot = 225;
+							rs = 0;
+						}
+						if(Math.floor(xPos) == xh && Math.floor(yPos) == yh && holeInOne) {
+							count++;
+							if(count == 60) {
+								xs = xs * -1;
+								ys = ys * -1;
+							}
+							if(count > 60) {
+								xs = xs + (Math.random() * MAX_SPEED * 2) - MAX_SPEED;
+								ys = ys + (Math.random() * MAX_SPEED * 2) - MAX_SPEED;
+							}
+						}
+						else {
+							count = 0;
+						}
+						xh = Math.floor(xPos);
+						yh = Math.floor(yPos);
+							//if(win(xPos,yPos)) {
+								//Score s  =new Score(time,moves);
+								//done.play();
+							//play=false;
+								//if(!(TEST||showCollision||holeInOne))
+				//{
+					//wins++;
+					//for(int i=0;i<3;i++)
+					//{
+						//if(bestMoves[i].beatenMoves(s))
+						//{
+							//for(int i2=2;i2>i;i2--)
+							//{
+								//bestMoves[i2]=bestMoves[i2-1];
+							//}
+							//bestMoves[i]=s;
+							//break;
+						//}
+					//}
+					//for(int i=0;i<3;i++)
+					//{
+						//if(bestTime[i].beatenTime(s))
+						//{
+							//for(int i2=2;i2>i;i2--)
+							//{
+								//bestTime[i2]=bestTime[i2-1];
+							//}
+							//bestTime[i]=s;
+							//break;
+						//}
+					//}
+					//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
+				//}
+				//else if(!(TEST||showCollision))
+				//{
+					//holeInOneWins++;
+					//for(int i=0;i<3;i++)
+					//{
+						//if(bestHoleInOne[i].beatenTime(s))
+						//{
+							//for(int i2=2;i2>i;i2--)
+							//{
+							//	bestHoleInOne[i2]=bestHoleInOne[i2-1];
+							//}
+							//bestHoleInOne[i]=s;
+							//break;
+						//}
+					//}
+					//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
+				//}
+			//}
+						//}
 						stinger();
 					}
 				}
@@ -259,8 +575,8 @@
 				if(!(GameArea.moved)) {
 					if(touchTime < 120) {
 						if(!move) {
-							var xx = (GameArea.x2 - 400) / 1000.0;
-							var yy = ((1200 - GameArea.y2) - 600) / 1000.0;
+							xx = (GameArea.x2 - 400) / 1000.0;
+							yy = ((1200 - GameArea.y2) - 600) / 1000.0;
 							if(xx > MAX_SPEED) {
 								xx = MAX_SPEED;
 							}
@@ -320,8 +636,8 @@
 				return angle * Math.PI / 180;
 			}
 			function stinger() {
-				var sp = findStinger();
-				for(var i of coll) {
+				sp = findStinger();
+				for(let i of coll) {
 					if(i.stinger(sp[0] + xPos, sp[1] + yPos))
 					{
 						move = false;
@@ -329,9 +645,34 @@
 					}
 				}
 			}
+			function beeColl(xb, yb) {
+				sp = findStinger();
+				l = 0;
+				for(let i of coll) {
+					if(i.bee(xb, yb))
+					{
+						move = false;
+						last = l;
+						return true;
+						break;
+					}
+					l++;
+				}
+			}
+			function die (xb, yb) {
+				return false;
+			}
+			function beeLast(xb, yb) {
+				try {
+					return coll[last].bee(xb, yb);
+				}
+				catch(e) {
+					return false;
+				}
+			}
 			function findStinger() {
-				var out = [0, 0];
-				var r = rot + 45;
+				out = [0, 0];
+				r = rot + 45;
 				if(r >= 360)
 				{
 					r-=360;
@@ -379,6 +720,212 @@
 				this.cy=y+(y/2);
 				this.stinger = function(sx, sy) {
 					return sx >= this.x && sx <= this.x + this.w && sy >= this.y && sy <= this.y + this.h;
+				}
+				this.bee = function(bx, by) {
+					if(this.stinger(bx,by)) {
+						return true;
+					}
+					if(bx >= this.x && bx <= this.x + this.w) {
+						return (this.y - by <= 1.6 && this.y - by >= 0) || (by - (this.y + h) <= 1.6 && by - (this.y + this.h) >= 0);
+					}
+					if(by >= this.y && by <= this.y + this.h) {
+						return (this.x - bx <= 1.6 && this.x - bx >= 0) || (bx - (this.x + this.w) <= 1.6 && this.bx - (this.x + this.w) >= 0);
+					}
+					var dx1=bx - this.x;
+					var dx2=bx - (this.x + this.w);
+					var dy1=by - this.y;
+					var dy2=by - (this.y + this.h);
+					if(Math.sqrt((dx1 * dx1) + (dy1 * dy1)) <= 1.6) {
+						return true;
+					}
+					if(Math.sqrt((dx1 * dx1) + (dy2 * dy2)) <= 1.6) {
+						return true;
+					}
+					if(Math.sqrt((dx2 * dx2) + (dy1 * dy1)) <= 1.6) {
+						return true;
+					}
+					if(Math.sqrt((dx2 * dx2) + (dy2 * dy2)) <= 1.6) {
+						return true;
+					}
+					return false;
+				}
+			}
+			function circleCollision(x, y, r){
+				this.x=x;
+				this.y=y;
+				this.r=r;
+				this.stinger = function(sx, sy) {
+					dx = sx - this.x;
+					dy = sy - this.y;
+					return Math.sqrt((dx * dx) + (dy * dy)) < r;
+				}
+				this.bee = function(bx, by) {
+					dx = bx - this.x;
+					dy = by - this.y;
+					return Math.sqrt((dx * dx) + (dy * dy)) < r + 1.6;
+				}
+			}
+			function OvalCollision(x, y, xr, yr) {
+				this.x=x;
+				this.y=y;
+				this.xr=xr;
+				this.yr=yr;
+				this.stinger = function(sx, sy) {
+					xd = sx - this.x;
+					yd = sy - this.y;
+					if(xd < 0) {
+						xd = xd *-1;
+					}
+					if(yd<0) {
+						yd*=-1;
+					}
+					dif = yr / xr;
+					yd = yd / dif;
+					return(Math.sqrt((xd * xd) + (yd * yd))) <= this.xr;
+				}
+				this.bee = function(bx, by) {
+					if(this.stinger(bx,by)) {
+						return true;
+					}
+					xd = bx - this.x;
+					yd = by - this.y;
+					hl = Math.sqrt((xd * xd) + (yd * yd));
+					hm = hl / 1.6;
+					x2 = bx - (xd / hm);
+					y2 = by - (yd / hm);
+					return this.stinger(x2,y2);
+				}
+			}
+			function triangleCollision(x, y, xe, ye) {
+				this.x=x;
+				this.y=y;
+				this.xe=xe;
+				this.ye=ye;
+				this.getHeight = function(px) {
+					x1 = this.x;
+					x2 = this.x + this.xe;
+					if(this.xe < 0) {
+						temp = x1;
+						x1 = x2;
+						x2 = temp;
+					}
+					y2 =0;
+					if(this.ye < 0) {
+						y2 = 0 - this.ye;
+					}
+					else {
+						y2 = this.ye;
+					}
+					if(this.xe < 0) {
+						slope = y2 / this.xe * -1;
+						h = slope * (px - x1);
+						return h;
+					}
+					else {
+						float slope = y2 / this.xe;
+						h = slope * (x2 - px);
+						return h;
+					}
+				}
+				this.getWidth = function(py) {
+					y1 = this.y;
+					y2 = this.y + this.ye;
+					if(this.ye < 0) {
+						temp = y1;
+						y1 = y2;
+						y2 =ctemp;
+					}
+					x2 =0;
+					if(this.xe < 0) {
+						x2 = 0 - this.xe;
+					}
+					else {
+						x2 = this.xe;
+					}
+					if(ye < 0) {
+						float slope = x2 / this.ye * -1;
+						w = slope * (py - y1);
+						return w;
+					}
+					else {
+						slope = x2 / this.ye;
+						w = slope * (y2 - py);
+						return w;
+					}
+				}
+				this.stinger = function(sx, sy) {
+					x1 = this.x;
+					x2 = this.x + this.xe;
+					if(this.xe < 0) {
+						temp = x1;
+						x1 = x2;
+						x2 = temp;
+					}
+					if(sx >= x1 && sx <= x2) {
+						if(ye < 0) {
+							if(sy < this.y)
+							{
+								return(sy > this.y - this.getHeight(sx));
+							}
+						}
+						else {
+							if(sy > this.y) {
+								return(sy < this.y + this.getHeight(sx));
+							}
+						}
+					}
+					return false;
+				}
+				this.bee = function(bx, by) {
+					if(this.stinger(bx,by)) {
+						return true;
+					}
+					x1 = this.x;
+					this.x2 = this.x + this.xe;
+					if(this.xe < 0) {
+						temp = x1;
+						x1 = x2;
+						x2 = temp;
+					}
+					if(bx >= this.x1 && bx <= this.x2) {
+						h = this.getHeight(bx);
+						if(this.ye < 0) {
+							return ((this.y - h) - by <= 1.6 && (this.y - h) - by >= 0) || (by - this.y <= 1.6 && by - this.y >= 0);
+						}
+						else {
+							return (this.y - by <= 1.6 && this.y - by >= 0) || (by - (this.y + h) <= 1.6 && by - (this.y + h) >= 0);
+						}
+					}
+					y1 = this.y;
+					y2 = this.y + this.ye;
+					if(ye < 0) {
+						temp = y1;
+						y1 = y2;
+						y2 = temp;
+					}
+					if(by >= y1 && by <= y2) {
+						w = this.getWidth(by);
+						if(this.xe < 0) {
+							return ((this.x - w) - bx <= 1.6 && (this.x - w) - bx >= 0) || (bx - this.x <= 1.6 && bx - this.x >= 0);
+						}
+						else {
+							return (this.x - bx <= 1.6 && this.x - bx >= 0) || (bx - (this.x + w) <= 1.6 && bx - (this.x + w) >= 0);
+						}
+					}
+					dx1 = bx - this.x;
+					dx2 = bx - (this.x + this.xe);
+					dy1 = by - this.y;
+					dy2 = by - (this.y + this.ye);
+					if(Math.sqrt((dx1 * dx1) + (dy1 * dy1)) <= 1.6) {
+						return true;
+					}
+					if(Math.sqrt((dx1 * dx1) + (dy2 * dy2)) <= 1.6) {
+						return true;
+					}
+					if(Math.sqrt((dx2 * dx2) + (dy1 * dy1)) <= 1.6) {
+						return true;
+					}
+					return false;
 				}
 			}
 		</script>
