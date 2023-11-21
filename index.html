@@ -44,6 +44,8 @@
 			let count;
 			let play;
 			let last;
+			let dieCol;
+			let winCol;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -632,7 +634,60 @@
 			function loadTestLevel() {
 				background = new component(6000, 15000, "test level", 0, 0);
 				coll = [];
-				coll.push (new rectangleCollision(20,0,180,12));
+				dieCol = [];
+				winCol = [];
+				//ground
+				coll.push(new rectangleCollision(20,0,180,12));
+				coll.push(new rectangleCollision(15,0,5,9));//2
+				coll.push(new triangleCollision(20,9,-5,3));//3
+				//tree
+				coll.push(new rectangleCollision(193,12,7,454));//4
+				coll.push(new triangleCollision(193,12,-11,11));//5
+				//tulip 1
+				coll.push(new rectangleCollision(60,52,3,8));//6
+				coll.push(new rectangleCollision(55,60,13,3));//7
+				coll.push(new triangleCollision(60,60,-5,-8));//8
+				coll.push(new triangleCollision(63,60,5,-8));//9
+				//tulip 2
+				coll.push(new rectangleCollision(95,36,3,8));//10
+				coll.push(new rectangleCollision(90,44,13,3));//11
+				coll.push(new triangleCollision(95,44,-5,-8));//12
+				coll.push(new triangleCollision(98,44,5,-8));//13
+				//tulip 3
+				coll.push(new rectangleCollision(147,30,3,8));//14
+				coll.push(new rectangleCollision(142,38,13,3));//15
+				coll.push(new triangleCollision(147,38,-5,-8));//16
+				coll.push(new triangleCollision(150,38,5,-8));//17
+				//sunflowers
+				coll.push(new circleCollision(81.5,96.5,17.5));//18
+				coll.push(new circleCollision(117.5,106.5,17.5));//19
+				//boards
+				coll.push(new rectangleCollision(50,75,8,19));//20
+				coll.push(new rectangleCollision(75,142,26,20));//21
+				//swing
+				coll.push(new circleCollision(148,180,36));//22
+				//knots
+				coll.push(new circleCollision(148,238,3));//23
+				coll.push(new circleCollision(148,282,3));//24
+				//rock
+				coll.push(new compoundAndCollision([
+					new circleCollision(112,256,6),
+					new rectangleCollision(106,255,12,7)
+				]));
+				//hive
+				coll.push(new compoundAndCollision([
+					new ovalCollision(168,308.5,14,19.5),
+					new notCollision(new circleCollision(161,293,6))
+				]));
+				//die
+				dieCol.push(new rectangleCollision(0,0,15,8));
+				//win
+				winCol.push(new compoundAndCollision([
+					new ovalCollision(168,308.5,14,19.5),
+					new circleCollision(161,293,6)
+				]));
+				//wall
+				coll.push(new notCollision(new rectangleCollision(3.2,3.2,193.6,493.6)));
 				rot = 225;
 			}
 			function toRadians(angle) {
@@ -661,6 +716,12 @@
 				}
 			}
 			function die (xb, yb) {
+				for(let i of dieCol) {
+					if(i.bee(xPos, yPos))
+					{
+						return true;
+					}
+				}
 				return false;
 			}
 			function beeLast(xb, yb) {
