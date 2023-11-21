@@ -640,9 +640,8 @@
 			}
 			function stinger() {
 				let sp = findStinger();
-				let i;
-				for(i = 0; i < coll.length; i = i + 1) {
-					if(coll[i].stinger(sp[0] + xPos, sp[1] + yPos))
+				for(let i of coll) {
+					if(i.stinger(sp[0] + xPos, sp[1] + yPos))
 					{
 						move = false;
 						break;
@@ -652,10 +651,9 @@
 			function beeColl(xb, yb) {
 				let l = 0;
 				let i;
-				for(i = 0; i < coll.length; i = i + 1) {
-					if(coll[i].bee(xb, yb))
+				for(let i of coll) {
+					if(i.bee(xb, yb))
 					{
-						move = false;
 						last = l;
 						return true;
 					}
