@@ -935,6 +935,35 @@
 					return false;
 				};
 			}
+			function notCollision(col) {
+				this.col = col;
+				this.stinger = function(sx, sy) {
+					return !(this.col.stinger(sx, sy));
+				};
+				this.bee(float bx,float by) {
+					return !(this.col.bee(bx, by));
+				};
+			}
+			function compoundAndCollision(items) {
+				this.items = items;
+				this.l = items.length;
+				this.stinger = function(sx, sy) {
+					for(let c of this.items) {
+						if(!(c.stinger(sx, sy))) {
+							return false;
+						}
+					}
+					return true;
+				};
+				this.bee = function(bx, by) {
+					for(let c of this.items) {
+						if(!(c.bee(bx, by))) {
+							return false;
+						}
+					}
+					return true;
+				};
+			}
 		</script>
 	</body>
 </html>
