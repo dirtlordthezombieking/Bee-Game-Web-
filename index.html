@@ -352,14 +352,14 @@
 									xs = xs - 2;
 								}
 								if(rs * xs < 0) {
-									xs = xs + rs;
-									rs = xs;
+									xs = xs + (rs / 1000);
+									rs = xs * 1000;
 								}
 								else if(rs * rs > xs * xs) {
-									xs = rs;
+									xs = rs / 1000;
 								}
 								else {
-									rs = xs;
+									rs = xs * 1000;
 								}
 							}
 						}
@@ -382,14 +382,14 @@
 								}
 								//let r2yn = rot;
 								if(rs * xs > 0) {
-									xs = xs - rs;
-									rs = 0 - xs;
+									xs = xs - (rs / 1000);
+									rs = 0 - (xs * 1000);
 								}
 								else if(rs * rs > xs * xs) {
-									xs = 0 - rs;
+									xs = 0 - (rs / 1000);
 								}
 								else {
-									rs = 0 - xs;
+									rs = 0 - (xs * 1000);
 								}
 							}
 						}
@@ -452,14 +452,14 @@
 								}
 								//let r2 = r;
 								if(rs * ys < 0) {
-									ys = ys + rs;
-									rs = ys;
+									ys = ys + (rs / 1000);
+									rs = ys * 1000;
 								}
 								else if(rs * rs > ys * ys) {
-									ys = rs;
+									ys = rs / 1000;
 								}
 								else {
-									rs = ys;
+									rs = ys * 1000;
 								}
 							}
 						}
@@ -482,14 +482,14 @@
 								//let r2 = r;
 								if(rs * ys > 0)
 								{
-									ys = ys -rs;
-									rs = 0 - ys;
+									ys = ys - (rs / 1000);
+									rs = 0 - (ys * 1000);
 								}
 								else if(rs * rs> ys * ys) {
-									ys = 0 - rs;
+									ys = 0 - (rs / 1000);
 								}
 								else {
-									rs = 0 - ys;
+									rs = 0 - (ys * 1000);
 								}
 							}
 						}
@@ -596,10 +596,10 @@
 							xs=xx;
 							ys=yy;
 							if(xs * ys >0) {
-								rs = xs + ys;
+								rs = (xs + ys) * 1000;
 							}
 							else {
-								rs = xs - ys;
+								rs = (xs - ys) * 1000;
 							}
 							//moves = moves + 1;
 							move=true;
