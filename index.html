@@ -63,8 +63,8 @@
 						touchTime = 0;
 					});
 					window.addEventListener('mousemove', function (e) {
-						var xm = GameArea.x - e.clientX;
-						var ym = GameArea.y - e.clientY;
+						let xm = GameArea.x - e.clientX;
+						let ym = GameArea.y - e.clientY;
 						GameArea.moved = (xm < -10) || (xm > 10) || (ym < -10) || (ym > 10) || GameArea.moved;
 						GameArea.x = e.clientX;
 						GameArea.y = e.clientY;
@@ -95,8 +95,8 @@
 						touchTime = 0;
 					});
 					window.addEventListener('touchmove', function (e) {
-						var xm = GameArea.x - e.touches[0].clientX;
-						var ym = GameArea.y - e.touches[0].clientY;
+						let xm = GameArea.x - e.touches[0].clientX;
+						let ym = GameArea.y - e.touches[0].clientY;
 						GameArea.moved = (xm < -10) || (xm > 10) || (ym < -10) || (ym > 10) || GameArea.moved;
 						GameArea.x = e.touches[0].clientX;
 						GameArea.y = e.touches[0].clientY;
@@ -195,14 +195,14 @@
 				};
 				this.drawPortion = function() {
 					ctx = GameArea.ctx;
-					x2 = (0 - this.x) / 30;
-					y2 = (0 - this.y) / 30;
-					x3 = 0;
-					y3 = 0;
-					w2 = 27;
-					h2 = 40;
-					w3 = 810;
-					h3 = 1200;
+					let x2 = (0 - this.x) / 30;
+					let y2 = (0 - this.y) / 30;
+					let x3 = 0;
+					let y3 = 0;
+					let w2 = 27;
+					let h2 = 40;
+					let w3 = 810;
+					let h3 = 1200;
 					if(x > 0) {
 						x2 = 0;
 						x3 = this.x;
@@ -269,7 +269,7 @@
 										xs = xs - 0.001;
 									}
 								}
-								if(xmi < 0) {
+								if(xs< 0) {
 									xs = xs - 0.001;
 								}
 								else {
@@ -299,13 +299,13 @@
 						if(ys > (0 - MAX_SPEED)) {
 							ys = ys -0.001;
 						}
-						b=true;
-						slope=false;
+						let b=true;
+						let slope=false;
 						if(ys < 0) {
 							if(beeColl(xPos, yPos)) {
 								b=false;
 								ys = ys + 0.002;
-								grav = false;
+								let grav = false;
 								while(beeColl(xPos, yPos)) {
 									do {
 										xPos = xPos + 0.001;
@@ -341,7 +341,7 @@
 								}
 								xs = xs * 9;
 								xs = xs / 10;
-								var r2= rot;
+								let r2= rot;
 								if(xs < MAX_SPEED && (r2 < 45 || r2 > 225)) {
 									xs = xs + 2;
 								}
@@ -366,7 +366,7 @@
 								ys = ys -1;
 								while(beeColl(xPos, yPos)) {
 									do {
-										yPos = ypos - 1;
+										yPos = yPos - 1;
 									} while(beeLast(xPos,yPos));
 								}
 								ys = xs * -3;
@@ -377,7 +377,7 @@
 								if(ys < 0 - MAX_SPEED) {
 									ys = 0 - MAX_SPEED;
 								}
-								var r2 = rot;
+								//let r2yn = rot;
 								if(rs * xs > 0) {
 									xs = xs - rs;
 									rs = 0 - xs;
@@ -392,8 +392,8 @@
 						}
 						if(b)
 						{
-							r2 = r;
-							if(r2 < 45 || r2 > 225) {
+							let r3 = rot;
+							if(r3 < 45 || r3 > 225) {
 								if(rs > 0)
 								{
 									rs = rs * 1.05;
@@ -408,7 +408,7 @@
 									rs = 0.1;
 								}
 							}
-							if(r2 > 45 && r2 < 225) {
+							if(r3 > 45 && r3 < 225) {
 								if(rs < 0) {
 									rs = rs * 1.05;
 								}
@@ -425,10 +425,10 @@
 						}
 						xPos = xPos + xs;
 						rot = rot - (rs / ROTSCALE);
-						if(r<0) {
+						if(rot<0) {
 							rot = rot + 360;
 						}
-						if(r>=360) {
+						if(rot>=360) {
 							rot = rot - 360;
 						}
 						if(xs<0) {
@@ -447,8 +447,8 @@
 								if(xs > MAX_SPEED) {
 									xs = MAX_SPEED;
 								}
-								r2 = r;
-								if(rs * ymi < 0) {
+								//let r2 = r;
+								if(rs * ys < 0) {
 									ys = ys + rs;
 									rs = ys;
 								}
@@ -476,7 +476,7 @@
 								if(xs < 0 - MAX_SPEED) {
 									xs = 0 - MAX_SPEED;
 								}
-								r2 = r;
+								//let r2 = r;
 								if(rs * ys > 0)
 								{
 									ys = ys -rs;
@@ -500,7 +500,7 @@
 							rs = 0;
 						}
 						if(Math.floor(xPos) == xh && Math.floor(yPos) == yh && holeInOne) {
-							count++;
+							count = count + 1;
 							if(count == 60) {
 								xs = xs * -1;
 								ys = ys * -1;
@@ -575,8 +575,8 @@
 				if(!(GameArea.moved)) {
 					if(touchTime < 120) {
 						if(!move) {
-							xx = (GameArea.x2 - 400) / 1000.0;
-							yy = ((1200 - GameArea.y2) - 600) / 1000.0;
+							let xx = (GameArea.x2 - 400) / 1000.0;
+							let yy = ((1200 - GameArea.y2) - 600) / 1000.0;
 							if(xx > MAX_SPEED) {
 								xx = MAX_SPEED;
 							}
@@ -636,9 +636,10 @@
 				return angle * Math.PI / 180;
 			}
 			function stinger() {
-				sp = findStinger();
-				for(let i of coll) {
-					if(i.stinger(sp[0] + xPos, sp[1] + yPos))
+				let sp = findStinger();
+				let i;
+				for(i = 0; i < coll.length; i = i + 1) {
+					if(coll[i].stinger(sp[0] + xPos, sp[1] + yPos))
 					{
 						move = false;
 						break;
@@ -646,17 +647,16 @@
 				}
 			}
 			function beeColl(xb, yb) {
-				sp = findStinger();
-				l = 0;
-				for(let i of coll) {
-					if(i.bee(xb, yb))
+				let l = 0;
+				let i;
+				for(i = 0; i < coll.length; i = i + 1) {
+					if(coll[i].bee(xb, yb))
 					{
 						move = false;
 						last = l;
 						return true;
-						break;
 					}
-					l++;
+					l = l + 1;
 				}
 			}
 			function die (xb, yb) {
@@ -671,43 +671,43 @@
 				}
 			}
 			function findStinger() {
-				out = [0, 0];
-				r = rot + 45;
-				if(r >= 360)
+				let out = [0, 0];
+				rot = rot + 45;
+				if(rot >= 360)
 				{
-					r-=360;
+					rot-=360;
 				}
-				if(r == 0) {
+				if(rot == 0) {
 					out[0] = 3.2;
 					out[1] = 0;
 				}
-				else if(r < 90) {
-					out[0] = (Math.cos(toRadians(r)) * 3.2);
-					out[1] = (Math.sin(toRadians(r)) * 3.2);
+				else if(rot < 90) {
+					out[0] = (Math.cos(toRadians(rot)) * 3.2);
+					out[1] = (Math.sin(toRadians(rot)) * 3.2);
 				}
-				else if(r == 90) {
+				else if(rot == 90) {
 					out[0] = 0;
 					out[1] = 3.2;
 				}
-				else if(r < 180) {
-					out[0] = (Math.sin(toRadians(r - 90)) * -3.2);
-					out[1] = (Math.cos(toRadians(r - 90)) * 3.2);
+				else if(rot < 180) {
+					out[0] = (Math.sin(toRadians(rot - 90)) * -3.2);
+					out[1] = (Math.cos(toRadians(rot - 90)) * 3.2);
 				}
-				else if(r == 180) {
+				else if(rot == 180) {
 					out[0] = -3.2;
 					out[1] = 0;
 				}
-				else if(r < 720) {
-					out[0] = (Math.cos(toRadians(r - 180)) * -3.2);
-					out[1] = (Math.sin(toRadians(r - 180)) * -3.2);
+				else if(rot < 720) {
+					out[0] = (Math.cos(toRadians(rot - 180)) * -3.2);
+					out[1] = (Math.sin(toRadians(rot - 180)) * -3.2);
 				}
-				else if(r == 720) {
+				else if(rot == 720) {
 					out[0] = 0;
 					out[1] = -3.2;
 				}
 				else {
-					out[0] = (Math.sin(toRadians(r - 270)) * 3.2);
-					out[1] = (Math.cos(toRadians(r - 270)) * -3.2);
+					out[0] = (Math.sin(toRadians(rot - 270)) * 3.2);
+					out[1] = (Math.cos(toRadians(rot - 270)) * -3.2);
 				}
 				return out;
 			}
@@ -720,7 +720,7 @@
 				this.cy=y+(y/2);
 				this.stinger = function(sx, sy) {
 					return sx >= this.x && sx <= this.x + this.w && sy >= this.y && sy <= this.y + this.h;
-				}
+				};
 				this.bee = function(bx, by) {
 					if(this.stinger(bx,by)) {
 						return true;
@@ -731,10 +731,10 @@
 					if(by >= this.y && by <= this.y + this.h) {
 						return (this.x - bx <= 1.6 && this.x - bx >= 0) || (bx - (this.x + this.w) <= 1.6 && this.bx - (this.x + this.w) >= 0);
 					}
-					var dx1=bx - this.x;
-					var dx2=bx - (this.x + this.w);
-					var dy1=by - this.y;
-					var dy2=by - (this.y + this.h);
+					let dx1=bx - this.x;
+					let dx2=bx - (this.x + this.w);
+					let dy1=by - this.y;
+					let dy2=by - (this.y + this.h);
 					if(Math.sqrt((dx1 * dx1) + (dy1 * dy1)) <= 1.6) {
 						return true;
 					}
@@ -748,22 +748,22 @@
 						return true;
 					}
 					return false;
-				}
+				};
 			}
 			function circleCollision(x, y, r){
 				this.x=x;
 				this.y=y;
 				this.r=r;
 				this.stinger = function(sx, sy) {
-					dx = sx - this.x;
-					dy = sy - this.y;
+					let dx = sx - this.x;
+					let dy = sy - this.y;
 					return Math.sqrt((dx * dx) + (dy * dy)) < r;
-				}
+				};
 				this.bee = function(bx, by) {
-					dx = bx - this.x;
-					dy = by - this.y;
+					let dx = bx - this.x;
+					let dy = by - this.y;
 					return Math.sqrt((dx * dx) + (dy * dy)) < r + 1.6;
-				}
+				};
 			}
 			function OvalCollision(x, y, xr, yr) {
 				this.x=x;
@@ -771,30 +771,30 @@
 				this.xr=xr;
 				this.yr=yr;
 				this.stinger = function(sx, sy) {
-					xd = sx - this.x;
-					yd = sy - this.y;
+					let xd = sx - this.x;
+					let yd = sy - this.y;
 					if(xd < 0) {
 						xd = xd *-1;
 					}
 					if(yd<0) {
 						yd*=-1;
 					}
-					dif = yr / xr;
+					let dif = yr / xr;
 					yd = yd / dif;
 					return(Math.sqrt((xd * xd) + (yd * yd))) <= this.xr;
-				}
+				};
 				this.bee = function(bx, by) {
 					if(this.stinger(bx,by)) {
 						return true;
 					}
-					xd = bx - this.x;
-					yd = by - this.y;
-					hl = Math.sqrt((xd * xd) + (yd * yd));
-					hm = hl / 1.6;
-					x2 = bx - (xd / hm);
-					y2 = by - (yd / hm);
+					let xd = bx - this.x;
+					let yd = by - this.y;
+					let hl = Math.sqrt((xd * xd) + (yd * yd));
+					let hm = hl / 1.6;
+					let x2 = bx - (xd / hm);
+					let y2 = by - (yd / hm);
 					return this.stinger(x2,y2);
-				}
+				};
 			}
 			function triangleCollision(x, y, xe, ye) {
 				this.x=x;
@@ -802,48 +802,52 @@
 				this.xe=xe;
 				this.ye=ye;
 				this.getHeight = function(px) {
-					x1 = this.x;
-					x2 = this.x + this.xe;
+					let x1 = this.x;
+					let x2 = this.x + this.xe;
 					if(this.xe < 0) {
-						temp = x1;
+						let temp = x1;
 						x1 = x2;
 						x2 = temp;
 					}
-					y2 =0;
+					let y2 =0;
 					if(this.ye < 0) {
 						y2 = 0 - this.ye;
 					}
 					else {
 						y2 = this.ye;
 					}
+					let h;
+					let slope;
 					if(this.xe < 0) {
 						slope = y2 / this.xe * -1;
 						h = slope * (px - x1);
 						return h;
 					}
 					else {
-						float slope = y2 / this.xe;
+						slope = y2 / this.xe;
 						h = slope * (x2 - px);
 						return h;
 					}
-				}
+				};
 				this.getWidth = function(py) {
-					y1 = this.y;
-					y2 = this.y + this.ye;
+					let y1 = this.y;
+					let y2 = this.y + this.ye;
 					if(this.ye < 0) {
-						temp = y1;
+						let temp = y1;
 						y1 = y2;
-						y2 =ctemp;
+						y2 = temp;
 					}
-					x2 =0;
+					let x2 =0;
 					if(this.xe < 0) {
 						x2 = 0 - this.xe;
 					}
 					else {
 						x2 = this.xe;
 					}
+					let w;
+					let slope;
 					if(ye < 0) {
-						float slope = x2 / this.ye * -1;
+						slope = x2 / this.ye * -1;
 						w = slope * (py - y1);
 						return w;
 					}
@@ -852,12 +856,12 @@
 						w = slope * (y2 - py);
 						return w;
 					}
-				}
+				};
 				this.stinger = function(sx, sy) {
-					x1 = this.x;
-					x2 = this.x + this.xe;
+					let x1 = this.x;
+					let x2 = this.x + this.xe;
 					if(this.xe < 0) {
-						temp = x1;
+						let temp = x1;
 						x1 = x2;
 						x2 = temp;
 					}
@@ -875,20 +879,20 @@
 						}
 					}
 					return false;
-				}
+				};
 				this.bee = function(bx, by) {
 					if(this.stinger(bx,by)) {
 						return true;
 					}
-					x1 = this.x;
-					this.x2 = this.x + this.xe;
+					let x1 = this.x;
+					let x2 = this.x + this.xe;
 					if(this.xe < 0) {
 						temp = x1;
 						x1 = x2;
 						x2 = temp;
 					}
 					if(bx >= this.x1 && bx <= this.x2) {
-						h = this.getHeight(bx);
+						let h = this.getHeight(bx);
 						if(this.ye < 0) {
 							return ((this.y - h) - by <= 1.6 && (this.y - h) - by >= 0) || (by - this.y <= 1.6 && by - this.y >= 0);
 						}
@@ -896,15 +900,15 @@
 							return (this.y - by <= 1.6 && this.y - by >= 0) || (by - (this.y + h) <= 1.6 && by - (this.y + h) >= 0);
 						}
 					}
-					y1 = this.y;
-					y2 = this.y + this.ye;
+					let y1 = this.y;
+					let y2 = this.y + this.ye;
 					if(ye < 0) {
-						temp = y1;
+						let temp = y1;
 						y1 = y2;
 						y2 = temp;
 					}
 					if(by >= y1 && by <= y2) {
-						w = this.getWidth(by);
+						let w = this.getWidth(by);
 						if(this.xe < 0) {
 							return ((this.x - w) - bx <= 1.6 && (this.x - w) - bx >= 0) || (bx - this.x <= 1.6 && bx - this.x >= 0);
 						}
@@ -912,10 +916,10 @@
 							return (this.x - bx <= 1.6 && this.x - bx >= 0) || (bx - (this.x + w) <= 1.6 && bx - (this.x + w) >= 0);
 						}
 					}
-					dx1 = bx - this.x;
-					dx2 = bx - (this.x + this.xe);
-					dy1 = by - this.y;
-					dy2 = by - (this.y + this.ye);
+					let dx1 = bx - this.x;
+					let dx2 = bx - (this.x + this.xe);
+					let dy1 = by - this.y;
+					let dy2 = by - (this.y + this.ye);
 					if(Math.sqrt((dx1 * dx1) + (dy1 * dy1)) <= 1.6) {
 						return true;
 					}
@@ -926,7 +930,7 @@
 						return true;
 					}
 					return false;
-				}
+				};
 			}
 		</script>
 	</body>
