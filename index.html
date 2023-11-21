@@ -258,9 +258,9 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
-					this.ctx.fillStyle = "#ffffff";
+					GameArea.ctx.fillStyle = "#ffffff";
 					let s = "speed: " + rs;
-					this.ctx.fillText(s, 10, 100);
+					GameArea.ctx.fillText(s, 10, 100);
 					if(move) {
 						if(holeInOne && moves > 0) {
 							if(xs < MAX_SPEED / 2 && xs > 0 - MAX_SPEED / 2) {
