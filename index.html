@@ -675,42 +675,42 @@
 			}
 			function findStinger() {
 				let out = [0, 0];
-				rot = rot + 45;
-				if(rot >= 360)
+				let r4 = rot + 45;
+				if(r4 >= 360)
 				{
 					rot-=360;
 				}
-				if(rot == 0) {
+				if(r4 == 0) {
 					out[0] = 3.2;
 					out[1] = 0;
 				}
-				else if(rot < 90) {
-					out[0] = (Math.cos(toRadians(rot)) * 3.2);
-					out[1] = (Math.sin(toRadians(rot)) * 3.2);
+				else if(r4 < 90) {
+					out[0] = (Math.cos(toRadians(r4)) * 3.2);
+					out[1] = (Math.sin(toRadians(r4)) * 3.2);
 				}
-				else if(rot == 90) {
+				else if(r4 == 90) {
 					out[0] = 0;
 					out[1] = 3.2;
 				}
-				else if(rot < 180) {
-					out[0] = (Math.sin(toRadians(rot - 90)) * -3.2);
-					out[1] = (Math.cos(toRadians(rot - 90)) * 3.2);
+				else if(r4 < 180) {
+					out[0] = (Math.sin(toRadians(r4 - 90)) * -3.2);
+					out[1] = (Math.cos(toRadians(r4 - 90)) * 3.2);
 				}
-				else if(rot == 180) {
+				else if(r4 == 180) {
 					out[0] = -3.2;
 					out[1] = 0;
 				}
-				else if(rot < 720) {
-					out[0] = (Math.cos(toRadians(rot - 180)) * -3.2);
-					out[1] = (Math.sin(toRadians(rot - 180)) * -3.2);
+				else if(r4 < 720) {
+					out[0] = (Math.cos(toRadians(r4 - 180)) * -3.2);
+					out[1] = (Math.sin(toRadians(r4 - 180)) * -3.2);
 				}
-				else if(rot == 720) {
+				else if(r4 == 720) {
 					out[0] = 0;
 					out[1] = -3.2;
 				}
 				else {
-					out[0] = (Math.sin(toRadians(rot - 270)) * 3.2);
-					out[1] = (Math.cos(toRadians(rot - 270)) * -3.2);
+					out[0] = (Math.sin(toRadians(r4 - 270)) * 3.2);
+					out[1] = (Math.cos(toRadians(r4 - 270)) * -3.2);
 				}
 				return out;
 			}
