@@ -46,6 +46,7 @@
 			let last;
 			let dieCol;
 			let winCol;
+			let wall;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -260,9 +261,9 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
-					GameArea.ctx.fillStyle = "#ffffff";
-					let s = "speed: " + rs +" | value: " + rot;
-					GameArea.ctx.fillText(s, 10, 100);
+					//GameArea.ctx.fillStyle = "#ffffff";
+					//let s = "speed: " + rs +" | value: " + rot;
+					//GameArea.ctx.fillText(s, 10, 100);
 					if(move) {
 						if(holeInOne && moves > 0) {
 							if(xs < MAX_SPEED / 2 && xs > 0 - MAX_SPEED / 2) {
@@ -687,7 +688,7 @@
 					new circleCollision(161,293,6)
 				]));
 				//wall
-				coll.push(new notCollision(new rectangleCollision(3.2,3.2,193.6,493.6)));
+				wall = new notCollision(new rectangleCollision(3.2,3.2,193.6,493.6));
 				rot = 225;
 			}
 			function toRadians(angle) {
@@ -702,18 +703,22 @@
 						break;
 					}
 				}
+				return false;
 			}
 			function beeColl(xb, yb) {
-				let l = 0;
-				let i;
 				for(let i of coll) {
 					if(i.bee(xb, yb))
 					{
-						last = l;
+						last = i;
 						return true;
 					}
-					l = l + 1;
 				}
+				if(wall.bee(xb, yb))
+					{
+						last = wall;
+						return true;
+					}
+				return false;
 			}
 			function die (xb, yb) {
 				for(let i of dieCol) {
@@ -726,7 +731,7 @@
 			}
 			function beeLast(xb, yb) {
 				try {
-					return coll[last].bee(xb, yb);
+					return last.bee(xb, yb);
 				}
 				catch(e) {
 					return false;
