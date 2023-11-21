@@ -334,8 +334,8 @@
 										}
 									} while(beeLast(xPos,yPos));
 								}
-								ys = ys * -3;
-								ys = ys / 4;
+								ys = ys * -3.0;
+								ys = ys / 4.0;
 								if(holeInOne) {
 									ys = ys * 2;
 								}
@@ -345,8 +345,8 @@
 								if(grav) {
 									ys = ys * -1;
 								}
-								xs = xs * 9;
-								xs = xs / 10;
+								xs = xs * 9.0;
+								xs = xs / 10.0;
 								let r2= rot;
 								if(xs < MAX_SPEED && (r2 < 45 || r2 > 225)) {
 									xs = xs + 2;
@@ -369,14 +369,14 @@
 						else if(ys > 0) {
 							if(beeColl(xPos, yPos)) {
 								b=false;
-								ys = ys -1;
+								ys = ys - 0.001;
 								while(beeColl(xPos, yPos)) {
 									do {
 										yPos = yPos - 1;
 									} while(beeLast(xPos,yPos));
 								}
-								ys = xs * -3;
-								ys = ys * 4;
+								ys = xs * -3.0;
+								ys = ys * 4.0;
 								if(holeInOne) {
 									ys = ys * 2;
 								}
@@ -431,22 +431,22 @@
 						}
 						xPos = xPos + xs;
 						rot = rot - (rs / ROTSCALE);
-						if(rot<0) {
+						if(rot < 0) {
 							rot = rot + 360;
 						}
-						if(rot>=360) {
+						if(rot >= 360) {
 							rot = rot - 360;
 						}
-						if(xs<0) {
+						if(xs < 0) {
 							if(beeColl(xPos,yPos)) {
-								xs = xs + 1;
+								xs = xs + 0.001;
 								while(beeColl(xPos, yPos)) {
 									do {
 										xPos = xPos + 1;
 									} while(beeLast(xPos, yPos));
 								}
-								xs = xs * -3;
-								xs = xs / 4;
+								xs = xs * -3.0;
+								xs = xs / 4.0;
 								if(holeInOne) {
 									xs = xs * 2;
 								}
@@ -468,14 +468,14 @@
 						}
 						else if(xs > 0) {
 							if(beeColl(xPos,yPos)) {
-								xs = xs - 1;
+								xs = xs - 0.001;
 								while(beeColl(xPos, yPos)) {
 									do {
 										xPos = xPos - 1;
 									} while(beeLast(xPos, yPos));
 								}
-								xs = xs * -3;
-								xs = xs / 4;
+								xs = xs * -3.0;
+								xs = xs / 4.0;
 								if(holeInOne) {
 									xs = xs *2;
 								}
