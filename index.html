@@ -260,7 +260,7 @@
 					bee.drawRot(rot);
 					this.ctx.fillStyle = "#ffffff";
 					let s = "speed: " + rs;
-					this.ctx.ctx.fillText(s, 10, 100);
+					this.ctx.fillText(s, 10, 100);
 					if(move) {
 						if(holeInOne && moves > 0) {
 							if(xs < MAX_SPEED / 2 && xs > 0 - MAX_SPEED / 2) {
@@ -393,7 +393,7 @@
 								}
 							}
 						}
-						if(b && moves == 0)
+						if(b && moves > 0)
 						{
 							let r3 = rot;
 							if(r3 < 45 || r3 > 225) {
