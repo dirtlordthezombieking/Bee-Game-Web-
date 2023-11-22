@@ -220,7 +220,7 @@
 					this.hasTimeString=true;
 					return this.timeString;
 				};
-				this.stringMoves() {
+				this.stringMoves = function() {
 					if(moves == 0) {
 						return "";
 					}
@@ -583,18 +583,18 @@
 							play = false;
 							if(!(TEST || showCollision || holeInOne)) {
 								wins++;
-								for(int i=0;i<3;i++) {
+								for(let i=0;i<3;i++) {
 									if(bestMoves[i].beatenMoves(s)) {
-										for(int i2=2;i2>i;i2--) {
+										for(let i2=2;i2>i;i2--) {
 											bestMoves[i2]=bestMoves[i2-1];
 										}
 										bestMoves[i]=s;
 										break;
 									}
 								}
-								for(int i=0;i<3;i++) {
+								for(let i=0;i<3;i++) {
 									if(bestTime[i].beatenTime(s)) {
-										for(int i2=2;i2>i;i2--) {
+										for(let i2=2;i2>i;i2--) {
 											bestTime[i2]=bestTime[i2-1];
 										}
 										bestTime[i]=s;
@@ -605,9 +605,9 @@
 							}
 							else if(!(TEST || showCollision)) {
 								holeInOneWins++;
-								for(int i=0;i<3;i++) {
+								for(let i=0;i<3;i++) {
 									if(bestHole[i].beatenTime(s)) {
-										for(int i2=2;i2>i;i2--) {
+										for(let i2=2;i2>i;i2--) {
 											bestHole[i2]=bestHole[i2-1];
 										}
 										bestHole[i]=s;
