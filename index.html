@@ -297,11 +297,11 @@
 			}
 			function startGame() {
 				start = false;
-				TEST = true;
+				TEST = false;
 				time = 0;
 				GameArea.start();
-				music = new sound("song17");
-				done = new sound("Rise04");
+				music = new sound("song17", true);
+				done = new sound("Rise04", false);
 				rot = 0;
 				wins = 0;
 				holeInOneWins = 0;
@@ -657,7 +657,7 @@
 					}
 				}
 			}
-			function sound(src) {
+			function sound(src, loop) {
 				this.sound = document.createElement("audio");
 				this.sound.src =
 					"https://raw.githubusercontent.com/dirtlordthezombieking"
@@ -666,7 +666,7 @@
 				this.sound.type = "audio/ogg";
 				this.sound.setAttribute("preload", "auto");
 				this.sound.setAttribute("controls", "none");
-				this.sound.loop = true;
+				this.sound.loop = loop;
 				this.sound.style.display = "none";
 				document.body.appendChild(this.sound);
 				this.play = function() {
