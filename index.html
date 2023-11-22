@@ -47,6 +47,13 @@
 			let dieCol;
 			let winCol;
 			let wall;
+			let bestTime;
+			let bestMoves;
+			let bestHole;
+			let TEST;
+			let time;
+			let wins;
+			let holeInOneWins;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -54,7 +61,8 @@
 					this.ctx = this.canvas.getContext("2d");
 					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
-					this.interval = setInterval(updateGameArea, 17);
+					this.interval = setInterval(updateGameArea, 1000 / 60);
+					this.interval = setInterval(function() {time = time + 1;}, 1);
 					this.rect = this.canvas.getBoundingClientRect();
 					this.ctx.imageSmoothingEnabled = false;
 					window.addEventListener('mousedown', function (e) {
@@ -73,8 +81,6 @@
 						GameArea.y = e.clientY;
 					});
 					window.addEventListener('mouseup', function (e) {
-						//GameArea.x = e.clientX;
-						//GameArea.y = e.clientY;
 						if(!start) {
 							music.play();
 							start=true;
@@ -175,6 +181,52 @@
 				count = 0;
 				play = true;
 			}
+			function score(time, moves) {
+				this.time = time;
+				this.moves = moves;
+				this.hasTimeString = false;
+				this.beatenMoves = function(other) {
+					if(this.moves == 0) {
+						return true;
+					}
+					if(other.moves == this.moves) {
+						return other.time < this.time;
+					}
+					return other.moves < this.moves;
+				};
+				this.beatenTime = function(other) {
+					if(this.time == 0) {
+						return true;
+					}
+					if(other.time == this.time) {
+						return other.moves < this.moves;
+					}
+					return other.time < this.time;
+				};
+				this.stringTime = function() {
+					if(this.time == 0) {
+						return "";
+					}
+					if(this.hasTimeString) {
+						return this.timeString;
+					}
+					let h = Math.floor(time / 3600000,);
+					let hr = time - (h * 3600000);
+					let m = Math.floor(hr / 60000);
+					let mr = hr - (m * 60000);
+					let s = Math.floor(mr / 1000);
+					let sr = mr - (s * 1000);
+					this.timeString=""+((h>=100)?(""+h):((h>=10)?(" "+h):("  "+h)))+":"+(m>=10?""+m:"0"+m)+":"+(s>=10?""+s:"0"+s)+"."+((sr>=1000)?(""+sr):((sr>=100)?("0"+sr):((sr>=10)?("00"+sr):("000"+sr))));
+					this.hasTimeString=true;
+					return this.timeString;
+				};
+				this.stringMoves() {
+					if(moves == 0) {
+						return "";
+					}
+					return ""+((moves>=1000)?(""+moves):((moves>=100)?(" "+moves):((moves>=10)?("  "+moves):("   "+moves))))+"moves";
+				}
+			}
 			function component(width, height, image, x, y) {
 				this.image = new Image();
 				this.image.src =
@@ -244,27 +296,31 @@
 				};
 			}
 			function startGame() {
-				start=false;
+				start = false;
+				TEST = true;
+				time = 0;
 				GameArea.start();
 				music = new sound("song17");
+				done = new sound("Rise04");
 				rot = 0;
+				wins = 0;
+				holeInOneWins = 0;
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
 				bee = new component(192, 192, "bee", 304, 504);
 				reset();
 			}
 			function updateGameArea() {
-				if(start && play) {
+				if(start) {
 					touchTime = touchTime +1;
 					GameArea.clear();
-					//rot = rot + 1;
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
 					//GameArea.ctx.fillStyle = "#ffffff";
 					//let s = "speed: " + rs +" | value: " + rot;
 					//GameArea.ctx.fillText(s, 10, 100);
-					if(move) {
+					if(move && play) {
 						if(holeInOne && moves > 0) {
 							if(xs < MAX_SPEED / 2 && xs > 0 - MAX_SPEED / 2) {
 								if(xs == 0) {
@@ -521,58 +577,46 @@
 						}
 						xh = Math.floor(xPos);
 						yh = Math.floor(yPos);
-							//if(win(xPos,yPos)) {
-								//Score s  =new Score(time,moves);
-								//done.play();
-							//play=false;
-								//if(!(TEST||showCollision||holeInOne))
-				//{
-					//wins++;
-					//for(int i=0;i<3;i++)
-					//{
-						//if(bestMoves[i].beatenMoves(s))
-						//{
-							//for(int i2=2;i2>i;i2--)
-							//{
-								//bestMoves[i2]=bestMoves[i2-1];
-							//}
-							//bestMoves[i]=s;
-							//break;
-						//}
-					//}
-					//for(int i=0;i<3;i++)
-					//{
-						//if(bestTime[i].beatenTime(s))
-						//{
-							//for(int i2=2;i2>i;i2--)
-							//{
-								//bestTime[i2]=bestTime[i2-1];
-							//}
-							//bestTime[i]=s;
-							//break;
-						//}
-					//}
-					//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
-				//}
-				//else if(!(TEST||showCollision))
-				//{
-					//holeInOneWins++;
-					//for(int i=0;i<3;i++)
-					//{
-						//if(bestHoleInOne[i].beatenTime(s))
-						//{
-							//for(int i2=2;i2>i;i2--)
-							//{
-							//	bestHoleInOne[i2]=bestHoleInOne[i2-1];
-							//}
-							//bestHoleInOne[i]=s;
-							//break;
-						//}
-					//}
-					//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
-				//}
-			//}
-						//}
+						if(win(xPos, yPos)) {
+							let s = new score(time, moves);
+							done.play();
+							play = false;
+							if(!(TEST || showCollision || holeInOne)) {
+								wins++;
+								for(int i=0;i<3;i++) {
+									if(bestMoves[i].beatenMoves(s)) {
+										for(int i2=2;i2>i;i2--) {
+											bestMoves[i2]=bestMoves[i2-1];
+										}
+										bestMoves[i]=s;
+										break;
+									}
+								}
+								for(int i=0;i<3;i++) {
+									if(bestTime[i].beatenTime(s)) {
+										for(int i2=2;i2>i;i2--) {
+											bestTime[i2]=bestTime[i2-1];
+										}
+										bestTime[i]=s;
+										break;
+									}
+								}
+								//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
+							}
+							else if(!(TEST || showCollision)) {
+								holeInOneWins++;
+								for(int i=0;i<3;i++) {
+									if(bestHole[i].beatenTime(s)) {
+										for(int i2=2;i2>i;i2--) {
+											bestHole[i2]=bestHole[i2-1];
+										}
+										bestHole[i]=s;
+										break;
+									}
+								}
+								//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
+							}
+						}
 						stinger();
 					}
 				}
@@ -580,7 +624,7 @@
 			function tap() {
 				if(!(GameArea.moved)) {
 					if(touchTime < 120) {
-						if(!move) {
+						if((!move) || TEST) {
 							let xx = (GameArea.x2 - 400) / 1000.0;
 							let yy = ((1200 - GameArea.y2) - 600) / 1000.0;
 							if(xx > MAX_SPEED) {
@@ -689,6 +733,18 @@
 				]));
 				//wall
 				wall = new notCollision(new rectangleCollision(3.2,3.2,193.6,493.6));
+				bestTime = [];
+				bestTime.push(new score(0, 0));
+				bestTime.push(new score(0, 0));
+				bestTime.push(new score(0, 0));
+				bestMoves = [];
+				bestMoves.push(new score(0, 0));
+				bestMoves.push(new score(0, 0));
+				bestMoves.push(new score(0, 0));
+				bestHole = [];
+				bestHole.push(new score(0, 0));
+				bestHole.push(new score(0, 0));
+				bestHole.push(new score(0, 0));
 				rot = 225;
 			}
 			function toRadians(angle) {
@@ -722,7 +778,16 @@
 			}
 			function die (xb, yb) {
 				for(let i of dieCol) {
-					if(i.stinger(xPos, yPos))
+					if(i.stinger(xb, yb))
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+			function win (xb, yb) {
+				for(let i of winCol) {
+					if(i.stinger(xb, yb))
 					{
 						return true;
 					}
