@@ -624,7 +624,7 @@
 			function tap() {
 				if(!(GameArea.moved)) {
 					if(touchTime < 120) {
-						if((!move) || TEST) {
+						if(start && ((!move) || TEST)) {
 							let xx = (GameArea.x2 - 400) / 1000.0;
 							let yy = ((1200 - GameArea.y2) - 600) / 1000.0;
 							if(xx > MAX_SPEED) {
