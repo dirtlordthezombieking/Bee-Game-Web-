@@ -22,6 +22,7 @@
 			const validChars = ["a","b"];
 			const MAX_SPEED = 0.350;
 			const ROTSCALE = 35.809862195676450;
+			const CONF_COUNT=50;
 			let ctx;
 			let bee;
 			let background;
@@ -54,6 +55,8 @@
 			let time;
 			let wins;
 			let holeInOneWins;
+			let confettiTex;
+			let confettiArr;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -297,7 +300,7 @@
 			}
 			function startGame() {
 				start = false;
-				TEST = false;
+				TEST = true;
 				time = 0;
 				GameArea.start();
 				music = new sound("song17", true);
@@ -309,6 +312,14 @@
 				loadTestLevel();
 				bee = new component(192, 192, "bee", 304, 504);
 				reset();
+				confettiTex = new Image();
+				confettiTex.src =
+				"https://raw.githubusercontent.com/dirtlordthezombieking"
+				+"/Bee-Game-Web-/main/assets/images/confetti.png";
+				confettiArr=[];
+				for(let i=0;i<CONF_COUNT;i++){
+					conf.push(new confetti());
+				}
 			}
 			function updateGameArea() {
 				if(start) {
@@ -317,6 +328,11 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
+					if(!play){
+						for(let i=0;i<CONF_COUNT;i++){
+							confettiArr[i].draw();
+						}
+					}
 					//GameArea.ctx.fillStyle = "#ffffff";
 					//let s = "speed: " + rs +" | value: " + rot;
 					//GameArea.ctx.fillText(s, 10, 100);
@@ -1092,6 +1108,41 @@
 					}
 					return true;
 				};
+			}
+			function confetti()
+			{
+				this.reset=function (){
+					this.w=Math.random()*10.0;
+					this.h=Math.random()*10.0;
+					this.hw=w/2.0;
+					this.hh=(h/2.0);
+					this.x=400-hw;
+					this.h=600-hh;
+					this.xs=(Math.random()*100.0)-50.0;
+					this.ys=(Math.random()*75.0)-25.0;
+					this.r=Math.random()*360.0;
+					this.ts=(Math.random()*20.0)-10.0;
+					this.tx=Math.floor(Math.random()*4)
+					this.ty=Math.random(Math.random()*2)
+				}
+				this.reset();
+				this.draw=function()
+				{
+					ctx = GameArea.ctx;
+					ctx.save();
+					ctx.translate(this.x + (this.w / 2),
+					this.y + (this.h / 2));
+					ctx.rotate(toRadians(360 - angle));
+					ctx.drawImage(this.image, this.tx, this.ty, 1, 1, this.w / -2, this.h / -2,
+					this.w, this.h);
+					ctx.restore();
+					this.r+=this.rs;
+					this.x+=this.xs;
+					this.y+=this.ys;
+					if(ys>-MAX_SPEED){
+						ys-=0.2
+					}
+				}
 			}
 		</script>
 	</body>
