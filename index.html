@@ -1115,7 +1115,7 @@
 					this.w=Math.random()*10.0;
 					this.h=Math.random()*10.0;
 					this.hw=w/2.0;
-					this.hh=(h/2.0);
+					this.hh=h/2.0;
 					this.x=400-hw;
 					this.h=600-hh;
 					this.xs=(Math.random()*100.0)-50.0;
@@ -1123,7 +1123,7 @@
 					this.r=Math.random()*360.0;
 					this.ts=(Math.random()*20.0)-10.0;
 					this.tx=Math.floor(Math.random()*4)
-					this.ty=Math.random(Math.random()*2)
+					this.ty=Math.floor(Math.random()*2)
 				}
 				this.reset();
 				this.draw=function()
