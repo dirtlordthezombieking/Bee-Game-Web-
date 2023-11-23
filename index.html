@@ -1114,17 +1114,17 @@
 				this.reset=function (){
 					this.w=Math.random()*10.0;
 					this.h=Math.random()*10.0;
-					this.hw=w/2.0;
-					this.hh=h/2.0;
-					this.x=400-hw;
-					this.h=600-hh;
+					this.hw=this.w/2.0;
+					this.hh=this.h/2.0;
+					this.x=400-this.hw;
+					this.h=600-this.hh;
 					this.xs=(Math.random()*100.0)-50.0;
 					this.ys=(Math.random()*75.0)-25.0;
 					this.r=Math.random()*360.0;
 					this.ts=(Math.random()*20.0)-10.0;
-					this.tx=Math.floor(Math.random()*4)
-					this.ty=Math.floor(Math.random()*2)
-				}
+					this.tx=Math.floor(Math.random()*4);
+					this.ty=Math.floor(Math.random()*2);
+				};
 				this.reset();
 				this.draw=function()
 				{
@@ -1132,17 +1132,17 @@
 					ctx.save();
 					ctx.translate(this.x + (this.w / 2),
 					this.y + (this.h / 2));
-					ctx.rotate(toRadians(360 - angle));
+					ctx.rotate(toRadians(360 - this.angle));
 					ctx.drawImage(this.image, this.tx, this.ty, 1, 1, this.w / -2, this.h / -2,
 					this.w, this.h);
 					ctx.restore();
 					this.r+=this.rs;
 					this.x+=this.xs;
 					this.y+=this.ys;
-					if(ys>-MAX_SPEED){
-						ys-=0.2
+					if(this.ys>-MAX_SPEED){
+						this.ys-=0.2;
 					}
-				}
+				};
 			}
 		</script>
 	</body>
