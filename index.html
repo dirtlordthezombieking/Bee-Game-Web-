@@ -1117,7 +1117,7 @@
 					this.hw=this.w/2.0;
 					this.hh=this.h/2.0;
 					this.x=400-this.hw;
-					this.h=600-this.hh;
+					this.y=600-this.hh;
 					this.xs=(Math.random()*100.0)-50.0;
 					this.ys=(Math.random()*75.0)-25.0;
 					this.r=Math.random()*360.0;
@@ -1131,7 +1131,7 @@
 					ctx = GameArea.ctx;
 					ctx.save();
 					ctx.translate(this.x + (this.w / 2),
-					this.y + (this.h / 2));
+					this.y + ((1200 - this.h) / 2));
 					ctx.rotate(toRadians(360 - this.angle));
 					ctx.drawImage(confettiTex, this.tx, this.ty, 1, 1, this.w / -2, this.h / -2,
 					this.w, this.h);
