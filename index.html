@@ -57,6 +57,7 @@
 			let holeInOneWins;
 			let confettiTex;
 			let confettiArr;
+			let pause;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -146,17 +147,20 @@
 						//else if(e.key == "Backspace") {
 						//}
 					//});
-					//window.addEventListener('keyup', function (e) {
-						//GameArea.key = false;
-						//if(!start)
-						//{
-							//if(e.key == "p" || e.key == "P")
-							//{
-								//music.play();
-								//start=true;
-							//}
-						//}
-					//});
+					window.addEventListener('keyup',function(e){
+						GameArea.key=false;
+						if(start)
+						{
+							if(e.key=="p"||e.key=="P")
+							{
+								pause=!pause
+							}
+							else if(e.key=="r"||e.key=="R"){
+								reset()
+								pause=false;
+							}
+						}
+					});
 					//window.addEventListener('click', function () {
 						//if (GameArea.x2 && GameArea.y2) {
 							//GamePiece.x = GameArea.x;
@@ -176,6 +180,7 @@
 				move = true;
 				holeInOne = false;
 				moves = 0;
+				time=0;
 				ys = 0;
 				xs = 0;
 				rs = 0;
@@ -300,7 +305,8 @@
 			}
 			function startGame() {
 				start = false;
-				TEST = true;
+				TEST = false;
+				pause = false
 				time = 0;
 				GameArea.start();
 				music = new sound("song17", true);
@@ -311,6 +317,7 @@
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
 				bee = new component(192, 192, "bee", 304, 504);
+				reset=new component(400,400,"reset",200,200)
 				reset();
 				confettiTex = new Image();
 				confettiTex.src =
@@ -333,10 +340,13 @@
 							confettiArr[i].draw();
 						}
 					}
+					if(pause){
+
+					}
 					//GameArea.ctx.fillStyle = "#ffffff";
 					//let s = "speed: " + rs +" | value: " + rot;
 					//GameArea.ctx.fillText(s, 10, 100);
-					if(move && play) {
+					if(move&&play&&!pause) {
 						if(holeInOne && moves > 0) {
 							if(xs < MAX_SPEED / 2 && xs > 0 - MAX_SPEED / 2) {
 								if(xs == 0) {
@@ -638,9 +648,9 @@
 				}
 			}
 			function tap() {
-				if(!(GameArea.moved)) {
-					if(touchTime < 120) {
-						if(start && ((!move) || TEST)) {
+				if(!(GameArea.moved)){
+					if(touchTime<120){
+						if(start&&((!move)||TEST)&&!pause){
 							let xx = (GameArea.x2 - 400) / 1000.0;
 							let yy = ((1200 - GameArea.y2) - 600) / 1000.0;
 							if(xx > MAX_SPEED) {
@@ -667,9 +677,20 @@
 							//moves = moves + 1;
 							move=true;
 						}
+						else if(start&&pause){
+							if(Gamepad.x2>200&&GameArea.x2<600&&GameArea.y2>200&&GameArea<600){
+								reset()
+								pause=false;
+							}
+							else{
+								pause=false
+							}
+						}
 					}
 					else {
-						touchTime = touchTime;
+						if(start&&!pause){
+							pause=true
+						}
 					}
 				}
 			}
