@@ -651,7 +651,7 @@
 			function tap() {
 				if(!(GameArea.moved)){
 					if(touchTime<120){
-						if(start&&((!move)||TEST)&&!pause){
+						if(start&&((!move)||(TEST&&moves>0))&&!pause){
 							let xx = (GameArea.x2 - 400) / 1000.0;
 							let yy = ((1200 - GameArea.y2) - 600) / 1000.0;
 							if(xx > MAX_SPEED) {
@@ -679,7 +679,7 @@
 							move=true;
 						}
 						else if(start&&pause){
-							if(Gamepad.x2>200&&GameArea.x2<600&&GameArea.y2>200&&GameArea<600){
+							if(GameArea.x2>200&&GameArea.x2<600&&GameArea.y2>200&&GameArea<600){
 								reset()
 								pause=false;
 							}
