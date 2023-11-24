@@ -58,6 +58,7 @@
 			let confettiTex;
 			let confettiArr;
 			let pause;
+			let resetTex;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -153,10 +154,10 @@
 						{
 							if(e.key=="p"||e.key=="P")
 							{
-								pause=!pause
+								pause=!pause;
 							}
 							else if(e.key=="r"||e.key=="R"){
-								reset()
+								reset();
 								pause=false;
 							}
 						}
@@ -317,7 +318,7 @@
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
 				bee = new component(192, 192, "bee", 304, 504);
-				reset=new component(400,400,"reset",200,200)
+				resetTex=new component(400,400,"reset",200,200)
 				reset();
 				confettiTex = new Image();
 				confettiTex.src =
@@ -341,7 +342,7 @@
 						}
 					}
 					if(pause){
-
+						resetTex.draw();
 					}
 					//GameArea.ctx.fillStyle = "#ffffff";
 					//let s = "speed: " + rs +" | value: " + rot;
