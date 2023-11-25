@@ -331,9 +331,30 @@
 					confettiArr.push(new confetti());
 				}
 				charSyms=[];
-				charSyms.push("font/032");
+				charSyms.push(new Char("font/032"));
 				for(let i=48;i<59;i++){
-					charSyms.push("font/0"+i)
+					charSyms.push(new Char("font/0"+i));
+				}
+				for(let i=65;i<91;i++){
+					charSyms.push(new Char("font/0"+i));
+				}
+				for(let i=97;i<100;i++){
+					charSyms.push(new Char("font/0"+i));
+				}
+				for(let i=100;i<123;i++){
+					charSyms.push(new Char("font/"+i));
+				}
+			}
+			function Char(src) {
+				this.image=new Image();
+				this.image.src=
+				"https://raw.githubusercontent.com/dirtlordthezombieking"
+				+"/Bee-Game-Web-/main/assets/images/"
+				+image+".png";
+				this.draw=function(x,y){
+					ctx=GameArea.ctx;
+					ctx.drawImage(this.image,x,y,14,32);
+					
 				}
 			}
 			function updateGameArea() {
