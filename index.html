@@ -401,7 +401,7 @@
 					}
 					if(pause){
 						resetTex.draw();
-						if(wins>1){
+						if(wins>0){
 							scoreTex.draw();
 							if(scores){
 								textBack.draw();
@@ -749,7 +749,7 @@
 							if(scores){
 								scores=false;
 							}
-							else if(GameArea.x2>300&&GameArea.x2<500&&GameArea.y2>300&&GameArea.y2<500&&wins>1){
+							else if(GameArea.x2>300&&GameArea.x2<500&&GameArea.y2>300&&GameArea.y2<500&&wins>0){
 								scores=true;
 							}
 							else if(GameArea.x2>200&&GameArea.x2<600&&GameArea.y2>200&&GameArea.y2<600){
