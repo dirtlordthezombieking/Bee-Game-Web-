@@ -60,6 +60,11 @@
 			let pause;
 			let resetTex;
 			let charSyms;
+			let scores;
+			let clicked = false;
+			let tapped = false;
+			let scoreTex;
+			let textBack;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -87,6 +92,11 @@
 						GameArea.y = e.clientY;
 					});
 					window.addEventListener('mouseup', function (e) {
+						if(tapped){
+							tapped=false;
+							return;
+						}
+						clicked=true;
 						if(!start) {
 							music.play();
 							start=true;
@@ -117,6 +127,11 @@
 						GameArea.y = e.touches[0].clientY;
 					});
 					window.addEventListener('touchend', function (e) {
+						if(clicked){
+							clicked=true;
+							return;
+						}
+						tapped=true;
 						if(!start)
 						{
 							music.play();
@@ -311,11 +326,14 @@
 				TEST = false;
 				pause = false
 				time = 0;
+				scores=false;
 				GameArea.start();
 				music = new sound("song17", true);
 				done = new sound("Rise04", false);
+				scoreTex=new component(200,200,"scores",300,300)
+				textBack=new component(800,1200,"blueish",0,0)
 				rot = 0;
-				wins = 0;
+				wins = 1;
 				holeInOneWins = 0;
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
@@ -375,7 +393,7 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
-					drawText("test mesage",600)
+					//drawText("test mesage",600)
 					if(!play){
 						for(let i=0;i<CONF_COUNT;i++){
 							confettiArr[i].draw();
@@ -383,6 +401,15 @@
 					}
 					if(pause){
 						resetTex.draw();
+						if(wins>1){
+							scoreTex.draw();
+							if(scores){
+								textBack.draw();
+								drawText("Wins: "+wins,200)
+								drawText("time: ",242)
+								drawText(bestTime[0].stringTime()+"   "+bestTime[0].stringMoves(),270)
+							}
+						}
 					}
 					//GameArea.ctx.fillStyle = "#ffffff";
 					//let s = "speed: " + rs +" | value: " + rot;
@@ -719,7 +746,13 @@
 							move=true;
 						}
 						else if(start&&pause){
-							if(GameArea.x2>200&&GameArea.x2<600&&GameArea.y2>200&&GameArea.y2<600){
+							if(scores){
+								scores=false;
+							}
+							else if(GameArea.x2>300&&GameArea.x2<500&&GameArea.y2>300&&GameArea.y2<500&&wins>1){
+								scores=true;
+							}
+							else if(GameArea.x2>200&&GameArea.x2<600&&GameArea.y2>200&&GameArea.y2<600){
 								reset()
 								pause=false;
 							}
