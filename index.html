@@ -354,7 +354,18 @@
 				this.draw=function(x,y){
 					ctx=GameArea.ctx;
 					ctx.drawImage(this.image,x,y,14,32);
-					
+				}
+			}
+			function drawText(msg,y){
+				let l=msg.length;
+				let x=400-((l*14)/2);
+				for(let i=0;i<l;i++){
+					let c=msg.slice(i,i+1);
+					let p=validChars.indexOf(c);
+					if(p>-1){
+						charSyms[p].draw(x,y);
+					}
+					x+=14;
 				}
 			}
 			function updateGameArea() {
@@ -364,6 +375,7 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
+					drawText("Test message",600)
 					if(!play){
 						for(let i=0;i<CONF_COUNT;i++){
 							confettiArr[i].draw();
