@@ -331,21 +331,21 @@
 					confettiArr.push(new confetti());
 				}
 				charSyms=[];
-				charSyms.push(new Char("font/032"));
+				charSyms.push(new charSym("font/032"));
 				for(let i=48;i<59;i++){
-					charSyms.push(new Char("font/0"+i));
+					charSyms.push(new charSym("font/0"+i));
 				}
 				for(let i=65;i<91;i++){
-					charSyms.push(new Char("font/0"+i));
+					charSyms.push(new charSym("font/0"+i));
 				}
 				for(let i=97;i<100;i++){
-					charSyms.push(new Char("font/0"+i));
+					charSyms.push(new charSym("font/0"+i));
 				}
 				for(let i=100;i<123;i++){
-					charSyms.push(new Char("font/"+i));
+					charSyms.push(new charSym("font/"+i));
 				}
 			}
-			function Char(src) {
+			function charSym(src) {
 				this.image=new Image();
 				this.image.src=
 				"https://raw.githubusercontent.com/dirtlordthezombieking"
@@ -375,7 +375,7 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
-					drawText("Test message",600)
+					drawText("0",600)
 					if(!play){
 						for(let i=0;i<CONF_COUNT;i++){
 							confettiArr[i].draw();
