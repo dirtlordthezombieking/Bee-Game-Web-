@@ -468,9 +468,11 @@
 						if(ys > (0 - MAX_SPEED)) {
 							ys = ys -0.001;
 						}
+						drawText("y",200);
 						let b=true;
 						let slope=false;
 						if(ys < 0) {
+							drawText("n",150);
 							if(beeColl(xPos, yPos)) {
 								b=false;
 								ys = ys + 0.002;
@@ -530,6 +532,7 @@
 							}
 						}
 						else if(ys > 0) {
+							drawText("p",250)
 							if(beeColl(xPos, yPos)) {
 								b=false;
 								ys = ys - 0.001;
@@ -600,7 +603,9 @@
 						if(rot >= 360) {
 							rot = rot - 360;
 						}
+						drawText("x",300);
 						if(xs < 0) {
+							drawText("n",350);
 							if(beeColl(xPos,yPos)) {
 								xs = xs + 0.001;
 								while(beeColl(xPos, yPos)) {
@@ -630,6 +635,7 @@
 							}
 						}
 						else if(xs > 0) {
+							drawText("p",350);
 							if(beeColl(xPos,yPos)) {
 								xs = xs - 0.001;
 								while(beeColl(xPos, yPos)) {
