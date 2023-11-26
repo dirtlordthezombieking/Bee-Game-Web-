@@ -390,7 +390,7 @@
 			}
 			function updateGameArea() {
 				if(skip){
-					return;
+					//return;
 				}
 				skip=true;
 				frame++;
@@ -401,7 +401,7 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
-					drawText(""+frame,100)
+					drawText(""+frame,100);
 					if(!play){
 						for(let i=0;i<CONF_COUNT;i++){
 							confettiArr[i].draw();
@@ -745,10 +745,11 @@
 						}
 						drawText("win",600);
 						stinger();
-						drawText("sting",650)
+						drawText("sting",650);
 					}
 				}
 				skip=false;
+				drawText("lastLine",50);
 			}
 			function tap() {
 				if(!(GameArea.moved)){
