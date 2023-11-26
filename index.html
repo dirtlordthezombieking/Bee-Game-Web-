@@ -363,7 +363,7 @@
 					let c=msg.slice(i,i+1);
 					let p=validChars.indexOf(c);
 					if(p>-1){
-						charSyms[p].draw(x,y);
+						//charSyms[p].draw(x,y);
 					}
 					x+=14;
 				}
@@ -375,7 +375,7 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
-					drawText("0",600)
+					drawText("test mesage",600)
 					if(!play){
 						for(let i=0;i<CONF_COUNT;i++){
 							confettiArr[i].draw();
