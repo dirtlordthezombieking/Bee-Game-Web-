@@ -472,7 +472,7 @@
 						let b=true;
 						let slope=false;
 						if(ys < 0) {
-							drawText("n",150);
+							drawText("n",250);
 							if(beeColl(xPos, yPos)) {
 								b=false;
 								ys = ys + 0.002;
@@ -643,6 +643,7 @@
 										xPos = xPos - 0.001;
 									} while(beeLast(xPos, yPos));
 								}
+								drawText("fin",400)
 								xs = xs * -3.0;
 								xs = xs / 4.0;
 								if(holeInOne) {
