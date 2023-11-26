@@ -333,7 +333,7 @@
 				scoreTex=new component(200,200,"scores",300,300)
 				textBack=new component(800,1200,"blueish",0,0)
 				rot = 0;
-				wins = 1;
+				wins = 0;
 				holeInOneWins = 0;
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
@@ -406,8 +406,21 @@
 							if(scores){
 								textBack.draw();
 								drawText("Wins: "+wins,200)
-								drawText("time: ",296)
-								drawText(bestTime[0].stringTime()+"   "+bestTime[0].stringMoves(),360)
+								drawText("Time",296)
+								drawText(bestTime[0].stringTime()+"   "+bestTime[0].stringMoves(),360);
+								drawText(bestTime[1].stringTime()+"   "+bestTime[1].stringMoves(),392);
+								drawText(bestTime[2].stringTime()+"   "+bestTime[2].stringMoves(),424);
+								drawText("Moves",520)
+								drawText(bestMoves[0].stringMoves()+"   "+bestMoves[0].stringTime(),584);
+								drawText(bestMoves[1].stringMoves()+"   "+bestMoves[1].stringTime(),616);
+								drawText(bestMoves[2].stringMoves()+"   "+bestMoves[2].stringTime(),648);
+								if(holeInOneWins>0){
+									drawText("Hole In One",744);
+									drawText("Wins: "+holeInOneWins,808);
+									drawText(bestHole[0].stringTime(),872);
+									drawText(bestHole[0].stringTime(),904);
+									drawText(bestHole[0].stringTime(),936);
+								}
 							}
 						}
 					}
@@ -845,7 +858,7 @@
 				//wall
 				wall = new notCollision(new rectangleCollision(3.2,3.2,193.6,493.6));
 				bestTime = [];
-				bestTime.push(new score(100000000,32));
+				bestTime.push(new score(0, 0));
 				bestTime.push(new score(0, 0));
 				bestTime.push(new score(0, 0));
 				bestMoves = [];
