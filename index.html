@@ -406,8 +406,8 @@
 							if(scores){
 								textBack.draw();
 								drawText("Wins: "+wins,200)
-								drawText("time: ",242)
-								drawText(bestTime[0].stringTime()+"   "+bestTime[0].stringMoves(),270)
+								drawText("time: ",296)
+								drawText(bestTime[0].stringTime()+"   "+bestTime[0].stringMoves(),360)
 							}
 						}
 					}
@@ -845,7 +845,7 @@
 				//wall
 				wall = new notCollision(new rectangleCollision(3.2,3.2,193.6,493.6));
 				bestTime = [];
-				bestTime.push(new score(0, 0));
+				bestTime.push(new score(100000000,32));
 				bestTime.push(new score(0, 0));
 				bestTime.push(new score(0, 0));
 				bestMoves = [];
