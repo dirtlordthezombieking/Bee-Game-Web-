@@ -664,6 +664,7 @@
 								else {
 									rs = 0 - (ys * 1000);
 								}
+								drawText("adj",450);
 							}
 						}
 						if((!holeInOne) && die(xPos, yPos))
@@ -675,6 +676,7 @@
 							rot = 225;
 							rs = 0;
 						}
+						drawText("die",500)
 						if(Math.floor(xPos) == xh && Math.floor(yPos) == yh && holeInOne) {
 							count = count + 1;
 							if(count == 60) {
@@ -689,6 +691,7 @@
 						else {
 							count = 0;
 						}
+						drawText("failsafe",550)
 						xh = Math.floor(xPos);
 						yh = Math.floor(yPos);
 						if(win(xPos, yPos)) {
@@ -731,7 +734,9 @@
 								//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
 							}
 						}
+						drawText("win",600);
 						stinger();
+						drawText("sting",650)
 					}
 				}
 			}
