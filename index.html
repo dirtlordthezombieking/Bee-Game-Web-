@@ -350,7 +350,7 @@
 				this.image.src=
 				"https://raw.githubusercontent.com/dirtlordthezombieking"
 				+"/Bee-Game-Web-/main/assets/images/"
-				+image+".png";
+				+src+".png";
 				this.draw=function(x,y){
 					ctx=GameArea.ctx;
 					ctx.drawImage(this.image,x,y,14,32);
@@ -363,7 +363,7 @@
 					let c=msg.slice(i,i+1);
 					let p=validChars.indexOf(c);
 					if(p>-1){
-						//charSyms[p].draw(x,y);
+						charSyms[p].draw(x,y);
 					}
 					x+=14;
 				}
