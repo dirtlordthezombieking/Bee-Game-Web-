@@ -74,7 +74,8 @@
 					this.ctx = this.canvas.getContext("2d");
 					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
-					this.interval = setInterval(updateGameArea, 1000 / 60);
+					//this.interval = setInterval(updateGameArea, 1000 / 60);
+					this.frame=requestAnimationFrame(updateGameArea);
 					this.interval = setInterval(function() {time = time + 1;}, 1);
 					this.rect = this.canvas.getBoundingClientRect();
 					this.ctx.imageSmoothingEnabled = false;
@@ -323,7 +324,7 @@
 					ctx.restore();
 				};
 			}
-			function startGame() {
+			function startGame(timeLine) {
 				start = false;
 				TEST = false;
 				pause = false
@@ -751,6 +752,7 @@
 				}
 				skip=false;
 				drawText("lastLine",50);
+				requestAnimationFrame(updateGameArea);
 			}
 			function tap() {
 				if(!(GameArea.moved)){
