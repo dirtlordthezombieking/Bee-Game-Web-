@@ -66,6 +66,7 @@
 			let scoreTex;
 			let textBack;
 			let skip=false;
+			let frame=0;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -392,13 +393,15 @@
 					return;
 				}
 				skip=true;
+				frame++;
+				//drawText(""+frame,100)
 				if(start) {
 					touchTime = touchTime +1;
 					GameArea.clear();
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
-					//drawText("test mesage",600)
+					drawText(""+frame,100)
 					if(!play){
 						for(let i=0;i<CONF_COUNT;i++){
 							confettiArr[i].draw();
