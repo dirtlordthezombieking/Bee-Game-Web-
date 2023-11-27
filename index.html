@@ -11,17 +11,20 @@
 	<body onload="startGame()">
 		<img class="catagory_img", id="bee" src="https://raw.githubusercontent.com/dirtlordthezombieking/Bee-Game-Web-/main/assets/images/bee.png" alt="bee">
 		<canvas id="Canvas" width="800" height="1200"></canvas>
-		NOTES:
+		Credit:
 		<br>
-		1). I HAVE TO LEARN HTML5 GAME DEVELOPMENT FROM SCRATCH IN ORDER TO PORT THIS GAME SO THIS PAGE WILL BE A MESS UNTIL THEN!
-		2). I've figured out everything I need its time to start.
+		Music: "song17" from <a href="https://opengameart.org/content/happy-lullaby-song17">Happy Lullaby (song17)</a> by <a href="https://opengameart.org/users/cynicmusic">cynicmusic</a>.
+		<br>
+		Win sound: "Rise04" from <a href="https://opengameart.org/content/level-up-power-up-coin-get-13-sounds">Level up, power up, Coin get (13 Sounds)</a> by <a href="https://opengameart.org/users/wobbleboxx">wobbleboxx</a>.
 		<br>
 		<br>
 		<a href="https://dirtlordthezombieking.github.io/">Home Page.</a>
 		<script>
-			const validChars = [" ",".","0","1","2","3","4","5","6","7","8","9",":","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-			const MAX_SPEED = 0.350;
-			const ROTSCALE = 35.809862195676450;
+			//1). I HAVE TO LEARN HTML5 GAME DEVELOPMENT FROM SCRATCH IN ORDER TO PORT THIS GAME SO THIS PAGE WILL BE A MESS UNTIL THEN!
+			//2). I've figured out everything I need its time to start.
+			const validChars=[" ",".","0","1","2","3","4","5","6","7","8","9",":","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+			const MAX_SPEED=0.350;
+			const ROTSCALE=35.809862195676450;
 			const CONF_COUNT=50;
 			let ctx;
 			let bee;
@@ -61,8 +64,8 @@
 			let resetTex;
 			let charSyms;
 			let scores;
-			let clicked = false;
-			let tapped = false;
+			let clicked=false;
+			let tapped=false;
 			let scoreTex;
 			let textBack;
 			let skip=false;
