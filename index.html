@@ -19,7 +19,7 @@
 		<br>
 		<a href="https://dirtlordthezombieking.github.io/">Home Page.</a>
 		<script>
-			const validChars = [" ","0","1","2","3","4","5","6","7","8","9",":","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+			const validChars = [" ",".","0","1","2","3","4","5","6","7","8","9",":","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 			const MAX_SPEED = 0.350;
 			const ROTSCALE = 35.809862195676450;
 			const CONF_COUNT=50;
@@ -353,6 +353,7 @@
 				}
 				charSyms=[];
 				charSyms.push(new charSym("font/032"));
+				charSyms.push(new charSym("font/046"));
 				for(let i=48;i<59;i++){
 					charSyms.push(new charSym("font/0"+i));
 				}
