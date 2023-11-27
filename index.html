@@ -336,8 +336,8 @@
 				scoreTex=new component(200,200,"scores",300,300)
 				textBack=new component(800,1200,"blueish",0,0)
 				rot = 225;
-				wins = 1;
-				holeInOneWins = 1;
+				wins = 0;
+				holeInOneWins = 0;
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
 				bee = new component(192, 192, "bee", 304, 504);
@@ -885,17 +885,17 @@
 				//wall
 				wall = new notCollision(new rectangleCollision(3.2,3.2,193.6,493.6));
 				bestTime = [];
-				bestTime.push(new score(1234, 99));
-				bestTime.push(new score(7688, 12));
-				bestTime.push(new score(9999, 47));
+				bestTime.push(new score(0,0));
+				bestTime.push(new score(0,0));
+				bestTime.push(new score(0,0));
 				bestMoves = [];
-				bestMoves.push(new score(374784, 35));
-				bestMoves.push(new score(463889, 35));
-				bestMoves.push(new score(15378, 80));
+				bestMoves.push(new score(0,0));
+				bestMoves.push(new score(0,0));
+				bestMoves.push(new score(0,0));
 				bestHole = [];
-				bestHole.push(new score(3546647, 1));
-				bestHole.push(new score(4564847, 1));
-				bestHole.push(new score(5756528, 1));
+				bestHole.push(new score(0,0));
+				bestHole.push(new score(0,0));
+				bestHole.push(new score(0,0));
 				rot = 225;
 			}
 			function toRadians(angle) {
