@@ -335,8 +335,8 @@
 				done = new sound("Rise04", false);
 				scoreTex=new component(200,200,"scores",300,300)
 				textBack=new component(800,1200,"blueish",0,0)
-				rot = 0;
-				wins = 0;
+				rot = 225;
+				wins = 1;
 				holeInOneWins = 0;
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
@@ -390,7 +390,7 @@
 				}
 			}
 			function updateGameArea() {
-				drawText("firstLine",0);
+				//drawText("firstLine",0);
 				if(skip){
 					//return;
 				}
@@ -403,7 +403,7 @@
 					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
 					background.drawPortion();
 					bee.drawRot(rot);
-					drawText(""+frame,100);
+					//drawText(""+frame,100);
 					if(!play){
 						for(let i=0;i<CONF_COUNT;i++){
 							confettiArr[i].draw();
@@ -478,11 +478,11 @@
 						if(ys > (0 - MAX_SPEED)) {
 							ys = ys -0.001;
 						}
-						drawText("y",200);
+						//drawText("y",200);
 						let b=true;
 						let slope=false;
 						if(ys < 0) {
-							drawText("n",250);
+							//drawText("n",250);
 							if(beeColl(xPos, yPos)) {
 								b=false;
 								ys = ys + 0.002;
@@ -542,7 +542,7 @@
 							}
 						}
 						else if(ys > 0) {
-							drawText("p",250)
+							//drawText("p",250)
 							if(beeColl(xPos, yPos)) {
 								b=false;
 								ys = ys - 0.001;
@@ -607,16 +607,16 @@
 						}
 						xPos = xPos + xs;
 						rot = rot - (rs / ROTSCALE);
-						drawText(""+rs,150)
+						//drawText(""+rs,150)
 						if(rot < 0) {
 							rot = rot + 360;
 						}
 						if(rot >= 360) {
 							rot = rot - 360;
 						}
-						drawText("x",300);
+						//drawText("x",300);
 						if(xs < 0) {
-							drawText("n",350);
+							//drawText("n",350);
 							if(beeColl(xPos,yPos)) {
 								xs = xs + 0.001;
 								while(beeColl(xPos, yPos)) {
@@ -646,7 +646,7 @@
 							}
 						}
 						else if(xs > 0) {
-							drawText("p",350);
+							//drawText("p",350);
 							if(beeColl(xPos,yPos)) {
 								xs = xs - 0.001;
 								while(beeColl(xPos, yPos)) {
@@ -654,7 +654,7 @@
 										xPos = xPos - 0.001;
 									} while(beeLast(xPos, yPos));
 								}
-								drawText("fin",400)
+								//drawText("fin",400)
 								xs = xs * -3.0;
 								xs = xs / 4.0;
 								if(holeInOne) {
@@ -675,7 +675,7 @@
 								else {
 									rs = 0 - (ys * 1000);
 								}
-								drawText("adj",450);
+								//drawText("adj",450);
 							}
 						}
 						if((!holeInOne) && die(xPos, yPos))
@@ -687,7 +687,7 @@
 							rot = 225;
 							rs = 0;
 						}
-						drawText("die",500)
+						//drawText("die",500)
 						if(Math.floor(xPos) == xh && Math.floor(yPos) == yh && holeInOne) {
 							count = count + 1;
 							if(count == 60) {
@@ -702,7 +702,7 @@
 						else {
 							count = 0;
 						}
-						drawText("failsafe",550)
+						//drawText("failsafe",550)
 						xh = Math.floor(xPos);
 						yh = Math.floor(yPos);
 						if(win(xPos, yPos)) {
@@ -745,13 +745,13 @@
 								//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
 							}
 						}
-						drawText("win",600);
+						//drawText("win",600);
 						stinger();
-						drawText("sting",650);
+						//drawText("sting",650);
 					}
 				}
 				skip=false;
-				drawText("lastLine",50);
+				//drawText("lastLine",50);
 				requestAnimationFrame(updateGameArea);
 			}
 			function tap() {
@@ -884,17 +884,17 @@
 				//wall
 				wall = new notCollision(new rectangleCollision(3.2,3.2,193.6,493.6));
 				bestTime = [];
-				bestTime.push(new score(0, 0));
-				bestTime.push(new score(0, 0));
-				bestTime.push(new score(0, 0));
+				bestTime.push(new score(1234, 99));
+				bestTime.push(new score(7688, 12));
+				bestTime.push(new score(9999, 47));
 				bestMoves = [];
-				bestMoves.push(new score(0, 0));
-				bestMoves.push(new score(0, 0));
-				bestMoves.push(new score(0, 0));
+				bestMoves.push(new score(374784, 35));
+				bestMoves.push(new score(463889, 35));
+				bestMoves.push(new score(15378, 80));
 				bestHole = [];
-				bestHole.push(new score(0, 0));
-				bestHole.push(new score(0, 0));
-				bestHole.push(new score(0, 0));
+				bestHole.push(new score(3546647, 1));
+				bestHole.push(new score(4564847, 1));
+				bestHole.push(new score(5756528, 1));
 				rot = 225;
 			}
 			function toRadians(angle) {
