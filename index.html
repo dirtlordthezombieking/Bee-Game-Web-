@@ -72,6 +72,8 @@
 			let skip=false;
 			let frame=0;
 			let lastFrameTime;
+			let codes;
+			let code="";
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -340,6 +342,7 @@
 				pause = false
 				time = 0;
 				scores=false;
+				codes=false;
 				GameArea.start();
 				music = new sound("song17", true);
 				done = new sound("Rise04", false);
@@ -449,6 +452,9 @@
 									drawText(bestHole[1].stringTime(),904);
 									drawText(bestHole[2].stringTime(),936);
 								}
+							}
+							else if(codes){
+								textBack.draw()
 							}
 						}
 					}
@@ -773,6 +779,9 @@
 				//requestAnimationFrame(updateGameArea);
 			}
 			function tap() {
+				if(GameArea.x2<0||GameArea.x2>800||GameArea.y2<0||GameArea.y2>1200){
+					return;
+				}
 				if(!(GameArea.moved)){
 					if(touchTime<120){
 						if(start&&((!move)||(TEST&&moves>0))&&!pause){
@@ -806,8 +815,15 @@
 							if(scores){
 								scores=false;
 							}
+							else if(codes){
+								code="";
+								codes=false;
+							}
 							else if(GameArea.x2>300&&GameArea.x2<500&&GameArea.y2>300&&GameArea.y2<500&&wins>0){
 								scores=true;
+							}
+							else if(GameArea.x2>0&&GameArea.x2<800&&GameArea.y2>1000&&GameArea.y2<1200&&wins>0){
+								codes=true;
 							}
 							else if(GameArea.x2>200&&GameArea.x2<600&&GameArea.y2>200&&GameArea.y2<600){
 								reset()
