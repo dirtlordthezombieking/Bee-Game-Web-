@@ -177,11 +177,13 @@
 						//else if(e.key == "Backspace") {
 						//}
 					//});
-					window.addEventListener('keydown',function(e){
+					window.addEventListener('keyup',function(e){
 						GameArea.key=false;
 						if(start)
 						{
 							if(codes){
+								code = e.key;
+								return;
 								if(validChars.indexOf(e.key)>-1&&!(e.key==":"||e.key==".")){
 									code=code+e.key;
 								}
