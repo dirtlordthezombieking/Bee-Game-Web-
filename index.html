@@ -23,6 +23,7 @@
 			//1). I HAVE TO LEARN HTML5 GAME DEVELOPMENT FROM SCRATCH IN ORDER TO PORT THIS GAME SO THIS PAGE WILL BE A MESS UNTIL THEN!
 			//2). I've figured out everything I need its time to start.
 			const validChars=[" ",".","0","1","2","3","4","5","6","7","8","9",":","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+			const skins=["cheri","default","featureless","golf","markiplier","simple"];
 			const MAX_SPEED=0.350;
 			const ROTSCALE=35.809862195676450;
 			const CONF_COUNT=50;
@@ -179,7 +180,23 @@
 						GameArea.key=false;
 						if(start)
 						{
-							if(e.key=="p"||e.key=="P")
+							if(codes){
+								if(validChars.indexOf(e.key)>-1&&!(e.key==":"||e.key==".")){
+									code=code+e.key;
+								}
+								else if(e.key=="Backspace"){
+									if(code.length>1){
+										code=code.split(0,code.length-1);
+									}
+									else{
+										code="";
+									}
+								}
+							}
+							else if(scores){
+								//do something here
+							}
+							else if(e.key=="p"||e.key=="P")
 							{
 								pause=!pause;
 							}
