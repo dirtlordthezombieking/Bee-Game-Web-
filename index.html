@@ -319,6 +319,10 @@
 					this.x = x;
 					this.y = y;
 				};
+				this.drawDifferent=function(x,y,w,h){
+					ctx=GameArea.canvas;
+					ctx.drawImage(this.image,x,y,w,h);
+				};
 				this.drawRot = function(angle) {
 					ctx = GameArea.ctx;
 					ctx.save();
@@ -342,7 +346,7 @@
 				scoreTex=new component(200,200,"scores",300,300)
 				textBack=new component(800,1200,"blueish",0,0)
 				rot = 225;
-				wins = 0;
+				wins = 1;
 				holeInOneWins = 0;
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
@@ -426,6 +430,7 @@
 						resetTex.draw();
 						if(wins>0){
 							scoreTex.draw();
+							textBack.drawDifferent(0,1000,800,200)
 							if(scores){
 								textBack.draw();
 								drawText("Wins: "+wins,200)
