@@ -840,6 +840,9 @@
 								scores=false;
 							}
 							else if(codes){
+								if(skins.indexOf(code)>-1){
+									bee.resprite("skins/"+code)
+								}
 								code="";
 								codes=false;
 							}
@@ -848,7 +851,7 @@
 							}
 							else if(GameArea.x2>0&&GameArea.x2<800&&GameArea.y2>1000&&GameArea.y2<1200&&wins>0){
 								codes=true;
-								GameArea.canvas.focus();
+								//GameArea.canvas.focus();
 							}
 							else if(GameArea.x2>200&&GameArea.x2<600&&GameArea.y2>200&&GameArea.y2<600){
 								reset()
