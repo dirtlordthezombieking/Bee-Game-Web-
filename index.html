@@ -189,7 +189,7 @@
 								}
 								else if(e.key=="Backspace"){
 									if(code.length>1){
-										code=code.split(0,code.length-1);
+										code=code.slice(0,code.length-1);
 									}
 									else{
 										code="";
