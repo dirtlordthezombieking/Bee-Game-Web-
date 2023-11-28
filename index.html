@@ -18,6 +18,7 @@
 		Win sound: "Rise04" from <a href="https://opengameart.org/content/level-up-power-up-coin-get-13-sounds">Level up, power up, Coin get (13 Sounds)</a> by <a href="https://opengameart.org/users/wobbleboxx">wobbleboxx</a>.
 		<br>
 		<br>
+		<input id="dummyInput" type="text" style="position:fixed;left:-2000px";>
 		<a href="https://dirtlordthezombieking.github.io/">Home Page.</a>
 		<script>
 			//1). I HAVE TO LEARN HTML5 GAME DEVELOPMENT FROM SCRATCH IN ORDER TO PORT THIS GAME SO THIS PAGE WILL BE A MESS UNTIL THEN!
@@ -474,6 +475,7 @@
 								textBack.draw();
 								drawText("Enter Code:",200);
 								drawText(code,264);
+								document.getElementById("dummyInput").focus();
 							}
 						}
 					}
@@ -843,6 +845,7 @@
 							}
 							else if(GameArea.x2>0&&GameArea.x2<800&&GameArea.y2>1000&&GameArea.y2<1200&&wins>0){
 								codes=true;
+								GameArea.canvas.focus();
 							}
 							else if(GameArea.x2>200&&GameArea.x2<600&&GameArea.y2>200&&GameArea.y2<600){
 								reset()
