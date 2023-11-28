@@ -26,6 +26,7 @@
 			const MAX_SPEED=0.350;
 			const ROTSCALE=35.809862195676450;
 			const CONF_COUNT=50;
+			const frametime=1000.0/60.0;
 			let ctx;
 			let bee;
 			let background;
@@ -70,6 +71,7 @@
 			let textBack;
 			let skip=false;
 			let frame=0;
+			let lastFrameTime;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -78,6 +80,7 @@
 					this.ctx.fillStyle = "#000000";
 					this.ctx.fillRect(0, 0, 800, 1200);
 					//this.interval = setInterval(updateGameArea, 1000 / 60);
+					lastFrameTime=document.timeline.currentTime;
 					this.frame=requestAnimationFrame(updateGameArea);
 					this.interval = setInterval(function() {time = time + 1;}, 1);
 					this.rect = this.canvas.getBoundingClientRect();
@@ -327,7 +330,7 @@
 					ctx.restore();
 				};
 			}
-			function startGame(timeLine) {
+			function startGame() {
 				start = false;
 				TEST = false;
 				pause = false
@@ -393,7 +396,13 @@
 					x+=14;
 				}
 			}
-			function updateGameArea() {
+			function updateGameArea(currentFrameTime) {
+				//lastFrameTime+=frametime;
+				if(Math.floor(lastFrameTime)<Math.ceil(currentFrameTime)){
+					requestAnimationFrame(updateGameArea);
+					return;
+				}
+				lastFrameTime+=frametime;
 				//drawText("firstLine",0);
 				if(skip){
 					//return;
