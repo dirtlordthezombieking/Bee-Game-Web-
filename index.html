@@ -1014,6 +1014,9 @@
 				return angle * Math.PI / 180;
 			}
 			function stinger() {
+				if(holeInOne){
+					return;
+				}
 				let sp = findStinger();
 				for(let i of coll) {
 					if(i.stinger(sp[0] + xPos, sp[1] + yPos))
