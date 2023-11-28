@@ -448,9 +448,19 @@
 				if(start) {
 					touchTime = touchTime +1;
 					GameArea.clear();
-					background.moveTo(400 - (xPos * 30), (600 + (yPos * 30)) - 15000);
-					background.drawPortion();
+					if(showback){
+						background.moveTo(400-(xPos*30),(600+(yPos*30))-15000);
+						background.drawPortion();
+					}
 					bee.drawRot(rot);
+					if(showfore){
+						foreground.moveTo(400-(xPos*30),(600+(yPos*30))-15000);
+						foreground.drawPortion();
+					}
+					if(showcoll){
+						collision.moveTo(400-(xPos*30),(600+(yPos*30))-15000);
+						collision.drawPortion();
+					}
 					//drawText(""+frame,100);
 					if(!play){
 						for(let i=0;i<CONF_COUNT;i++){
@@ -765,7 +775,7 @@
 							let s = new score(time, moves);
 							done.play();
 							play = false;
-							if(!(TEST || showCollision || holeInOne)) {
+							if(!(TEST||showcoll||holeInOne)) {
 								wins++;
 								for(let i=0;i<3;i++) {
 									if(bestMoves[i].beatenMoves(s)) {
@@ -787,7 +797,7 @@
 								}
 								//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
 							}
-							else if(!(TEST || showCollision)) {
+							else if(!(TEST||showcoll)) {
 								holeInOneWins++;
 								for(let i=0;i<3;i++) {
 									if(bestHole[i].beatenTime(s)) {
@@ -851,6 +861,37 @@
 								if(skins.indexOf(code)>-1){
 									bee.resprite("skins/"+code)
 								}
+								else if(code=="background"){
+									showback=true;
+								}
+								else if(code=="no background"){
+									showback=false;
+								}
+								else if(code=="foreground"){
+									showfore=true;
+								}
+								else if(code=="no foreground"){
+									showfore=false;
+								}
+								else if(code=="collision"){
+									showcoll=true;
+								}
+								else if(code=="no collision"){
+									showcoll=false;
+								}
+								else if(code=="DEVMODE"){
+									TEST=true;
+									reset();
+								}
+								else if(code=="hole in one"){
+									holeInOne=true;
+									reset();
+								}
+								else if(code=="reset mode"){
+									TEST=false;
+									holeInOne=false;
+									reset();
+								}
 								code="";
 								codes=false;
 							}
@@ -899,6 +940,7 @@
 			function loadTestLevel() {
 				background=new component(6000,15000,"test level",0,0);
 				foreground=new component(6000,15000,"test level top",0,0)
+				collision=new component (6000,15000,"test level collision",0,0);
 				coll = [];
 				dieCol = [];
 				winCol = [];
