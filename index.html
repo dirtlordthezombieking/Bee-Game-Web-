@@ -182,8 +182,8 @@
 						if(start)
 						{
 							if(codes){
-								code = e.key;
-								return;
+								//code = e.key;
+								//return;
 								if(validChars.indexOf(e.key)>-1&&!(e.key==":"||e.key==".")){
 									code=code+e.key;
 								}
@@ -478,7 +478,7 @@
 								drawText("Enter Code:",200);
 								drawText(code,264);
 								drawText("test",300);
-								document.getElementById("dummyInput").focus();
+								//document.getElementById("dummyInput").focus();
 							}
 						}
 					}
