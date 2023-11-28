@@ -320,7 +320,7 @@
 					this.y = y;
 				};
 				this.drawDifferent=function(x,y,w,h){
-					ctx=GameArea.canvas;
+					ctx=GameArea.ctx;
 					ctx.drawImage(this.image,x,y,w,h);
 				};
 				this.drawRot = function(angle) {
@@ -430,7 +430,7 @@
 						resetTex.draw();
 						if(wins>0){
 							scoreTex.draw();
-							textBack.drawDifferent(0,1000,800,200)
+							textBack.drawDifferent(0,1000,800,200);
 							if(scores){
 								textBack.draw();
 								drawText("Wins: "+wins,200)
