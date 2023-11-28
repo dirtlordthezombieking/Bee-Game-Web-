@@ -32,6 +32,8 @@
 			let ctx;
 			let bee;
 			let background;
+			let foreground;
+			let collision;
 			let xPos;
 			let yPos;
 			let rot;
@@ -76,6 +78,9 @@
 			let lastFrameTime;
 			let codes;
 			let code="";
+			let showback;
+			let showfore;
+			let showcoll;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -371,6 +376,9 @@
 				rot = 225;
 				wins = 1;
 				holeInOneWins = 0;
+				showback=true;
+				showfore=true;
+				showcoll=false;
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
 				bee = new component(192, 192, "bee", 304, 504);
@@ -477,7 +485,7 @@
 								textBack.draw();
 								drawText("Enter Code:",200);
 								drawText(code,264);
-								drawText("test",300);
+								//drawText("test",300);
 								//document.getElementById("dummyInput").focus();
 							}
 						}
@@ -889,7 +897,8 @@
 				};
 			}
 			function loadTestLevel() {
-				background = new component(6000, 15000, "test level", 0, 0);
+				background=new component(6000,15000,"test level",0,0);
+				foreground=new component(6000,15000,"test level top",0,0)
 				coll = [];
 				dieCol = [];
 				winCol = [];
