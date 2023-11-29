@@ -24,6 +24,7 @@
 			//1). I HAVE TO LEARN HTML5 GAME DEVELOPMENT FROM SCRATCH IN ORDER TO PORT THIS GAME SO THIS PAGE WILL BE A MESS UNTIL THEN!
 			//2). I've figured out everything I need its time to start.
 			const validChars=[" ",".","0","1","2","3","4","5","6","7","8","9",":","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+			const typeChars=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," "," "];
 			const skins=["cheri","default","featureless","golf","markiplier","simple"];
 			const MAX_SPEED=0.350;
 			const ROTSCALE=35.809862195676450;
@@ -81,6 +82,8 @@
 			let showback;
 			let showfore;
 			let showcoll;
+			let button;
+			let space;
 			let GameArea = {
 				canvas : document.getElementById("Canvas"),
 				start : function() {
@@ -372,8 +375,8 @@
 				GameArea.start();
 				music = new sound("song17", true);
 				done = new sound("Rise04", false);
-				scoreTex=new component(200,200,"scores",300,300)
-				textBack=new component(800,1200,"blueish",0,0)
+				scoreTex=new component(200,200,"scores",300,300);
+				textBack=new component(800,1200,"blueish",0,0);
 				rot = 225;
 				wins = 1;
 				holeInOneWins = 0;
@@ -383,7 +386,9 @@
 				//background = new component(6000, 15000, "test level", 0, 0);
 				loadTestLevel();
 				bee = new component(192, 192, "bee", 304, 504);
-				resetTex=new component(400,400,"reset",200,200)
+				resetTex=new component(400,400,"reset",200,200);
+				button=new component(50,50,"button",0,0);
+				space=new component(100,0,"space",0,0)
 				reset();
 				confettiTex = new Image();
 				confettiTex.src =
@@ -496,6 +501,15 @@
 								textBack.draw();
 								drawText("Enter Code:",200);
 								drawText(code,264);
+								for(let y=0;y<7;y++){
+									for(let x=0;x<8;x++){
+										button.drawDifferent(x*100,(y*100)+400,100,100)
+									}
+								}
+								for(let x=0;x<6;x++){
+									button.drawDifferent(x*100,1100,100,100)
+								}
+								space.drawDifferent(600,1100,200,100)
 								//drawText("test",300);
 								//document.getElementById("dummyInput").focus();
 							}
