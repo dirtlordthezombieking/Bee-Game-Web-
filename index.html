@@ -878,6 +878,10 @@
 							if(scores){
 								scores=false;
 							}
+							else if(codes&&GameArea.y2>=400){
+								let id=(Math.floor(((GameArea.y2-400)/100))*8)+Math.floor(GameArea.x2/100)
+								code=code+typeChars[id];
+							}
 							else if(codes){
 								if(skins.indexOf(code)>-1){
 									bee.resprite("skins/"+code)
