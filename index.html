@@ -423,7 +423,11 @@
 				this.draw=function(x,y){
 					ctx=GameArea.ctx;
 					ctx.drawImage(this.image,x,y,14,32);
-				}
+				};
+				this.drawBig=function(x,y){
+					ctx=GameArea.ctx;
+					ctx.drawImage(this.image,x+36,y+18,28,64);
+				};
 			}
 			function drawText(msg,y){
 				let l=msg.length;
@@ -503,13 +507,15 @@
 								drawText(code,264);
 								for(let y=0;y<7;y++){
 									for(let x=0;x<8;x++){
-										button.drawDifferent(x*100,(y*100)+400,100,100)
+										button.drawDifferent(x*100,(y*100)+400,100,100);
+										charSyms[validChars.indexOf(typeChars[(y*8)+x])].drawBig(x*100,(y*100)+400);
 									}
 								}
 								for(let x=0;x<6;x++){
-									button.drawDifferent(x*100,1100,100,100)
+									button.drawDifferent(x*100,1100,100,100);
+									charSyms[validChars.indexOf(typeChars[56+6])].drawBig(x*100,1100);
 								}
-								space.drawDifferent(600,1100,200,100)
+								space.drawDifferent(600,1100,200,100);
 								//drawText("test",300);
 								//document.getElementById("dummyInput").focus();
 							}
