@@ -254,7 +254,14 @@
 			function save (){
 				for(let i=0;i<3;i++)
 				{
-					
+					localStorage.setItem("test_time_"+i+"_time",""+bestTime[i].time);
+					localStorage.setItem("test_time_"+i+"_move",""+bestTime[i].moves);
+					localStorage.setItem("test_move_"+i+"_time",""+bestMoves[i].time);
+					localStorage.setItem("test_move_"+i+"_move",""+bestMoves[i].moves);
+					localStorage.setItem("test_hole_"+i+"_time",""+bestHole[i].time);
+					localStorage.setItem("test_hole_"+i+"_move",""+bestHole[i].moves);
+					localStorage.setItem("wins",""+wins);
+					localStorage.setItem("hole_wins",""+holeInOneWins);
 				}
 			}
 			function reset() {
@@ -843,6 +850,7 @@
 										break;
 									}
 								}
+								save();
 								//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
 							}
 							else if(!(TEST||showcoll)) {
@@ -856,6 +864,7 @@
 										break;
 									}
 								}
+								save();
 								//save.writeBytes(ByteBuffer.allocate(120).order(ByteOrder.LITTLE_ENDIAN).putInt(1).putInt(wins).putLong(bestMoves[0].time).putInt(bestMoves[0].moves).putLong(bestMoves[1].time).putInt(bestMoves[1].moves).putLong(bestMoves[2].time).putInt(bestMoves[2].moves).putLong(bestTime[0].time).putInt(bestTime[0].moves).putLong(bestTime[1].time).putInt(bestTime[1].moves).putLong(bestTime[2].time).putInt(bestTime[2].moves).putInt(holeInOneWins).putLong(bestHoleInOne[0].time).putInt(bestHoleInOne[0].moves).putLong(bestHoleInOne[1].time).putInt(bestHoleInOne[1].moves).putLong(bestHoleInOne[2].time).putInt(bestHoleInOne[2].moves).array(),false);
 							}
 						}
@@ -1061,6 +1070,7 @@
 				bestHole.push(new score(0,0));
 				bestHole.push(new score(0,0));
 				rot = 225;
+				load();
 			}
 			function toRadians(angle) {
 				return angle * Math.PI / 180;
