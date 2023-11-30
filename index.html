@@ -233,6 +233,28 @@
 			function load(){
 				for(let i=0;i<3;i++){
 					let tt=localStorage.getItem("test_time_"+i+"_time");
+					let tm=localStorage.getItem("test_time_"+i+"_move");
+					let mt=localStorage.getItem("test_move_"+i+"_time");
+					let mm=localStorage.getItem("test_move_"+i+"_move");
+					let ht=localStorage.getItem("test_hole_"+i+"_time");
+					let hm=localStorage.getItem("test_hole_"+i+"_move");
+					let w=localStorage.getItem("wins");
+					let hw=localStorage.getItem("hole_wins");
+					if(tt==null||tm==null||mt==null||mm==null||ht==null||hm==null||w==null||hw==null){
+						save();
+						return;
+					}
+					wins=Number(w);
+					holeInOneWins=Number(hw);
+					bestTime[i]=Number(new score(tt,tm));
+					bestMoves[i]=Number(new score(mt,mm));
+					bestHole[i]=Number(new score(ht,hm));
+				}
+			}
+			function save (){
+				for(let i=0;i<3;i++)
+				{
+					
 				}
 			}
 			function reset() {
@@ -383,7 +405,7 @@
 				scoreTex=new component(200,200,"scores",300,300);
 				textBack=new component(800,1200,"blueish",0,0);
 				rot = 225;
-				wins = 1;
+				wins = 0;
 				holeInOneWins = 0;
 				showback=true;
 				showfore=true;
