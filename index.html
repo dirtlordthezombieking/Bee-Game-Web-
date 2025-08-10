@@ -489,6 +489,9 @@
 				skip=true;
 				frame++;
 				//drawText(""+frame,100)
+				let crect = GameArea.canvas.getBoundingClientRect();
+				GameArea.x2 = GameArea.x - crect.left
+				GameArea.y2 = GameArea.y - crect.top;
 				if(start) {
 					touchTime = touchTime +1;
 					GameArea.clear();
