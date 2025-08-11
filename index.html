@@ -494,10 +494,10 @@
 				let crect = GameArea.canvas.getBoundingClientRect();
 				let pdx = GameArea.x - (crect.left+16);
 				let pdy = GameArea.y - (crect.top+16);
+				GameArea.clear();
 				pointer.drawDifferent(pdx,pdy,32,32)
 				if(start) {
 					touchTime = touchTime +1;
-					GameArea.clear();
 					if(showback){
 						background.moveTo(400-(xPos*30),(600+(yPos*30))-15000);
 						background.drawPortion();
